@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import Recipe from '@/components/recipes'
+import Recipes from '@/components/recipes'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -59,7 +59,7 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             <h2>
-         <Recipe />
+       
             </h2>
             <p>
               Find in-depth information about Next.js features and&nbsp;API.
@@ -109,6 +109,7 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <Recipes />
       </main>
     </>
   )

@@ -1,18 +1,22 @@
-// components/Recipe.js
-import React from 'react';
+import Link from 'next/link';
+import { recipes } from '../data';
+import classes from '../components/recipes'
 
-function Recipe({ recipe }) {
+const Recipes = () => {
   return (
-    // <div>
-    //   <h1>{recipe.title}</h1>
-    //   <ul>
-    //     {recipe.instructions.map((instruction, index) => (
-    //       <li key={index}>{instruction}</li>
-    //     ))}
-    //   </ul>
-    // </div>
-    <h1>Hello</h1>
+    <div>
+      <h1 className={classes.recipes}>Recipes</h1>
+      <ul>
+        {recipes.map((recipe) => (
+          <li key={recipe._id}>
+            <Link href={`/recipes/${recipe._id}`}>
+              {recipe.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-}
+};
 
-export default Recipe;
+export default Recipes;
