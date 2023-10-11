@@ -2,10 +2,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { run } from '@/fetching-data'
+import { run1 } from '@/fetching-data'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+
+function Home(props) {
+  console.log(props.recipes) // recipes data
+  console.log(props.categories) // categories data
   return (
     <>
       <Head>
@@ -112,3 +117,16 @@ export default function Home() {
     </>
   )
 }
+
+export async function getStaticProps() {
+  const docs = await run();
+  const docs1 = await run1();
+  return {
+    props: {
+      recipes: docs,
+      categories: docs1,
+    },
+  }
+}
+
+export default Home;
