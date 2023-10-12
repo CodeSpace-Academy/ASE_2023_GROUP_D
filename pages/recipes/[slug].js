@@ -1,47 +1,45 @@
-// pages/[slug].js
-// import { recipes } from '../../data';
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { getRecipeById } from '@/components/recipes';
-import Link from 'next/link';
-
-const Recipe = () => {
- const recipeId = useRouter().query.slug;
- const recipe = getRecipeById(recipeId);
-  // const [showIngredients, setShowIngredients] = useState(false);
+import React, { useEffect } from 'react';
+import { run } from '@/fetching-data/data'
+import RecipesInstructions from '@/components/recipes-instructions';
 
 
-  // const toggleIngredients = () => {
-  //   setShowIngredients(!showIngredients);
-  // };
+const Recipe = (props) => {
 
-console.log(recipe)
-  // const ingredientsArray = Object.values(recipe.ingredients);
+  useEffect(() => {
+    console.log('props.recipes')
+  })
 
   return (
-    <div>
-      <h1>{recipe.title}</h1>
-      <p>{recipe.description}</p>
-
-      {showIngredients && (
-        <div>
-          <h2>Ingredients for {recipe.title}</h2>
-          <ul>
-            {ingredientsArray.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <button onClick={toggleIngredients}>
-        {showIngredients ? 'Hide Ingredients' : 'View Ingredients'}
-      </button>
-    </div>
+    <RecipesInstructions recipes={props.recipes} />
   );
+
 };
 
 export default Recipe;
+
+export async function getStaticProps(context) {
+  const recipeId = context.params.slug;
+  const docs = await run();
+  const recipes1 = docs[0].find((recipe) => recipe._id === recipeId)
+
+  return {
+    props: {
+      recipes: recipes1,
+
+    },
+  }
+}
+
+export async function getStaticPaths() {
+  
+  const docs = await run();
+  const paths =  docs[0].map((recipe) => ({params: {slug : recipe._id}}));
+
+  return {
+      paths: paths,
+      fallback: false
+      }
+}
 
 // export async function getServerSideProps(context) {
 //   const { slug } = context.query;

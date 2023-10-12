@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import { run, run1 } from '@/fetching-data'
+import { run, run1 } from '@/fetching-data/data'
 import Recipes from '@/components/recipes'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ function Home(props) {
       <main className={`${styles.main} ${inter.className}`}>
 
         <Recipes recipes={props.recipes} categories={props.categories}/>
+       
         
       </main>
     </>
