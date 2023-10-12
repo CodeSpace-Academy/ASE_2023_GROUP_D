@@ -38,6 +38,6 @@ export async function getServerSideProps(context) {
   const recipe = recipes.find((r) => r._id.toString() === slug);
 
   return {
-    props: { recipe }, 
+    props: { recipe },
   };
 }
