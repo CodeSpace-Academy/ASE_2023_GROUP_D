@@ -1,13 +1,15 @@
 import Link from 'next/link';
-import { recipes } from '../data';
 import classes from '../components/recipes'
 
-const Recipes = () => {
+const recipes1 = [];
+
+const Recipes = (props) => {
+  recipes1.push(props.recipes);
   return (
     <div>
       <h1 className={classes.recipes}>Recipes</h1>
       <ul>
-        {recipes.map((recipe) => (
+        {props.recipes.map((recipe) => (
           <li key={recipe._id}>
             <Link href={`/recipes/${recipe._id}`}>
               {recipe.title}
@@ -18,5 +20,12 @@ const Recipes = () => {
     </div>
   );
 };
-
 export default Recipes;
+
+export async function getRecipeById(id){
+  console.log(recipes1)
+  console.log(id)
+  return await recipes1.find((event) => event._id === id)
+}
+
+
