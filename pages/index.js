@@ -126,6 +126,7 @@ export async function getStaticProps() {
       recipes: docs,
       categories: docs1,
     },
+    revalidate: 1800,
   }
 }
 
