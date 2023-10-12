@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 function Home(props) {
-  console.log(props.recipes) // recipes data
-  console.log(props.categories) // categories data
+  // console.log(props.recipes) // recipes data
+  // console.log(props.categories) // categories data
   return (
     <>
       <Head>
