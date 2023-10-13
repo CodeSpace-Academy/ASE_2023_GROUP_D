@@ -22,7 +22,7 @@ export async function run() {
     const collection = db.collection("recipes"); 
 
     // Use the find() method to retrieve data
-    const data = await collection.find({}).limit(10).toArray();
+    const data = await collection.find({}).limit(100).toArray();
 	return data;
 
     } catch (error) {

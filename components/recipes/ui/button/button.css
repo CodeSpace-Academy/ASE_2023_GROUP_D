@@ -1,0 +1,18 @@
+/* recipes-list.module.css */
+
+.load-more-button {
+    /* Define your button styles here */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+  /* Class to position the button at the bottom-middle */
+.bottom-middle {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
