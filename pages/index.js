@@ -15,7 +15,6 @@ function Home(props) {
 export async function getStaticProps() {
   const docs = await run();
   const docs1 = await run1();
-  const doc2 = await run2();
   return {
     props: {
       recipes: docs,
