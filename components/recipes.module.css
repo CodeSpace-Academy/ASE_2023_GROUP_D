@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* Style for the container that holds all recipes */
+.recipes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: yellow;
+  }
+  
+  /* Style for each recipe card */
+  .recipe-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .recipe-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Style for recipe title */
+  .recipe-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  /* Style for recipe description */
+  .recipe-description {
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  /* Style for the link to individual recipe pages */
+  .recipe-link {
+    text-decoration: none;
+    color: #0070f3; /* A nice blue color for links */
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .recipe-link:hover {
+    color: #0366d6; /* Slightly darker blue on hover */
+  }
+  
