@@ -15,12 +15,10 @@ function Home(props) {
 }
 
 export async function getStaticProps() {
+
   const docs = await run();
-
-  // const filePath = path.join(process.cwd())
-  // await fs.readFile();
-
   const docs1 = await run1();
+
   return {
     props: {
       recipes: docs,
@@ -31,3 +29,8 @@ export async function getStaticProps() {
 }
 
 export default Home;
+
+
+
+
+

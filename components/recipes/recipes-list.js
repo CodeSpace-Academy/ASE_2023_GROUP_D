@@ -2,13 +2,12 @@ import React from "react";
 import RecipesItems from "./recipes-items";
 import styles from './recipes-list.module.css';
 
-
 function RecipeList(props) {
   const { recipes } = props;
-
   return (
 
     <ul className={styles.list}>
+      <h1>Make your Own Recipe</h1>
       {recipes.map((recipe) => (
         <RecipesItems
           key={recipe._id}
@@ -19,6 +18,7 @@ function RecipeList(props) {
           category={recipe.category}
           servings={recipe.servings}
           published={recipe.published}
+          // images={recipe.images}
         />
 
       ))}

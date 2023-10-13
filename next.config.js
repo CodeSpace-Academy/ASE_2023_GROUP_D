@@ -1,3 +1,5 @@
+
+
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
 
 module.exports = (phase) => {
@@ -20,4 +22,11 @@ module.exports = (phase) => {
       mongodb_database: 'devdb',
     }
   }
+
 } 
+
+// module.exports = {
+//   images: {
+//     domains: ['img.sndimg.com'], // Add the problematic hostname here
+//   },
+// };
