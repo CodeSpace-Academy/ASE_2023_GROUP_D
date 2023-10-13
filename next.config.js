@@ -25,8 +25,3 @@ module.exports = (phase) => {
 
 } 
 
-// module.exports = {
-//   images: {
-//     domains: ['img.sndimg.com'], // Add the problematic hostname here
-//   },
-// };
