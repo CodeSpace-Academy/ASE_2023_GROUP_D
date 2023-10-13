@@ -53,3 +53,24 @@ export async function run1() {
 	await client.close();
 	}
 }
+
+export async function run2() {
+	try {
+	// Connect the client to the server    (optional starting in v4.7)
+	await client.connect();
+	// Send a ping to confirm a successful connection
+    const db = client.db("devdb");
+	await client.db("devdb").command({ ping: 1 });
+    const collection = db.collection("allergens"); 
+    const data = await collection.find({}).toArray();
+    const dataArray = data.map(document => document.allergens);
+
+	return dataArray;
+
+    } catch (error) {
+    console.error("Failed to connect to MongoDB:", error);
+	} finally {
+	// Ensures that the client will close when you finish/error
+	await client.close();
+	}
+}
