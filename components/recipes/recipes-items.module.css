@@ -9,15 +9,13 @@
     gap: 1rem;
   }
   
-  .item  {
+  .item .imageContainer {
     width: 100%;
     object-fit: cover;
     height: 10rem;
   }
 
-  .imageContainer {
-    width: 50%;
-  }
+  
   
   .content {
     width: 100%;

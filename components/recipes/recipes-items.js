@@ -1,5 +1,5 @@
 import styles from './recipes-items.module.css';
-import Image from 'next/image';
+
 
 
 function RecipesItems(props) {
@@ -12,10 +12,10 @@ function RecipesItems(props) {
                 <div className={styles.content}>
                     <div className={styles.summary}>
                         <h2>{title}</h2>
-                        {/* {images.map((image, index) =>
-                        <Image key={index} src={image} width={700} height={400} alt='image' />
-                        )} */}
-                        {/* <Image key={_id} src={images[0]} width={700} height={400} alt='image' /> */}
+                        {images.map((image, index) => 
+                        <img key={index} src={image=images[0]} className={styles.imgContainer} width={700} height={400} alt={`recipe-${_id}`} />
+                        )}
+                        
                         <div>{description}</div>
                         <div className={styles.address}>Preparation: {prep}minutes</div>
                         <div className={styles.address}>Cook: {cook}minutes</div>

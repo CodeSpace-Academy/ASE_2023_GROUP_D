@@ -18,7 +18,7 @@ function RecipeList(props) {
           category={recipe.category}
           servings={recipe.servings}
           published={recipe.published}
-          // images={recipe.images}
+          images={recipe.images}
         />
 
       ))}
