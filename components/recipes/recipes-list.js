@@ -27,6 +27,8 @@ function RecipeList(props) {
   )
 
 }
+export default RecipeList
 
 
-export default RecipeList;
+
+

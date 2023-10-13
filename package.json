@@ -1,17 +1,66 @@
 {
-  "name": "rando-sando",
-  "version": "0.1.0",
-  "private": true,
+ 
+  
+  "name": "ase_2023_group_d",
+ 
+  
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+ 
+  
+  "version": "1.0.0",
+ 
+  
+  "main": "next.config.js",
+ 
+  
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+ 
+  
+   
+  
+  "dev": "next dev",
+ 
+  
+   
+  
+  "build": "next build",
+ 
+  
+   
+  
+  "start": "next start",
+ 
+  
+   
+  
+  "lint": "next lint"
+ 
+  
   },
+ 
+  
   "dependencies": {
-    "mongodb": "^6.1.0",
-    "next": "^13.5.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+ 
+  
+   
+  
+  "mongodb": "^6.1.0",
+ 
+  
+   
+  
+  "next": "^13.5.4",
+ 
+  
+   
+  
+  "react": "^18.2.0",
+ 
+  
+   
+  
+  "react-dom": "^18.2.0"
+ 
+  
   }
 }

@@ -1,35 +1,22 @@
-import styles from './recipes-items.module.css';
+import React from "react";
+import Link from "next/link";
 
 function RecipesItems(props) {
-    const { id, title, description, prep, cook, category, servings, published, images } = props
+  const { title, description, category, servings, published, _id } = props;
 
-    //const recipeLink = `/recipes/${id}`;
-
-    return (
-        <div>
-            <li className={styles.item}>
-            {/* <img src={'/' + image} alt={title} /> */}
-            <div className={styles.content}>
-                <div className={styles.summary}>
-                    <h1>{title}</h1>
-                    <img src={images} />
-                    <div>{description}</div>
-                    <div className={styles.address}>Preparation: {prep}minutes</div>
-                    <div className={styles.address}>Cook: {cook}minutes</div>
-                    <div>{category}</div>
-                    <div>{servings}</div>
-                    <div className={styles.date}>{published}</div>
-                    
-                </div>
-                {/* <div className={styles.actions}>
-                    <Button link={recipeLink}>
-                        <span>Preview Recipe</span>
-                    </Button>
-                </div> */}
-            </div>
-        </li>
-        </div>
-    )
+  return (
+    <li>
+      <Link href={ `/recipe/${_id}` }>
+        
+          <h3>{title}</h3>
+        
+      </Link>
+      <p>{description}</p>
+      <p><strong>Category:</strong> {category}</p>
+      <p><strong>Servings:</strong> {servings}</p>
+      <p><strong>Published:</strong> {published}</p>
+    </li>
+  );
 }
 
 export default RecipesItems;
