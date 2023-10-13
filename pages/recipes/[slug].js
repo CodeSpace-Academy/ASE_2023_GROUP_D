@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
-import { run } from '@/fetching-data/data'
+import { run,run2 } from '@/fetching-data/data'
 
 
 const Recipe = (props) => {
 const recipes = props.recipes
+const allergens = props.allergens
 console.log(recipes)
 
   return (
-      <>
+     <div className='.recipeDetails'>
      <h1>{recipes.title}</h1>
      <img src={recipes.images[0]} alt={recipes._id} width={200} height={200}/>
-     <ul>
+     <ol>
       {recipes.instructions.map((res,index) => <li key={index}>{res}</li>)}
-     </ul>
-      </>
+     </ol>
+      </div>
   );
 
 };
@@ -23,12 +24,13 @@ export default Recipe;
 export async function getStaticProps(context) {
   const recipeId = context.params.slug;
   const docs = await run();
+  const docs2 = await run2();
   const recipes1 = docs.find((recipe) => recipe._id === recipeId)
 
   return {
     props: {
       recipes: recipes1,
-
+      allergens : docs2,
     },
   }
 }
