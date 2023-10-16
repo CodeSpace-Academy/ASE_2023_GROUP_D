@@ -26,6 +26,7 @@ function RecipeList(props) {
 
   return (
     <div className={styles.container}>
+      <h1>RANDO SANDO</h1>
       <ul className={styles.list}>
         {recipes.slice(0, visibleRecipes).map((recipe) => (
           <RecipesItems
@@ -51,3 +52,7 @@ function RecipeList(props) {
 }
 
 export default RecipeList;
+
+
+
+

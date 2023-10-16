@@ -1,16 +1,17 @@
 .list {
-    /* width: 100%; */
+    width: 100%;
     /* max-width: 40rem; */
     /* margin: 5rem auto; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 30px;
     row-gap: 2em;
-    
+
   }
 
-  .recipeContainer {
+  .container {
     text-align: center;
-    
   }
 
+  /* .imageContainer {
+
+  } */

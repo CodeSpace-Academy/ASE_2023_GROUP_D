@@ -2,48 +2,18 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     overflow: hidden;
-    background-color: #e4f1f1;
+    background-color: #FDF7FF;
     height: 500px;
     width: 300px;
     text-align: center;
-    justify-content: center;
     
   }
 
-  /* #e4f1f1 */
-  
-  /* .item .imageContainer {
-    width: 100%;
-    object-fit: cover;
-    height: 10rem;
-  } */
-
-  
-  
-  /* .content {
-    width: 100%;
-    padding: 0 1rem;
-    text-align: center;
+   .link a{
+    text-decoration: none;
+    color: #333;
   }
-  
-  .content h2 {
-    margin: 0.5rem 0;
-  }
-  
-  .date,
-  .address {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-  
-  .date svg,
-  .address svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: #666666;
-  }
-  
+  /*
   .content time {
     color: #666666;
     font-weight: bold;
@@ -68,13 +38,8 @@
   .actions a span {
     vertical-align: middle;
   } */
-
-  /* .recipeImage {
-    display: flex;
-    justify-content: center;
-  }
   
-  .icon {
+  /* .icon {
     margin-left: 0.5rem;
     display: inline-flex;
     justify-content: center;
@@ -84,9 +49,9 @@
   .icon svg {
     width: 1.25rem;
     height: 1.25rem;
-  }
+  } */
   
-  @media (min-width: 768px) {
+  /* @media (min-width: 768px) {
     .item {
       flex-direction: row;
     }
@@ -110,5 +75,5 @@
       flex-direction: row;
       justify-content: flex-end;
     }
-  } */
-  
+  }
+   */

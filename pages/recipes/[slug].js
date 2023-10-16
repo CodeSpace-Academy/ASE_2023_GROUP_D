@@ -7,8 +7,8 @@ const Recipe = (props) => {
   const recipes = props.recipes
   const allergens = props.allergens
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-  console.log(recipes)
-  console.log(recipes.ingredients)
+  // console.log(recipes)
+  // console.log(recipes.ingredients)
 
   return (
     <div className='.recipeDetails'>
