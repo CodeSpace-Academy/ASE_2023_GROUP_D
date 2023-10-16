@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { run } from '@/fetching-data/data'
 import { run2 } from '@/fetching-data/data';
 
