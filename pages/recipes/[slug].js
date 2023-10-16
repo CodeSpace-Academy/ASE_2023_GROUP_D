@@ -4,8 +4,10 @@ import { run2 } from '@/fetching-data/data';
 
 
 const Recipe = (props) => {
+  // Extract recipes and allergens from the props
   const recipes = props.recipes
   const allergens = props.allergens
+  // Convert the ingredients object into an array of strings
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
   console.log(recipes)
   console.log(recipes.ingredients)
@@ -45,13 +47,15 @@ export default Recipe;
 
 export async function getStaticProps(context) {
   const recipeId = context.params.slug;
+
+   // Fetch data using the run and run2 functions
   const docs = await run();
   const docs2 = await run2();
-  const recipes1 = docs.find((recipe) => recipe._id === recipeId)
+  // const recipes1 = docs.find((recipe) => recipe._id === recipeId)
 
   return {
     props: {
-      recipes: recipes1,
+      recipes: docs,
       allergens: docs2[0],
     },
   }
