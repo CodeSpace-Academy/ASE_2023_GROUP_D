@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { run } from '@/fetching-data/data'
 import { run2 } from '@/fetching-data/data';
 
@@ -7,8 +7,8 @@ const Recipe = (props) => {
   const recipes = props.recipes
   const allergens = props.allergens
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-  console.log(recipes)
-  console.log(recipes.ingredients)
+  // console.log(recipes)
+  // console.log(recipes.ingredients)
 
   return (
     <div className='.recipeDetails'>
@@ -43,12 +43,11 @@ const Recipe = (props) => {
 
 export default Recipe;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
   const docs = await run();
   const docs2 = await run2();
   const recipes1 = docs.find((recipe) => recipe._id === recipeId)
-
   return {
     props: {
       recipes: recipes1,
@@ -57,13 +56,13 @@ export async function getStaticProps(context) {
   }
 }
 
-export async function getStaticPaths() {
+// export async function getStaticPaths() {
 
-  const docs = await run();
-  const paths = docs.map((recipe) => ({ params: { slug: recipe._id } }));
+//   const docs = await run();
+//   const paths = docs.map((recipe) => ({ params: { slug: recipe._id } }));
 
-  return {
-    paths: paths,
-    fallback: false
-  }
-}
+//   return {
+//     paths: paths,
+//     fallback: false
+//   }
+// }

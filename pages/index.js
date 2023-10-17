@@ -1,26 +1,22 @@
-import { run, run1 } from '@/fetching-data/data';
+import { run } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list'
 
-
-
-function Home(props) {
+function Home({initialData}) {
 
   return (
     <>
-   <RecipeList recipes={props.recipes} categories={props.categories}/>
-   </>
+      {<RecipeList recipes={initialData} />} 
+      <button>Load more</button>
+    </>
   )
 }
 
-export async function getStaticProps() {
-  const docs = await run();
-  const docs1 = await run1();
+export async function getServerSideProps() {
+  const initialData = await run(1);
   return {
     props: {
-      recipes: docs,
-      categories: docs1,
-    },
-    revalidate: 1800,
+      initialData,
+    }
   }
 }
 
