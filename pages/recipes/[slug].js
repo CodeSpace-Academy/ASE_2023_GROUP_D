@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { run } from '@/fetching-data/data'
 import { run2 } from '@/fetching-data/data';
 
@@ -10,11 +10,6 @@ const Recipe = (props) => {
 
     // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-  console.log(recipes.cook)
-  console.log(recipes.cook)
-
-  const hours = Math.floor(recipes.cook / 60)
-  const minutes = recipes.cook % 60;
 
   return (
     <div className='.recipeDetails'>
