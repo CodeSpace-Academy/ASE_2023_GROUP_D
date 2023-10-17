@@ -21,10 +21,9 @@ export async function run(page) {
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("recipes");
 
-		const skip = (page - 1) * 100;
-		// Use the find() method to retrieve data
-		const data = await collection.find({}).skip(skip).limit(100).toArray();
-		return data;
+    // Use the find() method to retrieve data
+    const data = await collection.find({}).limit(10).toArray();
+	return data;
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);

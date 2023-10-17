@@ -20,4 +20,15 @@ export async function getServerSideProps() {
   }
 }
 
+// export async function getServerSideProps() {
+//   const docs = await run();
+//   const docs1 = await run1();
+//   return {
+//     props: {
+//       recipes: docs,
+//       categories: docs1,
+//     },
+//   };
+// }
+
 export default Home;
