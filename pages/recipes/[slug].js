@@ -11,6 +11,11 @@ const Recipe = (props) => {
     // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
+//calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
+const hours = Math.floor(recipes.cook / 60);
+//calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
+const minutes = recipes.cook % 60;
+
   return (
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
