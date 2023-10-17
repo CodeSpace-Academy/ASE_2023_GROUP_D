@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { run } from '@/fetching-data/data'
 import { run2 } from '@/fetching-data/data';
 
@@ -7,8 +7,8 @@ const Recipe = (props) => {
   const recipes = props.recipes
   const allergens = props.allergens
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-  console.log(recipes)
-  console.log(recipes.ingredients)
+  // console.log(recipes)
+  // console.log(recipes.ingredients)
 
   return (
     <div className='.recipeDetails'>
