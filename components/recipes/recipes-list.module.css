@@ -1,17 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
 .list {
-    width: 100%;
-    /* max-width: 40rem; */
-    /* margin: 5rem auto; */
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 2em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 2em;
 
-  }
+}
 
-  .container {
-    text-align: center;
-  }
+.rando {
+  text-align: center;
+  font-family: var(--v-heading-font);
+  font-weight: 400;
+  font-style: italic;
 
-  /* .imageContainer {
+}
+
+.container {
+  text-align: center;
+}
+
+/* .imageContainer {
 
   } */
