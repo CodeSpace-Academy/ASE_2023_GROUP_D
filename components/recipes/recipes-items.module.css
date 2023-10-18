@@ -1,19 +1,37 @@
-.item {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #FDF7FF;
-    height: 500px;
-    width: 300px;
-    text-align: center;
-    
-  }
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
-   .link a{
-    text-decoration: none;
-    color: #333;
-  }
-  /*
+.item {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #FDF7FF;
+  height: 500px;
+  width: 300px;
+  text-align: center;
+
+}
+
+.title1 {
+  height: 57px;
+  margin-bottom: 26px;
+  color: rgb(97, 10, 10);
+}
+
+.link a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Styles for the View Recipe button */
+
+.viewRecipeButtonText {
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  /* Adjust the font size */
+}
+
+/*
   .content time {
     color: #666666;
     font-weight: bold;
@@ -24,23 +42,28 @@
     color: #666666;
     white-space: pre;
   } */
-  
-  .actions {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-  }
-  
-  /*
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.actions {
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* /* 
   .actions a {
     display: block;
-  }
+  } 
   
   .actions a span {
     vertical-align: middle;
   } */
-  
-  /* .icon {
+
+/* .icon {
     margin-left: 0.5rem;
     display: inline-flex;
     justify-content: center;
@@ -51,8 +74,8 @@
     width: 1.25rem;
     height: 1.25rem;
   } */
-  
-  /* @media (min-width: 768px) {
+
+/* @media (min-width: 768px) {
     .item {
       flex-direction: row;
     }
@@ -72,9 +95,39 @@
       margin: 1rem 0;
     }
   
-    .actions {
-      flex-direction: row;
-      justify-content: flex-end;
-    }
   }
    */
+
+/* CookingTime.module.css */
+
+.cookingContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.cookingTime {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.label {
+  font-size: smaller;
+  display: flex;
+  margin-right: 15px;
+  flex-grow: 1;
+  font-family: "Lucida Console", "Courier New", monospace;
+
+
+}
+
+.value {
+  font-size: smaller;
+  display: flex;
+  text-align: center;
+  flex-grow: 1;
+  font-weight: normal;
+  font-weight: bold;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
