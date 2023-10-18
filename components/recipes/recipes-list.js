@@ -27,7 +27,7 @@ function RecipeList(props) {
 
   return (
     <div className={styles.container}>
-      <h1>RANDO SANDO</h1>
+      <img src="images/BrandLogo.png" alt="logo" width={300} height={100}/>
       <ul className={styles.list}>
         {recipes.map((recipe) => (
           <RecipesItems
