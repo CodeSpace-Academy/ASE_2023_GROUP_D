@@ -1,8 +1,15 @@
-/* .edit-button {
-    display: none; /* Hide the button by default */
+.update-button {
+    padding: 10px 20px;
+    background-color: #7d1608dd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
   }
   
-  /* .edit-button:hover {
-    display: inline-block; /* Show the button on hover */
-  } 
-   
+  .update-button:hover {
+    background-color: #b55144dd;
+  }
+  
+
