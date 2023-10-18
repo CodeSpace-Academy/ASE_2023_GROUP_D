@@ -1,38 +1,16 @@
-import { run, run1 } from '@/fetching-data/data';
-import RecipeList from '@/components/recipes/recipes-list'
-
-
+import Link from "next/link";
 
 function Home(props) {
 
   return (
     <>
-   <RecipeList recipes={props.recipes} categories={props.categories}/>
-   </>
+      <img src="images/BrandLogo.png" alt="logo" width={300} height={100} />
+      <Link href={`/recipes/1`} >
+        <button>All Recipe</button>
+      </Link>
+    </>
   )
 }
 
-export async function getStaticProps() {
-  const docs = await run();
-  const docs1 = await run1();
-  return {
-    props: {
-      recipes: docs,
-      categories: docs1,
-    },
-    revalidate: 1800,
-  }
-}
-
-// export async function getServerSideProps() {
-//   const docs = await run();
-//   const docs1 = await run1();
-//   return {
-//     props: {
-//       recipes: docs,
-//       categories: docs1,
-//     },
-//   };
-// }
 
 export default Home;
