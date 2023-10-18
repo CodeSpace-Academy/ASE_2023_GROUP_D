@@ -1,23 +1,32 @@
 import styles from './recipes-items.module.css';
-import Link from 'next/link';
+import React from 'react';
+import Button from '../ui/button/button';
 
 function RecipesItems(props) {
     const { id, title, description, prep, cook, category, servings, published, image } = props
 
+    const viewRecipeLink = `/recipes/${id}`
+
     return (
         <div className={styles.link}>
-            <Link href={`/recipes/${id}`}>
-                <li className={styles.item}>
-                    <h1> {title} </h1>
-                    <img src={image} alt={id} width={300} height={300} />
-                    {/* <div> {description} </div> */}
-                    <div className={styles.address}>Preparation: {prep}minutes </div>
-                    <div className={styles.address}>Cook: {cook}minutes </div>
-                    <div> {category} </div>
-                    <div> {servings} </div>
-                    <div className={styles.date}>{published} </div>
-                </li>
-            </Link>
+
+            <li className={styles.item}>
+                <h2> {title} </h2>
+                <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
+                {/* <div> {description} </div> */}
+                <div className={styles.address}>Preparation: {prep} minutes </div>
+                <div className={styles.address}>Cook: {cook} minutes </div>
+                <div> {category} </div>
+                <div> {servings} </div>
+                <div className={styles.date}>{published} </div>
+                <div className={styles.actions}>
+                <Button link={viewRecipeLink}>
+                    <span>View Recipe</span>
+                </Button>
+            </div>
+            </li>
+            
+
         </div>
     )
 }
