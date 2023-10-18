@@ -2,7 +2,7 @@ import React from 'react';
 import { run } from '@/fetching-data/data'
 import { run2 } from '@/fetching-data/data';
 import styles from './[slug].module.css'
-import RecipeInstructions from '@/pages/instructions/instructions';
+import RecipeInstructions from '@/components/instructions/instructions';
 
 
 const Recipe = (props) => {
