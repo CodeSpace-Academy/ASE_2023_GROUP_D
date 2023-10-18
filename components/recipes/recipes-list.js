@@ -27,7 +27,7 @@ function RecipeList(props) {
 
   return (
     <div className={styles.container}>
-      <h1>RANDO SANDO</h1>
+      <h1 className={styles.rando}>RANDO SANDO</h1>
       <ul className={styles.list}>
         {recipes.map((recipe) => (
           <RecipesItems
