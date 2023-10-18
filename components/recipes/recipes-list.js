@@ -2,14 +2,18 @@ import React from "react";
 import RecipesItems from "./recipes-items";
 //import LoadMoreButton from "../ui/button/button"; // Import the LoadMoreButton component
 import styles from './recipes-list.module.css'
+import Button from "../ui/button/button";
+import Image from "next/image";
 
 function RecipeList(props) {
+
   const { recipes,patcheNo } = props;
 
   return (
     <div className={styles.container}>
-     <img src="images/BrandLogo.png" alt="logo" width={300} height={100}/>
-      <button link={`/recipes`}>Next</button>
+      <Image src="/images/BrandLogo.png" alt="logo" width={300} height={100} className={styles.logo}/>
+      {patcheNo > 1 && <Button link={`/recipes/${parseInt(patcheNo) - 1}`}>Previous</Button>}
+      <Button link={`/recipes/${parseInt(patcheNo) + 1}`}>Next</Button>
       <ul className={styles.list}>
         {recipes.map((recipe) => (
           <RecipesItems
