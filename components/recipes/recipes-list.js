@@ -4,35 +4,18 @@ import RecipesItems from "./recipes-items";
 import styles from './recipes-list.module.css'
 
 function RecipeList(props) {
-  const { recipes } = props;
-  
-  // const [visibleRecipes, setVisibleRecipes] = useState(10); // Show the first 10 recipes
-  // const [remainingRecipes, setRemainingRecipes] = useState(recipes.length - visibleRecipes);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // const loadMore = () => {
-  //   setIsLoading(true);
-  //   const batchSize = 10; // Number of recipes to load at a time
-  //   const newVisibleRecipes = visibleRecipes + batchSize;
-  //   const newRemainingRecipes = recipes.length - newVisibleRecipes;
-  //   // Update remaining recipes count
-  //   setRemainingRecipes(newRemainingRecipes);
-
-  //   // Simulate an API call to fetch more recipes (you can replace this with your actual API call)
-  //   setTimeout(() => {
-  //     setVisibleRecipes(newVisibleRecipes);
-  //     setIsLoading(false);
-  //   }, 1000); // Simulated delay of 1 second
-  // };
+  const { recipes,patcheNo } = props;
 
   return (
     <div className={styles.container}>
-      <img src="images/BrandLogo.png" alt="logo" width={300} height={100}/>
+     <img src="images/BrandLogo.png" alt="logo" width={300} height={100}/>
+      <button link={`/recipes`}>Next</button>
       <ul className={styles.list}>
         {recipes.map((recipe) => (
           <RecipesItems
             key={recipe._id}
             id={recipe._id}
+            patcheNo={patcheNo}
             title={recipe.title}
             image={recipe.images[0]}
             description={recipe.description}
