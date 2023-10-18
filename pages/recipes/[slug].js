@@ -1,20 +1,39 @@
-import React, { useEffect } from 'react';
-import { run } from '@/fetching-data/data'
-import { run2 } from '@/fetching-data/data';
-
-
+import React, { useState } from 'react';
+import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
+import { run, run2,} from '../../fetching-data/data'
 const Recipe = (props) => {
-  const recipes = props.recipes
-  const allergens = props.allergens
+
+  const recipes = props.recipes;
+  const allergens = props.allergens;
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-  console.log(recipes)
-  console.log(recipes.ingredients)
+
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [editedDescription, setEditedDescription] = useState(recipes.description);
+
+  const handleSaveDescription = (updatedDescription) => {
+    // Here, you should implement logic to save the updated description.
+    console.log("Updated Description:", updatedDescription);
+    setEditedDescription(updatedDescription);
+    setIsEditingDescription(false);
+  };
 
   return (
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
       <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
-      <p>{recipes.description}</p>
+      
+      {isEditingDescription ? (
+        <UpdateDescription
+          initialDescription={editedDescription}
+          onSave={handleSaveDescription}
+        />
+      ) : (
+        <p>{editedDescription}</p>
+      )}
+
+      <button onClick={() => setIsEditingDescription(!isEditingDescription)}>
+        {isEditingDescription ? 'Cancel' : 'Update Description'}
+      </button>
 
       <h2>allergens</h2>
       <ul>
@@ -38,10 +57,10 @@ const Recipe = (props) => {
       </ol>
     </div>
   );
-
 };
 
 export default Recipe;
+
 
 export async function getStaticProps(context) {
   const recipeId = context.params.slug;
