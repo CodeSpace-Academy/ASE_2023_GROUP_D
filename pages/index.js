@@ -11,6 +11,7 @@ function Home({initialData}) {
   )
 }
 
+
 export async function getServerSideProps() {
   const initialData = await run(1);
   return {
@@ -22,3 +23,4 @@ export async function getServerSideProps() {
 
 
 export default  Home
+
