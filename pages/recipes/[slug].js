@@ -1,36 +1,71 @@
-import React from 'react';
-import { run } from '@/fetching-data/data'
-import { run2 } from '@/fetching-data/data';
+import React, { useState } from 'react';
+import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
+import { run, run2,} from '../../fetching-data/data'
+import styles from '../../components/recipes/UpdateDescription.module.css'
 
 
 const Recipe = (props) => {
-   // Extract recipes and allergens from the props.
-  const recipes = props.recipes
-  const allergens = props.allergens
 
   const tagsString = props.recipes.tags.join(', ');
 
     // Convert the ingredients object into an array of strings.
+
+  const recipes = props.recipes;
+  const allergens = props.allergens;
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
+
+// Filter allergens based on ingredients
+const allergensForRecipe = allergens.filter(allergen =>
+  ingredientsArray.some(ingredient => ingredient.includes(allergen))
+);
 
 //calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
 const hours = Math.floor(recipes.cook / 60);
 //calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
 const minutes = recipes.cook % 60;
 
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [editedDescription, setEditedDescription] = useState(recipes.description);
+
+  const handleSaveDescription = (updatedDescription) => {
+    // Here, you should implement logic to save the updated description.
+    console.log("Updated Description:", updatedDescription);
+    setEditedDescription(updatedDescription);
+    setIsEditingDescription(false);
+  };
+
   return (
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
       <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
-      <p>{recipes.description}</p>
+
+      
+      {isEditingDescription ? (
+        <UpdateDescription
+          initialDescription={editedDescription}
+          onSave={handleSaveDescription}
+        />
+      ) : (
+        <p>{editedDescription}</p>
+      )}
+
+      <button  className={styles['update-button']}
+      onClick={() => setIsEditingDescription(!isEditingDescription)}>
+        {isEditingDescription ? 'Cancel' : 'Update Description'}
+      </button>
+
       <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''}</p>
 
-      <h2>allergens</h2>
-      <ul>
-        {allergens.map((allergen, index) => (
-          <li key={index}>{allergen}</li>
-        ))}
-      </ul>
+      <h2>Allergens</h2>
+      {allergensForRecipe.length > 0 ? (
+        <ul>
+          {allergensForRecipe.map((allergen, index) => (
+            <li key={index}>{allergen}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No allergens present in this recipe.</p>
+      )}
 
       <h2>Tags</h2>
       <p>{tagsString}</p>
@@ -50,10 +85,10 @@ const minutes = recipes.cook % 60;
       </ol>
     </div>
   );
-
 };
 
 export default Recipe;
+
 
 export async function getStaticProps(context) {
   const recipeId = context.params.slug;
