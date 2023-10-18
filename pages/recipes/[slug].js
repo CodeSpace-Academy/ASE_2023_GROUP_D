@@ -6,6 +6,8 @@ import styles from '../../components/recipes/UpdateDescription.module.css'
 
 const Recipe = (props) => {
 
+  const tagsString = props.recipes.tags.join(', ');
+
     // Convert the ingredients object into an array of strings.
 
   const recipes = props.recipes;
@@ -64,6 +66,9 @@ const minutes = recipes.cook % 60;
       ) : (
         <p>No allergens present in this recipe.</p>
       )}
+
+      <h2>Tags</h2>
+      <p>{tagsString}</p>
 
       <h2>Ingredients</h2>
       <ul>
