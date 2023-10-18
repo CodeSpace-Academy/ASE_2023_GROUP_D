@@ -8,6 +8,8 @@ const Recipe = (props) => {
   const recipes = props.recipes
   const allergens = props.allergens
 
+  const tagsString = props.recipes.tags.join(', ');
+
     // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
@@ -30,6 +32,9 @@ const minutes = recipes.cook % 60;
         ))}
       </ul>
 
+      <h2>Tags</h2>
+      <p>{tagsString}</p>
+
       <h2>Ingredients</h2>
       <ul>
         {ingredientsArray.map((ingredient, index) => (
@@ -50,11 +55,12 @@ const minutes = recipes.cook % 60;
 
 export default Recipe;
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const recipeId = context.params.slug;
   const docs = await run();
   const docs2 = await run2();
   const recipes1 = docs.find((recipe) => recipe._id === recipeId)
+
   return {
     props: {
       recipes: recipes1,
