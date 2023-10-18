@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { runDetails, run2} from '../../fetching-data/data'
 import styles from '../../components/recipes/UpdateDescription.module.css'
-import { useRouter } from 'next/router';
 
-const Recipe = ({recipeId, data1, allergens}) => {
+const Recipe = ({data1, allergens}) => {
 
-  const router = useRouter();
-  const { slug } = router.query
-  // console.log( slug[1] )
-  console.log(recipeId)
-  console.log(data1)
-
-    // Convert the ingredients object into an array of strings.
+  // console.log(recipeId)
+  // console.log(data1)
 
   const recipes = data1;
+  // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
 // Filter allergens based on ingredients
