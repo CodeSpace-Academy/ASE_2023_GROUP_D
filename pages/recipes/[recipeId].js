@@ -7,11 +7,9 @@ function Recipe(props) {
 
   const router = useRouter();
   const { recipeId } = router.query
-  // console.log(recipeId)
 
   return (
     <>
-      <img src="images/BrandLogo.png" alt="logo" width={300} height={100}/>
       <RecipeList recipes={props.recipes} categories={props.categories} patcheNo={recipeId} />
     </>
   )
