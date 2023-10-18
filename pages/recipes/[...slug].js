@@ -3,9 +3,9 @@ import UpdateDescription from '../../components/recipes/UpdateDescription'; // M
 import { runDetails, run2} from '../../fetching-data/data'
 import styles from '../../components/recipes/UpdateDescription.module.css'
 
-const Recipe = ({data1, allergens}) => {
+const Recipe = ({recipeId, data1, allergens}) => {
 
-  // console.log(recipeId)
+   console.log(recipeId)
   // console.log(data1)
 
   const recipes = data1;
