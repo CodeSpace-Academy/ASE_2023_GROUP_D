@@ -3,10 +3,10 @@
 // import styles from './instructions.module.css';
 // import { runInstructions } from '@/lib/db';
 
-// function RecipeInstructions({ instructions }) {
-//     // You can use the 'instructions' data in your component
+//function RecipeInstructions(props) {
+    // You can use the 'instructions' data in your component
 
-//     //     const instructions = props.instructions;
+//     const instructions = props.instructions;
 //     const [isEditing, setIsEditing] = useState(new Array(instructions.length).fill(false));
 //     const [editedInstructions, setEditedInstructions] = useState([...instructions]);
 
@@ -83,157 +83,157 @@
 
 // export default RecipeInstructions;
 
-import { useState, useEffect } from 'react';
-import styles from './instructions.module.css'
+// import { useState, useEffect } from 'react';
+// import styles from './instructions.module.css'
 
-function RecipeInstructions({ instructions }) {
-  const [isInstructions, setIsInstructions] = useState([]);
-  const [editedInstructions, setEditedInstructions] = useState([]);
-  const [isEditing, setIsEditing] = useState([]);
+// function RecipeInstructions({ instructions }) {
+//   const [isInstructions, setIsInstructions] = useState([]);
+//   const [editedInstructions, setEditedInstructions] = useState([]);
+//   const [isEditing, setIsEditing] = useState([]);
 
-  useEffect(() => {
-    // Fetch instructions from your API route (e.g., '/api/handler') when the component mounts
-    fetch('/api/route', {
-      method: 'PUT',
-    })
-      .then((response) => response.json())
-      .then((instruction) => {
-        setIsInstructions(instruction);
-        setEditedInstructions([...instructions]);
-        setIsEditing(new Array(instructions.length).fill(false));
-      })
-      .catch((error) => console.error('Error fetching instructions:', error));
-  }, []);
+//   useEffect(() => {
+//     // Fetch instructions from your API route (e.g., '/api/handler') when the component mounts
+//     fetch('/api/route', {
+//       method: 'PUT',
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setIsInstructions(data);
+//         setEditedInstructions([...data]);
+//         setIsEditing(new Array(data.length).fill(false));
+//       })
+//       .catch((error) => console.error('Error fetching instructions:', error));
+//   }, []);
 
-  const handleEdit = (index) => {
-    const newIsEditing = [...isEditing];
-    newIsEditing[index] = true;
-    setIsEditing(newIsEditing);
-  };
+//   const handleEdit = (index) => {
+//     const newIsEditing = [...isEditing];
+//     newIsEditing[index] = true;
+//     setIsEditing(newIsEditing);
+//   };
 
-  const handleSave = (index) => {
-    // Example: Send a PUT request to update the instruction at 'index'.
-    fetch('/api/route', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ updatedInstructions: editedInstructions }),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Failed to edit instructions');
-        }
-      })
-      .then(() => {
-        const newIsEditing = [...isEditing];
-        newIsEditing[index] = false;
-        setIsEditing(newIsEditing);
+//   const handleSave = (index) => {
+//     // Example: Send a PUT request to update the instruction at 'index'.
+//     fetch('/api/route', {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ updatedInstructions: editedInstructions }),
+//     })
+//       .then((response) => {
+//         if (response.status === 200) {
+//           return response.json();
+//         } else {
+//           throw new Error('Failed to edit instructions');
+//         }
+//       })
+//       .then(() => {
+//         const newIsEditing = [...isEditing];
+//         newIsEditing[index] = false;
+//         setIsEditing(newIsEditing);
   
-        const newInstructions = [...instructions];
-        newInstructions[index] = editedInstructions[index];
+//         const newInstructions = [...instructions];
+//         newInstructions[index] = editedInstructions[index];
   
-        setIsInstructions(newInstructions);
-      })
-      .catch((error) => console.error('Error editing instructions:', error));
-  };
+//         setIsInstructions(newInstructions);
+//       })
+//       .catch((error) => console.error('Error editing instructions:', error));
+//   };
 
-  const handleRemove = (index) => {
-    // Example: Send a DELETE request to remove the instruction at 'index'.
-    fetch('/api/route', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ instructionIndex: index }),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Failed to remove instruction');
-        }
-      })
-      .then(() => {
-        // Update instructions and editedInstructions after successful removal
-        const newInstructions = [...instructions];
-      const newEditedInstructions = [...editedInstructions];
+//   const handleRemove = (index) => {
+//     // Example: Send a DELETE request to remove the instruction at 'index'.
+//     fetch('/api/route', {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ instructionIndex: index }),
+//     })
+//       .then((response) => {
+//         if (response.status === 200) {
+//           return response.json();
+//         } else {
+//           throw new Error('Failed to remove instruction');
+//         }
+//       })
+//       .then(() => {
+//         // Update instructions and editedInstructions after successful removal
+//         const newInstructions = [...instructions];
+//       const newEditedInstructions = [...editedInstructions];
 
-      // Remove the instruction at the specified index
-      newInstructions.splice(index, 1);
-      newEditedInstructions.splice(index, 1);
+//       // Remove the instruction at the specified index
+//       newInstructions.splice(index, 1);
+//       newEditedInstructions.splice(index, 1);
 
-      setIsInstructions(newInstructions);
-      setEditedInstructions(newEditedInstructions);
-      })
-      .catch((error) => console.error('Error removing instruction:', error));
-  };
+//       setIsInstructions(newInstructions);
+//       setEditedInstructions(newEditedInstructions);
+//       })
+//       .catch((error) => console.error('Error removing instruction:', error));
+//   };
 
-  const handleAdd = (newInstructionText) => {
-    // Example: Send a POST request to add a new instruction.
-    fetch('/api/route', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ newInstruction: newInstructionText }),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Failed to add instruction');
-        }
-      })
-      .then((data) => {
-        // Update instructions and editedInstructions after successful addition
-        const newInstructions = [...instructions, data.newInstruction];
-    const newEditedInstructions = [...editedInstructions, data.newInstruction];
+//   const handleAdd = (newInstructionText) => {
+//     // Example: Send a POST request to add a new instruction.
+//     fetch('/api/route', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ newInstruction: newInstructionText }),
+//     })
+//       .then((response) => {
+//         if (response.status === 200) {
+//           return response.json();
+//         } else {
+//           throw new Error('Failed to add instruction');
+//         }
+//       })
+//       .then((data) => {
+//         // Update instructions and editedInstructions after successful addition
+//         const newInstructions = [...instructions, data.newInstruction];
+//     const newEditedInstructions = [...editedInstructions, data.newInstruction];
 
-    setIsInstructions(newInstructions);
-    setEditedInstructions(newEditedInstructions);
-      })
-      .catch((error) => console.error('Error adding instruction:', error));
-  };
+//     setIsInstructions(newInstructions);
+//     setEditedInstructions(newEditedInstructions);
+//       })
+//       .catch((error) => console.error('Error adding instruction:', error));
+//   };
 
-  return (
-    <div>
-      <h1>Instructions</h1>
-      <ol>
-        {instructions.map((step, index) => (
-          <div key={index}>
-            <li>
-              {isEditing[index] ? (
-                <div>
-                  <input
-                    type="text"
-                    value={editedInstructions[index]}
-                    onChange={(e) => {
-                      const newEditedInstructions = [...editedInstructions];
-                      newEditedInstructions[index] = e.target.value;
-                      setEditedInstructions(newEditedInstructions);
-                    }}
-                  />
-                  <button onClick={() => handleSave(index)}>Save</button>
-                </div>
-              ) : (
-                <div>
-                  {step}
-                  <button onClick={() => handleEdit(index)}>Edit</button>
-                  <button onClick={() => handleRemove(index)}>Remove</button>
-                </div>
-              )}
-            </li>
-          </div>
-        ))}
-        <div>
-          <button onClick={handleAdd}>Add Step</button>
-        </div>
-      </ol>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h1>Instructions</h1>
+//       <ol>
+//         {instructions.map((step, index) => (
+//           <div key={index}>
+//             <li>
+//               {isEditing[index] ? (
+//                 <div>
+//                   <input
+//                     type="text"
+//                     value={editedInstructions[index]}
+//                     onChange={(e) => {
+//                       const newEditedInstructions = [...editedInstructions];
+//                       newEditedInstructions[index] = e.target.value;
+//                       setEditedInstructions(newEditedInstructions);
+//                     }}
+//                   />
+//                   <button onClick={() => handleSave(index)}>Save</button>
+//                 </div>
+//               ) : (
+//                 <div>
+//                   {step}
+//                   <button onClick={() => handleEdit(index)}>Edit</button>
+//                   <button onClick={() => handleRemove(index)}>Remove</button>
+//                 </div>
+//               )}
+//             </li>
+//           </div>
+//         ))}
+//         <div>
+//           <button onClick={handleAdd}>Add Step</button>
+//         </div>
+//       </ol>
+//     </div>
+//   );
+// }
 
-export default RecipeInstructions;
+// export default RecipeInstructions;
