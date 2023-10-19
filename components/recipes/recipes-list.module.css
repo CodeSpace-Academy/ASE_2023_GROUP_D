@@ -28,5 +28,24 @@
     .list {
       width: 100%;
       display:list-item;
+      
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .list {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 2em;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .list {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 2em;
     }
   }
