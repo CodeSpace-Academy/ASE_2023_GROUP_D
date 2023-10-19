@@ -10,7 +10,7 @@ export const client = new MongoClient(uri, {
 	}
 });
 
-export async function run(page, limit) {
+export async function run(page) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		await client.connect();
@@ -24,28 +24,6 @@ export async function run(page, limit) {
 		const data = await collection.find({}).skip(skip).limit(100).toArray();
 		// return data.slice(0, limit);
 		return data
-
-	} catch (error) {
-		console.error("Failed to connect to MongoDB:", error);
-	} finally {
-		// Ensures that the client will close when you finish/error
-		await client.close();
-	}
-}
-
-
-export async function runDetails(id) {
-	try {
-		// Connect the client to the server    (optional starting in v4.7)
-		await client.connect();
-		// Send a ping to confirm a successful connection
-		const db = client.db("devdb");
-		await client.db("devdb").command({ ping: 1 });
-		const collection = db.collection("recipes");
-
-		// Use the find() method to retrieve data
-		const data = await collection.find({ _id: id }).toArray();
-		return data;
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
