@@ -5,7 +5,7 @@ import styles from '../../components/recipes/UpdateDescription.module.css'
 
 const Recipe = ({recipeId, data1, allergens}) => {
 
-  console.log(data1)
+  console.log(recipeId)
 
   const recipes = data1;
   // Convert the ingredients object into an array of strings.
