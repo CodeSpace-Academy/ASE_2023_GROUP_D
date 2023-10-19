@@ -23,3 +23,10 @@
 /* .imageContainer {
 
   } */
+
+  @media (max-width: 480px) {
+    .list {
+      width: 100%;
+      display:list-item;
+    }
+  }

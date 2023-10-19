@@ -131,3 +131,9 @@
   font-weight: bold;
   font-family: "Lucida Console", "Courier New", monospace;
 }
+
+@media (max-width: 480px) {
+  .item {
+    margin-bottom: 40px;
+  }
+}
