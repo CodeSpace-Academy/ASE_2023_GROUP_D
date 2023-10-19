@@ -5,7 +5,7 @@ import Button from '../ui/button/button';
 function RecipesItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo } = props
 
-    const viewRecipeLink = `/recipes/${patcheNo}/${id}`
+    const viewRecipeLink = `/recipes/${patcheNo}/${id}/recipedetails`
 
     return (
         <div className={styles.link}>
