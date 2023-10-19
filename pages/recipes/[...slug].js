@@ -82,9 +82,6 @@ const minutes = recipes.cook % 60;
   );
 };
 
-export default Recipe;
-
-
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug[1];
   const recipedataNo = context.params.slug[0];
@@ -101,4 +98,7 @@ export async function getServerSideProps(context) {
     },
   }
 }
+
+export default Recipe;
+
 
