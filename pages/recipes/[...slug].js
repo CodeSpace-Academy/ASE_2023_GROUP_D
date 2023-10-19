@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { runDetails, run2} from '../../fetching-data/data'
+import { run, run2} from '../../fetching-data/data'
 import styles from '../../components/recipes/UpdateDescription.module.css'
 
 const Recipe = ({recipeId, data1, allergens}) => {
 
-   console.log(recipeId)
-  // console.log(data1)
+  console.log(data1)
 
   const recipes = data1;
   // Convert the ingredients object into an array of strings.
@@ -88,10 +87,11 @@ export default Recipe;
 
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug[1];
+  const recipedataNo = context.params.slug[0];
   const docs2 = await run2();
 
-  const data = await runDetails(recipeId)
-  const data1 = data[0]
+  const data = await run(recipedataNo)
+  const data1 = data.filter((recipe)=> recipe._id === recipeId)[0]
 
   return {
     props: {
