@@ -1,30 +1,31 @@
 
 import React, { useState } from 'react';
 import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { run, run2,} from '../../fetching-data/data'
+import { run, run2, } from '../../fetching-data/data'
 import styles from '../../components/recipes/UpdateDescription.module.css'
+
 
 
 const Recipe = (props) => {
 
   const tagsString = props.recipes.tags.join(', ');
 
-    // Convert the ingredients object into an array of strings.
+  // Convert the ingredients object into an array of strings.
 
   const recipes = props.recipes;
   const allergens = props.allergens;
 
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
-// Filter allergens based on ingredients
-const allergensForRecipe = allergens.filter(allergen =>
-  ingredientsArray.some(ingredient => ingredient.includes(allergen))
-);
+  // Filter allergens based on ingredients
+  const allergensForRecipe = allergens.filter(allergen =>
+    ingredientsArray.some(ingredient => ingredient.includes(allergen))
+  );
 
-//calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
-const hours = Math.floor(recipes.cook / 60);
-//calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
-const minutes = recipes.cook % 60;
+  //calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
+  const hours = Math.floor(recipes.cook / 60);
+  //calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
+  const minutes = recipes.cook % 60;
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
@@ -37,12 +38,12 @@ const minutes = recipes.cook % 60;
   };
 
   return (
-    
+
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
       <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
 
-      
+
       {isEditingDescription ? (
         <UpdateDescription
           initialDescription={editedDescription}
@@ -52,8 +53,8 @@ const minutes = recipes.cook % 60;
         <p>{editedDescription}</p>
       )}
 
-      <button  className={styles['update-button']}
-      onClick={() => setIsEditingDescription(!isEditingDescription)}>
+      <button className={styles['update-button']}
+        onClick={() => setIsEditingDescription(!isEditingDescription)}>
         {isEditingDescription ? 'Cancel' : 'Update Description'}
       </button>
 
@@ -80,12 +81,17 @@ const minutes = recipes.cook % 60;
         ))}
       </ul>
 
-      <h2>Instructions</h2>
-      <ol>
-        {recipes.instructions.map((step, index) => (
-          <li key={index}>{step}</li>
-        ))}
-      </ol>
+
+      <div>
+        <h2>Instructions</h2>
+        <ol >
+          {recipes.instructions.map((step, index) => (
+            <div className={styles.container3}>
+              <li key={index}>{step}</li>
+            </div>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 };
@@ -109,7 +115,7 @@ export async function getStaticProps(context) {
 
 // Define a function to specify the paths for pre-rendering
 export async function getStaticPaths() {
- // Fetch data using the run function
+  // Fetch data using the run function
   const docs = await run();
   // Generate an array of paths based on the recipe IDs
   const paths = docs.map((recipe) => ({ params: { slug: recipe._id } }));
