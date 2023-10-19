@@ -17,22 +17,19 @@ function RecipesItems(props) {
 
                 {/* <div className={styles.address}>Preparation: {prep} minutes </div>
                 <div className={styles.address}>Cook: {cook} minutes </div> */}
-               <div className={styles.cookingContainer}>
-                <div >
-                    <div className={styles.cookingTime}>
-                        <div className={styles.label}>Preparation:</div>
-                        <div className={styles.label}>Cooking time:</div>
-                    </div>
-                    <div className={styles.cookingTime}>
-                        <div className={styles.value}>{prep} mins</div>
-                        <div className={styles.value}>{cook} mins</div>
+                <div className={styles.cookingContainer}>
+                    <div >
+                        <div className={styles.cookingTime}>
+                            <div className={styles.label}>Preparation:</div>
+                            <div className={styles.label}>Cooking time:</div>
+                        </div>
+                        <div className={styles.cookingTime}>
+                            <div className={styles.value}>{prep} mins</div>
+                            <div className={styles.value}>{cook} mins</div>
 
+                        </div>
                     </div>
                 </div>
-                </div>
-
-
-
 
                 <div> {category} </div>
                 <div> {servings} </div>
@@ -43,8 +40,6 @@ function RecipesItems(props) {
                     </Button>
                 </div>
             </li>
-
-
         </div>
     )
 }
