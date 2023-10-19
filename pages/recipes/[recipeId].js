@@ -2,27 +2,40 @@ import { run, run1 } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 
-function Recipe({recipes, categories}) {
+function Recipe({ recipes, categories }) {
 
   const router = useRouter();
   const { recipeId } = router.query
-  
+
   const [loadmore, setLoadMore] = useState(80)
   const [loadData, setLoadData] = useState(20)
 
-  const recipes20 = recipes.slice(0, loadData)
-  // loadmore == 0 && setLoadMore(80) 
-  // loadmore == 0 && setLoadData(20) 
-  // console.log(loadmore)
-  // console.log(loadData)
   return (
     <>
-      <RecipeList recipes={recipes20} categories={categories} patcheNo={recipeId} />
+      <Image src="/images/BrandLogo.png" alt="logo" width={300} height={100} />
+
+      {recipeId > 1 &&
+        <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
+          <button onClick={() => {
+            setLoadData(20)
+            setLoadMore(80)
+          }} >Previous</button>
+        </Link>}
+      <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
+        <button onClick={() => {
+          setLoadData(20)
+          setLoadMore(80)
+        }} >Next</button>
+      </Link>
+
+      <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
       <button onClick={() => {
-       setLoadMore( loadmore - 20)
-       setLoadData(loadData + 20)
+        setLoadMore(loadmore - 20)
+        setLoadData(loadData + 20)
       }}
         disabled={loadmore == 0 ? true : false}
       >Load More {`(${loadmore})`}</button>
