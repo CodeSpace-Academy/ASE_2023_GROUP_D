@@ -5,9 +5,8 @@ import styles from './recipes-list.module.css'
 import Button from "../ui/button/button";
 import Image from "next/image";
 
-function RecipeList(props) {
-
-  const { recipes,patcheNo } = props;
+function RecipeList({ recipes, patcheNo }) {
+  console.log(recipes)
 
   return (
     <div className={styles.container}>
