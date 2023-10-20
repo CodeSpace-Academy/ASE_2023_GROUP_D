@@ -20,6 +20,17 @@
   text-align: center;
 }
 
+.logo {
+  margin: 50px;
+}
+
 /* .imageContainer {
 
   } */
+
+  @media (max-width: 480px) {
+    .list {
+      width: 100%;
+      display:list-item;
+    }
+  }
