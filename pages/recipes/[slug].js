@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { run, run2, } from '../../fetching-data/data'
 import styles from '../../components/recipes/UpdateDescription.module.css'
+import RecipeInstructions from '@/components/instructions/instructions';
 
 
 
@@ -83,14 +84,7 @@ const Recipe = (props) => {
 
 
       <div>
-        <h2>Instructions</h2>
-        <ol >
-          {recipes.instructions.map((step, index) => (
-            <div className={styles.container3}>
-              <li key={index}>{step}</li>
-            </div>
-          ))}
-        </ol>
+        <RecipeInstructions instructions={recipes.instructions} />
       </div>
     </div>
   );

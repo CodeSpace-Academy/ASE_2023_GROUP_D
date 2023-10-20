@@ -29,6 +29,7 @@
   box-shadow: 0 1px 6px #312d2d;
 }
 
-.btn :hover {
+.btn:hover {
   background-color: black;
 }
+

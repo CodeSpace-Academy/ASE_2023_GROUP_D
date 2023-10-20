@@ -33,10 +33,6 @@ function RecipesItems(props) {
                     </div>
                 </div>
                 </div>
-
-
-
-
                 <div> {category} </div>
                 <div> {servings} </div>
                 <div className={styles.date}>{formattedPublishedDate} </div>
