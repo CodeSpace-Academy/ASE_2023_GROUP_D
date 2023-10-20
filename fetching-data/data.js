@@ -50,7 +50,6 @@ export async function run1() {
 		const dataArray = data.map(document => document.categories);
 
 		return dataArray;
-		return dataArray;
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
