@@ -5,6 +5,9 @@ import Button from '../ui/button/button';
 function RecipesItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo } = props
 
+    const publishedDate = new Date(published);
+    const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
+
     const viewRecipeLink = `/recipes/${patcheNo}/${id}`
 
     return (
@@ -33,7 +36,7 @@ function RecipesItems(props) {
 
                 <div> {category} </div>
                 <div> {servings} </div>
-                <div className={styles.date}>{published} </div>
+                <div className={styles.date}>{formattedPublishedDate} </div>
                 <div className={styles.actions}>
                     <Button link={viewRecipeLink} className={styles.viewRecipeButton}>
                         <span className={styles.viewRecipeButtonText}>View Recipe</span>

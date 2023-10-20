@@ -7,10 +7,13 @@ export const client = new MongoClient(uri, {
 		version: ServerApiVersion.v1,
 		strict: true,
 		deprecationErrors: true,
+		version: ServerApiVersion.v1,
+		strict: true,
+		deprecationErrors: true,
 	}
 });
 
-export async function run(page) {
+export async function run(pagepage) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		await client.connect();
@@ -30,6 +33,8 @@ export async function run(page) {
 	} finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
+		// Ensures that the client will close when you finish/error
+		await client.close();
 	}
 }
 
@@ -45,10 +50,13 @@ export async function run1() {
 		const dataArray = data.map(document => document.categories);
 
 		return dataArray;
+		return dataArray;
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	} finally {
+		// Ensures that the client will close when you finish/error
+		await client.close();
 		// Ensures that the client will close when you finish/error
 		await client.close();
 	}
@@ -66,11 +74,17 @@ export async function run2() {
 		const dataArray = data.map(document => document.allergens);
 
 		return dataArray;
+		return dataArray;
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	} finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
+		// Ensures that the client will close when you finish/error
+		await client.close();
 	}
 }
+
+
+
