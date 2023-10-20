@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { run, run2} from '../../fetching-data/data'
-import styles from '../../components/recipes/UpdateDescription.module.css'
+import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
+import { run, run2} from '../../../fetching-data/data'
+import styles from '@/components/recipes/UpdateDescription.module.css'
 
 const Recipe = ({recipeId, data1, allergens}) => {
 
@@ -81,8 +81,8 @@ const minutes = recipes.cook % 60;
 };
 
 export async function getServerSideProps(context) {
-  const recipeId = context.params.slug[1];
-  const recipedataNo = context.params.slug[0];
+  const recipeId = context.params.slug;
+  const recipedataNo = context.params.recipeId;
   console.log(recipeId)
   console.log(recipedataNo)
   const docs2 = await run2();
