@@ -1,24 +1,15 @@
-import { run } from '@/fetching-data/data';
-import RecipeList from '@/components/recipes/recipes-list'
+import Link from "next/link";
 
-function Home({initialData}) {
+function Home(props) {
 
   return (
     <>
-      {<RecipeList recipes={initialData} />} 
-      <button>Load more</button>
+      <img src="images/BrandLogo.png" alt="logo" width={300} height={100} />
+      <Link href={`/recipes/1`} >
+        <button>All Recipe</button>
+      </Link>
     </>
   )
-}
-
-
-export async function getServerSideProps() {
-  const initialData = await run(1);
-  return {
-    props: {
-      initialData,
-    }
-  }
 }
 
 
