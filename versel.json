@@ -1,0 +1,13 @@
+{
+    "rewrites": [
+      {
+        "source": "/recipes/([^/]+)",
+        "destination": "/book/[slug].js"
+      },
+      {
+        "source": "/recipes/([^/]+)/([^/]+)",
+        "destination": "/book/[...slug].js"
+      }
+    ]
+  }
+  
