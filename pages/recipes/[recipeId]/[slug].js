@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { run, run2,} from '../../fetching-data/data'
-import styles from '../../components/recipes/UpdateDescription.module.css'
+import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
+import { run, run2} from '../../../fetching-data/data'
+import styles from '@/components/recipes/UpdateDescription.module.css'
 
+const Recipe = ({recipeId, data1, allergens}) => {
 
-const Recipe = (props) => {
-
-    // Convert the ingredients object into an array of strings.
-
-  const recipes = props.recipes;
-  const allergens = props.allergens;
+  const recipes = data1;
+  // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
 // Filter allergens based on ingredients
@@ -79,35 +76,29 @@ const minutes = recipes.cook % 60;
         ))}
       </ol>
     </div>
+   
   );
 };
 
-export default Recipe;
-
-
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
-  const docs = await run();
+  const recipedataNo = context.params.recipeId;
+  console.log(recipeId)
+  console.log(recipedataNo)
   const docs2 = await run2();
-  const recipes1 = docs.find((recipe) => recipe._id === recipeId)
+
+  const data = await run(recipedataNo)
+  const data1 = data.filter((recipe)=> recipe._id === recipeId)[0]
 
   return {
     props: {
-      recipes: recipes1,
+      recipeId,
+      data1,
       allergens: docs2[0],
     },
   }
 }
 
-// Define a function to specify the paths for pre-rendering
-export async function getStaticPaths() {
- // Fetch data using the run function
-  const docs = await run();
-  // Generate an array of paths based on the recipe IDs
-  const paths = docs.map((recipe) => ({ params: { slug: recipe._id } }));
+export default Recipe;
 
-  return {
-    paths: paths,
-    fallback: false // Specify whether to 404 on paths not returned by getStaticPaths
-  }
-}
+

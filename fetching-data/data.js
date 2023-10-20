@@ -13,7 +13,7 @@ export const client = new MongoClient(uri, {
 	}
 });
 
-export async function run(pagepage) {
+export async function run(page) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		await client.connect();
@@ -30,7 +30,7 @@ export async function run(pagepage) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	} finally {
+	 } finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
 		// Ensures that the client will close when you finish/error
