@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import UpdateDescription from '../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { run, run2,} from '../../fetching-data/data'
-import styles from '../../components/recipes/UpdateDescription.module.css'
-import ErrorComponent from '../../components/Errors/Errors'
+import UpdateDescription from '../../../components/recipes/UpdateDescription'; // Make sure to provide the correct path
+import { run, run2,} from '../../../fetching-data/data'
+import styles from '../../../components/recipes/UpdateDescription.module.css'
+import ErrorComponent from '../../../components/Errors/Errors'
 
 const Recipe = (props) => {
 
     // Convert the ingredients object into an array of strings.
-  const recipes = props.recipes;
+  const recipes = props.data1;
   const allergens = props.allergens;
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
@@ -30,7 +30,7 @@ const minutes = recipes.cook % 60;
     setEditedDescription(updatedDescription);
     setIsEditingDescription(false);
   };
-  const tagsString = props.recipes.tags.join(', ');
+  const tagsString = recipes.tags.join(', ');
   return (
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>

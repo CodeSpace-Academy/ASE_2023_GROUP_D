@@ -33,8 +33,6 @@ export async function run(page) {
 	 } finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
-		// Ensures that the client will close when you finish/error
-		await client.close();
 	}
 }
 
@@ -50,13 +48,11 @@ export async function run1() {
 		const dataArray = data.map(document => document.categories);
 
 		return dataArray;
-		return dataArray;
+
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	} finally {
-		// Ensures that the client will close when you finish/error
-		await client.close();
 		// Ensures that the client will close when you finish/error
 		await client.close();
 	}
@@ -74,13 +70,11 @@ export async function run2() {
 		const dataArray = data.map(document => document.allergens);
 
 		return dataArray;
-		return dataArray;
+		
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	} finally {
-		// Ensures that the client will close when you finish/error
-		await client.close();
 		// Ensures that the client will close when you finish/error
 		await client.close();
 	}
