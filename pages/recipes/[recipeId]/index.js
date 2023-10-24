@@ -23,22 +23,29 @@ function Recipe({ recipes, categories }) {
           <button onClick={() => {
             setLoadData(20)
             setLoadMore(80)
-          }} >Previous</button>
+          }} className="maroon-button" >Previous
+          </button>
         </Link>}
       <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
         <button onClick={() => {
           setLoadData(20)
           setLoadMore(80)
-        }} >Next</button>
+        }} className="maroon-button" >Next
+        </button>
       </Link>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
-      <button onClick={() => {
-        setLoadMore(loadmore - 20)
-        setLoadData(loadData + 20)
-      }}
-        disabled={loadmore == 0 ? true : false}
-      >Load More {`(${loadmore})`}</button>
+
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
+        <button onClick={() => {
+          setLoadMore(loadmore - 20)
+          setLoadData(loadData + 20)
+        }}
+          disabled={loadmore == 0 ? true : false}
+          className="maroon-button">Load More {`(${loadmore})`}
+        </button>
+      </div>
+
 
     </>
   )
