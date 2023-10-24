@@ -33,8 +33,7 @@ export async function run(page) {
 	 } finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
-		// Ensures that the client will close when you finish/error
-		await client.close();
+		
 	}
 }
 

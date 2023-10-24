@@ -12,5 +12,12 @@
     background-color: #b55144dd;
   }
   
-  
+  .recipePreview {
+    padding: 10px;
+  }
+
+  .imageDiv {
+    align-self: center;
+    
+  }
 

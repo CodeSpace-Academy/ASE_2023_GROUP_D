@@ -7,8 +7,9 @@
     width: 800px;
 }
 
-.container6 {
-
+.insContainer {
+    width: 500px;
+    height: 60px;
 }
 
 .orderedList {
