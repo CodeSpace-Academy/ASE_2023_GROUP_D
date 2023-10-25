@@ -12,7 +12,12 @@ body {
   margin: 0;
   font-family: 'Open Sans', 'Lato', sans-serif;
   background-color: #d5d2d2;
-} 
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
 
 h1,
 h3,
@@ -23,11 +28,123 @@ h6 {
   color: #2b2b2b;
 }
 
+.maroon-button {
+  background-color: maroon; /* Maroon background color */
+  font-weight: bold;
+  color: #fff; /* White text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth transition for hover effect */
+
+  /* Black background on hover */
+  &:hover {
+    background-color: black;
+  }
+
+  /* Disable button style */
+  &:disabled {
+    background-color: #ccc; /* Light gray background for disabled state */
+    cursor: not-allowed;
+  }
+}
+
+
 /* .recipeDetails{
 text-align: center;
 } */
 
+.theme-button {
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth transition for hover effect */
+
+  /* Grey background on hover */
+  &:hover {
+    background-color: #7e7979;
+  }
+}
+
+
 .center {
   margin: auto;
   text-align: center;
+}
+
+.hero-section {
+  background-color: rgb(160, 154, 154);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  padding: 10px;
+  box-sizing: border-box;
+  }
+
+  .carousel-container {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  }
+
+  .carousel-container > * {
+  min-width: 100%;
+  }
+
+
+.show-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.show-info>div {
+  padding: 5px;
+  text-align: center;
+  background-color: #fff;
+  /* Background color for each slide */
+  margin: 0 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Add a subtle box shadow */
+}
+
+.show-info h1 {
+  font-size: 15px;
+  margin-top: 0px;
+}
+
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  /* Background color for arrow buttons */
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.arrow-icon:hover {
+  background-color: #ccc;
+  /* Background color on hover */
+}
+
+.arrow-icon.backward {
+  left: 10px;
+}
+
+.arrow-icon.forward {
+  right: 10px;
 }
