@@ -1,17 +1,22 @@
 .container3 {
     background-color: aliceblue;
     display: flex;
-    
     align-items: center;
     padding: 5px;
     border: 1px solid black;
     width: 800px;
 }
 
+.insContainer {
+    width: 500px;
+    height: 60px;
+}
+
 .orderedList {
-    
     margin: 10px;
 }
+
+
 
 .container4 {
     margin-left: auto;
