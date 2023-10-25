@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { run, run2 } from '../../../fetching-data/data'
 import styles from '@/components/recipes/UpdateDescription.module.css'
+
 import RecipesInstructions from '@/components/instructions/instructions'
 
 
@@ -26,37 +28,42 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   const [editedDescription, setEditedDescription] = useState(recipes.description);
 
 
-
   const handleSaveDescription = (updatedDescription) => {
     // Here, you should implement logic to save the updated description.
     console.log("Updated Description:", updatedDescription);
     setEditedDescription(updatedDescription);
     setIsEditingDescription(false);
   };
-
+  const tagsString = recipes.tags.join(', ');
   return (
+
     <div className={styles.recipePreview}>
       <div className={styles.imageDiv}>
         <h1>{recipes.title}</h1>
         <img src={recipes.images[0]} alt={recipes._id} width={400} height={300} />
       </div>
 
+
       {isEditingDescription ? (
-        <UpdateDescription
-          initialDescription={editedDescription}
-          onSave={handleSaveDescription}
-        />
+         <UpdateDescription
+           initialDescription={editedDescription}
+           onSave={handleSaveDescription}
+         />
       ) : (
-        <p>{editedDescription}</p>
+        editedDescription ? (
+           <p>{editedDescription}</p>
+        ) : (
+           <ErrorComponent message="Failed to load description" />
+         )
       )}
+
 
       <button className={styles['update-button']}
         onClick={() => setIsEditingDescription(!isEditingDescription)}>
+
         {isEditingDescription ? 'Cancel' : 'Update Description'}
       </button>
-
       <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''}</p>
-
       <h2>Allergens</h2>
       {allergensForRecipe.length > 0 ? (
         <ul>
@@ -68,22 +75,24 @@ const Recipe = ({ recipeId, data1, allergens }) => {
         <p>No allergens present in this recipe.</p>
       )}
 
+<h2>Tags</h2>
+       {tagsString ? (
+        <p>{tagsString}</p>
+      ) : (
+         <ErrorComponent message="Failed to load tags" />       )} 
       <h2>Ingredients</h2>
       <ul>
         {ingredientsArray.map((ingredient, index) => (
           <li key={index}>{ingredient}</li>
         ))}
       </ul>
-
       <h2>Instructions</h2>
+
 
 
       <div>
         <RecipesInstructions instructions={recipes.instructions} />
       </div>
-
-
-
 
 
       {/* <button className={styles['update-button']}
@@ -93,18 +102,19 @@ const Recipe = ({ recipeId, data1, allergens }) => {
 
     </div>
 
+
   );
 };
-
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
   const recipedataNo = context.params.recipeId;
   console.log(recipeId)
   console.log(recipedataNo)
   const docs2 = await run2();
-
   const data = await run(recipedataNo)
+
   const data1 = data.filter((recipe) => recipe._id === recipeId)[0]
+
 
   return {
     props: {
@@ -114,7 +124,13 @@ export async function getServerSideProps(context) {
     },
   }
 }
-
 export default Recipe;
+
+
+
+
+
+
+
 
 
