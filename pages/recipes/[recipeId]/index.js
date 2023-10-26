@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import SearchBar from '@/components/text-search/auto-submission';
 
 
 function Recipe({ recipes, categories }) {
@@ -33,7 +34,7 @@ function Recipe({ recipes, categories }) {
         }} className="maroon-button" >Next
         </button>
       </Link>
-
+      <SearchBar />
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
 
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
