@@ -82,6 +82,7 @@ export async function run2() {
 }
 
 export async function runFilter(page,filter) {
+
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		await client.connect();
@@ -105,5 +106,6 @@ export async function runFilter(page,filter) {
 	}
 }
 
-
+	}
+}
 
