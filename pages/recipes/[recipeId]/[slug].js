@@ -33,7 +33,10 @@ const Recipe = ({ recipeId, data1, allergens }) => {
     setEditedDescription(updatedDescription);
     setIsEditingDescription(false);
   };
+
   const tagsString = recipes.tags.join(', ');
+  
+
   return (
 
     <div className='.recipeDetails'>
