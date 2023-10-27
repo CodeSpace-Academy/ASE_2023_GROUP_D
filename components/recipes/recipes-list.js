@@ -1,14 +1,38 @@
-import React from "react";
+import { React, useState } from "react";
 import RecipesItems from "./recipes-items";
-//import LoadMoreButton from "../ui/button/button"; // Import the LoadMoreButton component
 import styles from './recipes-list.module.css'
 
 function RecipeList({ recipes, patcheNo }) {
+  const [sortingOption, setSortingOption] = useState("newest-to-oldest");
+
+  function sortByPublishedDate() {
+    const sortedRecipes = [...recipes];
+    if (sortingOption === "newest-to-oldest") {
+      sortedRecipes.sort((a, b) => new Date(b.published) - new Date(a.published));
+    } else if (sortingOption === "oldest-to-newest") {
+      sortedRecipes.sort((a, b) => new Date(a.published) - new Date(b.published));
+    }
+    return sortedRecipes;
+  
+  };
+    const sortedRecipes = sortByPublishedDate();
+
+    const handleSortingChange = (e) => {
+      setSortingOption(e.target.value);
+    };
 
   return (
     <div className={styles.container}>
+
+      <div>
+        <select value={sortingOption} onChange={handleSortingChange}>
+          <option value="newest-to-oldest">Newest First</option>
+          <option value="oldest-to-newest">Oldest First</option>
+        </select>
+      </div>
+
       <ul className={styles.list}>
-        {recipes.map((recipe) => (
+        {sortedRecipes.map((recipe) => (
           <RecipesItems
             key={recipe._id}
             id={recipe._id}
@@ -24,10 +48,7 @@ function RecipeList({ recipes, patcheNo }) {
           />
         ))} 
       </ul>
-      {/* {visibleRecipes < recipes.length && (
-        <LoadMoreButton onClick={loadMore} remaining={remainingRecipes} />
-      )}
-      {isLoading && <p>Loading...</p>} */}
+      
     </div>
   );
 }
