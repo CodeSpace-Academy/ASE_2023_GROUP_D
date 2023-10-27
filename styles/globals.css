@@ -152,3 +152,11 @@ text-align: center;
 .arrow-icon.forward {
   right: 10px;
 }
+
+/* Add this CSS to your stylesheet */
+.search-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 10vh; /* Set a specific height or adjust as needed */
+}
