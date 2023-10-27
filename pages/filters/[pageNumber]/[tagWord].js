@@ -1,44 +1,4 @@
 
-// import { runFilter } from "@/fetching-data/data";
-// import RecipeList from "@/components/recipes/recipes-list";
-// import { useState } from "react";
-
-
-// function filteredRecipes({ filteredData, pageNo, tagWord }) {
-//   console.log(filteredData)
-
-
-  
-//   return (
-//     <>
-//      <button>{tagWord}</button>
-     
-//       <RecipeList recipes={filteredData} patcheNo={pageNo} />
-//     </>
-//   )
-// }
-
-// export async function getServerSideProps(context) {
-//   const pageNo = context.params.pageNumber;
-//   const tagWord = context.params.tagWord
-//   //const recipes = context.params.recipes
-//   const filteredRecipes1 = { tags: tagWord }
-//   console.log(pageNo)
-//   console.log(filteredRecipes1)
-//   const Recipesfiltered = await runFilter(pageNo, filteredRecipes1)
-
-
-//   return {
-//     props: {
-//       Recipesfiltered, 
-//       pageNo,
-//       tagWord,
-//     },
-//   }
-// }
-
-//export default filteredRecipes;
-
 import { runFilter } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import { useState } from "react";
