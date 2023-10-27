@@ -25,8 +25,7 @@ function Recipe({ recipes, categories }) {
     <>
       <Navbar />
       <div >
-        <Image src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-
+        <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
 
 
       </div>
