@@ -46,6 +46,7 @@ function Recipe({ recipes, categories }) {
       </Link>
      
       <SearchBar />
+
       </div>
       <div className={styles.footer}>
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
@@ -55,6 +56,9 @@ function Recipe({ recipes, categories }) {
             from savory delights to sweet temptations.
           </span> Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
         </p>
+      </div>
+      <div className="search-container">
+        <SearchBar />
       </div>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
