@@ -25,27 +25,8 @@ function Recipe({ recipes, categories }) {
     <>
       <Navbar />
       <div >
-        <Image src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-      <div>
-      <FindTags tags={recipes.tags}/>
-      </div>
-      {recipeId > 1 &&
-        <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
-          <button onClick={() => {
-            setLoadData(20)
-            setLoadMore(80)
-          }} className="maroon-button" >Previous
-          </button>
-        </Link>}
-      <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
-        <button onClick={() => {
-          setLoadData(20)
-          setLoadMore(80)
-        }} className="maroon-button" >Next
-        </button>
-      </Link>
-     
-      <SearchBar />
+        <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
+
 
       </div>
       <div className={styles.footer}>
@@ -59,6 +40,9 @@ function Recipe({ recipes, categories }) {
       </div>
       <div className="search-container">
         <SearchBar />
+      </div>
+      <div>
+        <FindTags tags={recipes.tags} />
       </div>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
