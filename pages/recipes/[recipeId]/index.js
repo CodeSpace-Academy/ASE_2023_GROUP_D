@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import SearchBar from '@/components/text-search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
@@ -24,6 +25,22 @@ function Recipe({ recipes, categories }) {
       <div >
         <Image src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
 
+      {recipeId > 1 &&
+        <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
+          <button onClick={() => {
+            setLoadData(20)
+            setLoadMore(80)
+          }} className="maroon-button" >Previous
+          </button>
+        </Link>}
+      <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
+        <button onClick={() => {
+          setLoadData(20)
+          setLoadMore(80)
+        }} className="maroon-button" >Next
+        </button>
+      </Link>
+      <SearchBar />
       </div>
       <div className={styles.footer}>
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
