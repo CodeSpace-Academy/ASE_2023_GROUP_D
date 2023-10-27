@@ -8,7 +8,7 @@ export const client = new MongoClient(uri, {
 		strict: true,
 		deprecationErrors: true,
 		version: ServerApiVersion.v1,
-		strict: true,
+		strict: true,	
 		deprecationErrors: true,
 	}
 });
