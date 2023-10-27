@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+//import FilterAndSortSteps from '@/components/Navbar/filtertags/filterbyTag';
+import FindTags from '@/components/Navbar/filtertags/filterbyTag';
 
 
 function Recipe({ recipes, categories }) {
@@ -17,7 +19,9 @@ function Recipe({ recipes, categories }) {
   return (
     <>
       <Image src="/images/BrandLogo.png" alt="logo" width={300} height={100} />
-
+      <div>
+      <FindTags tags={recipes.tags}/>
+      </div>
       {recipeId > 1 &&
         <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
           <button onClick={() => {
@@ -33,6 +37,7 @@ function Recipe({ recipes, categories }) {
         }} className="maroon-button" >Next
         </button>
       </Link>
+     
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
 
