@@ -105,5 +105,20 @@ export async function runFilter(page,filter) {
 	}
 }
 
+export async function runSearch(page, filter) {
+	try{
+		const skip = (page - 1) * 100
+		// Use the find() method to retrieve data
+		const data = await collection.find(filter).skip(skip).limit(100).toArray();
+		// return data.slice(0, limit);
+		return data
 
+	} catch (error) {
+		console.error("Failed to connect to MongoDB:", error);
+	 } finally {
+		// Ensures that the client will close when you finish/error
+		await client.close();
+
+	}
+}
 
