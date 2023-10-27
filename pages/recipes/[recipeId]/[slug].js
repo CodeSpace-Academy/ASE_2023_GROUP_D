@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { run, run2 } from '../../../fetching-data/data'
@@ -37,13 +36,9 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   const tagsString = recipes.tags.join(', ');
   return (
 
-    <div className={styles.recipePreview}>
-      <div className={styles.imageDiv}>
-        <h1>{recipes.title}</h1>
-        <img src={recipes.images[0]} alt={recipes._id} width={400} height={300} />
-      </div>
-
-
+    <div className='.recipeDetails'>
+      <h1>{recipes.title}</h1>
+      <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
       {isEditingDescription ? (
          <UpdateDescription
            initialDescription={editedDescription}
@@ -56,14 +51,11 @@ const Recipe = ({ recipeId, data1, allergens }) => {
            <ErrorComponent message="Failed to load description" />
          )
       )}
-
-
-      <button className={styles['update-button']}
-        onClick={() => setIsEditingDescription(!isEditingDescription)}>
-
+      <button  className={styles['update-button']}
+      onClick={() => setIsEditingDescription(!isEditingDescription)}>
         {isEditingDescription ? 'Cancel' : 'Update Description'}
       </button>
-      <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''}</p>
+      <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} `: ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} `: ''}</p>
       <h2>Allergens</h2>
       {allergensForRecipe.length > 0 ? (
         <ul>
@@ -87,22 +79,16 @@ const Recipe = ({ recipeId, data1, allergens }) => {
         ))}
       </ul>
       <h2>Instructions</h2>
-
-
-
-      <div>
-        <RecipesInstructions instructions={recipes.instructions} />
-      </div>
-
-
-      {/* <button className={styles['update-button']}
-        onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
-        {isEditingInstructions ? 'Cancel' : 'Edit Instructions'}
-      </button> */}
-
+       {recipes.instructions.length > 0 ? (
+         <ol>
+           {recipes.instructions.map((step, index) => (
+             <li key={index}>{step}</li>
+           ))}
+         </ol>
+     ) : (
+        <ErrorComponent message="Failed to load instructions" />
+      )}
     </div>
-
-
   );
 };
 export async function getServerSideProps(context) {
@@ -125,6 +111,9 @@ export async function getServerSideProps(context) {
   }
 }
 export default Recipe;
+
+
+
 
 
 

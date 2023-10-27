@@ -1,14 +1,55 @@
-import React from "react";
+// RecipeList.js
+import React, { useState } from "react";
 import RecipesItems from "./recipes-items";
-//import LoadMoreButton from "../ui/button/button"; // Import the LoadMoreButton component
-import styles from './recipes-list.module.css'
+import Sort from "../Navbar/sort-by-prep/sort-by-prep";
+import styles from "./recipes-list.module.css";
 
 function RecipeList({ recipes, patcheNo }) {
+  const [sortedRecipes, setSortedRecipes] = useState(recipes);
+  const [sortOrder, setSortOrder] = useState("ascending");
+
+  const sortRecipesByPrepTime = (newSortOrder) => {
+    const sorted = [...sortedRecipes];
+    sorted.sort((a, b) => {
+      if (newSortOrder === "ascending") {
+        return a.prep - b.prep;
+      } else {
+        return b.prep - a.prep;
+      }
+    });
+    setSortedRecipes(sorted);
+    setSortOrder(newSortOrder);
+  };
+  
+  const filterRecipesByPrepTime = (maxPrepTime) => {
+    const filteredRecipes = recipes.filter((recipe) => {
+      if (maxPrepTime === "90+") {
+        return recipe.prep >= 90;
+      }
+      return recipe.prep <= maxPrepTime;
+    });
+    setSortedRecipes(filteredRecipes);
+  };
+
+
 
   return (
     <div className={styles.container}>
+      <Sort
+        sortOrder={sortOrder}
+        onSortOrderChange={sortRecipesByPrepTime}
+      />
+      <div>
+        <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
+        <button onClick={() => filterRecipesByPrepTime(30)}>{"< 30 min"}</button>
+        <button onClick={() => filterRecipesByPrepTime(45)}>{"< 45 min"}</button>
+        <button onClick={() => filterRecipesByPrepTime(60)}>{"< 60 min"}</button>
+        <button onClick={() => filterRecipesByPrepTime(90)}>{"< 90 min"}</button>
+        <button onClick={() => filterRecipesByPrepTime("90+")}>{"> 90 min"}</button>
+      </div>
+
       <ul className={styles.list}>
-        {recipes.map((recipe) => (
+        {sortedRecipes.map((recipe) => (
           <RecipesItems
             key={recipe._id}
             id={recipe._id}
@@ -22,17 +63,27 @@ function RecipeList({ recipes, patcheNo }) {
             servings={recipe.servings}
             published={recipe.published}
           />
-        ))} 
+        ))}
       </ul>
-      {/* {visibleRecipes < recipes.length && (
-        <LoadMoreButton onClick={loadMore} remaining={remainingRecipes} />
-      )}
-      {isLoading && <p>Loading...</p>} */}
     </div>
   );
 }
 
 export default RecipeList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
