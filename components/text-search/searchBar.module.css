@@ -1,0 +1,41 @@
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 30px; /* Rounded edges */
+  padding: 10px;
+  background: rgb(61, 52, 52);
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+/* searchBar.module.css */
+/* ... other styles ... */
+
+.input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    background: #ccc; /* Grey background color */
+    padding: 10px;
+    border-radius: 30px;
+  }
+  
+  /* ... other styles ... */
+  
+
+.button {
+  background: #ff0000; /* Red button color */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.button:hover {
+  background: #972f2f; /* Darker red color on hover */
+}
