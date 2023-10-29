@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react';
 function RecipesItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes } = props
 
+    const favRecipeIds = favRecipes.map((recipe) => recipe._id)
+
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
-
-    const viewRecipeLink = `/recipes/${patcheNo}/${id}`
 
     const recipeToBeInsertedToFav = {
         _id: id,
@@ -64,10 +64,10 @@ function RecipesItems(props) {
                 <div> {servings} </div>
                 <div className={styles.date}>{formattedPublishedDate} </div>
                 <div className={styles.actions}>
-                    <Button link={viewRecipeLink} className={styles.viewRecipeButton}>
+                    <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                         <span className={styles.viewRecipeButtonText}>View Recipe</span>
                     </Button>
-                    <button onClick={() => addCommentHandler(recipeToBeInsertedToFav)} className="maroon-button">{favRecipes.includes(id) ?'Rev From Fav' :'Add To Fav'}</button>
+                    <button onClick={() => addCommentHandler(recipeToBeInsertedToFav)}>{favRecipeIds.includes(id) ?'Rev From Fav' :'Add To Fav'}</button>
                 </div>
             </li>
         </div>

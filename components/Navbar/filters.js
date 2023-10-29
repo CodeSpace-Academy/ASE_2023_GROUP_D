@@ -1,9 +1,6 @@
 import FilterAndSortSteps from "./filtertags/filterbyTag";
 
 function Filters() {
-    return (
-        
-    )
 
 }
 

@@ -129,7 +129,9 @@ export async function runSortDate(page) {
 		await client.close();
 
 	}
-}export async function runFav(page) {
+}
+
+export async function runFav(page) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		await client.connect();
@@ -142,7 +144,7 @@ export async function runSortDate(page) {
 		// Use the find() method to retrieve data
 		const data = await collection.find({}).skip(skip).limit(100).toArray();
 		// return data.slice(0, limit);
-		return data.map((recipe) => recipe._id)
+		return data
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
