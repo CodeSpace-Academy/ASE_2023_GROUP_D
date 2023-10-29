@@ -3,7 +3,11 @@ import RecipesItems from "./recipes-items";
 //import LoadMoreButton from "../ui/button/button"; // Import the LoadMoreButton component
 import styles from './recipes-list.module.css'
 
-function RecipeList({ recipes, patcheNo }) {
+function RecipeList({ recipes, patcheNo, favRecipes }) {
+
+  // const recipeIds = []
+  // recipes.map((recipe)=>( recipeIds.push(recipe._id)))
+  // console.log(recipeIds)
 
   return (
     <div className={styles.container}>
@@ -21,6 +25,7 @@ function RecipeList({ recipes, patcheNo }) {
             category={recipe.category}
             servings={recipe.servings}
             published={recipe.published}
+            favRecipes={favRecipes}
           />
         ))} 
       </ul>

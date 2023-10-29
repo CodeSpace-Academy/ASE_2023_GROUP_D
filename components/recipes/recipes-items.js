@@ -1,15 +1,42 @@
 import styles from './recipes-items.module.css';
 import React from 'react';
 import Button from '../ui/button/button';
+import { useState, useEffect } from 'react';
 
 function RecipesItems(props) {
-    const { id, title, prep, cook, category, servings, published, image, patcheNo } = props
+    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes } = props
 
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
 
     const viewRecipeLink = `/recipes/${patcheNo}/${id}`
 
+    const recipeToBeInsertedToFav = {
+        _id: id,
+        patcheNo: patcheNo,
+        title: title,
+        images: [image],
+        description: description,
+        prep: prep,
+        cook: cook,
+        category: category,
+        servings: servings,
+        published: published
+    }
+
+    function addCommentHandler(recipeData) {
+        fetch('/api/favourites', {
+            method: 'POST',
+            body: JSON.stringify(recipeData),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data.recipes._id));
+    }
+
+//   console.log(favRecipes)
     return (
         <div className={styles.link}>
 
@@ -40,10 +67,11 @@ function RecipesItems(props) {
                     <Button link={viewRecipeLink} className={styles.viewRecipeButton}>
                         <span className={styles.viewRecipeButtonText}>View Recipe</span>
                     </Button>
+                    <button onClick={() => addCommentHandler(recipeToBeInsertedToFav)} className="maroon-button">{favRecipes.includes(id) ?'Rev From Fav' :'Add To Fav'}</button>
                 </div>
             </li>
         </div>
     )
 }
 
-export default RecipesItems;
+export default RecipesItems; 
