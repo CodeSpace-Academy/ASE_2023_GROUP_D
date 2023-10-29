@@ -42,7 +42,7 @@
 
 // pages/api/update-instruction.js
 
-import { MongoClient } from 'mongodb';
+//import { MongoClient } from 'mongodb';
 import run from '../../fetching-data/data';
 
 async function runUpdateInstruction(recipeId, editedInstructions) {

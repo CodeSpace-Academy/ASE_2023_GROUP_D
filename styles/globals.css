@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
 * {
   box-sizing: border-box;
 }
@@ -7,7 +11,7 @@
 body {
   margin: 0;
   font-family: 'Open Sans', 'Lato', sans-serif;
-  background-color: #d5d2d2;
+  background-color: white;
 }
 
 .logo {
@@ -24,8 +28,12 @@ h6 {
   color: #2b2b2b;
 }
 
+.button-container {
+  text-align: center; /* Align the buttons to the left */
+}
+
 .maroon-button {
-  background-color: maroon; /* Maroon background color */
+  background-color: #E12626; /* Maroon background color */
   font-weight: bold;
   color: #fff; /* White text color */
   border: none;
@@ -86,7 +94,7 @@ text-align: center;
   box-sizing: border-box;
   }
 
-  .carousel-container {
+  /* .carousel-container {
   display: flex;
   width: 100%;
   overflow-x: auto;
@@ -94,7 +102,7 @@ text-align: center;
 
   .carousel-container > * {
   min-width: 100%;
-  }
+  } */
 
 
 .show-info {
@@ -104,7 +112,7 @@ text-align: center;
 
 }
 
-.show-info>div {
+.show-info > div {
   padding: 5px;
   text-align: center;
   background-color: #fff;
@@ -143,4 +151,12 @@ text-align: center;
 
 .arrow-icon.forward {
   right: 10px;
+}
+
+/* Add this CSS to your stylesheet */
+.search-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 10vh; /* Set a specific height or adjust as needed */
 }
