@@ -33,8 +33,8 @@ function RecipeList({ recipes, patcheNo }) {
   //sortByPublishedDate
   // function sortByPublishedDate() {
   //   const sortedRecipes = [...recipes];
-   
-   
+
+
   // };
 
   //  const sortedRecipes = sortByPublishedDate();
@@ -45,13 +45,14 @@ function RecipeList({ recipes, patcheNo }) {
       const newToOld = sortedRecipes.sort((a, b) => new Date(b.published) - new Date(a.published));
       setSortedRecipes(newToOld);
     } else if (sortingOption === "oldest-to-newest") {
-     const oldToNew = sortedRecipes.sort((a, b) => new Date(a.published) - new Date(b.published));
+      const oldToNew = sortedRecipes.sort((a, b) => new Date(a.published) - new Date(b.published));
       setSortedRecipes(oldToNew);
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div >
+      <br/>
       <Sort
         sortOrder={sortOrder}
         onSortOrderChange={sortRecipesByPrepTime}
@@ -65,9 +66,10 @@ function RecipeList({ recipes, patcheNo }) {
         <button onClick={() => filterRecipesByPrepTime("90+")}>{"> 90 min"}</button>
       </div>
 
-
-      <div className={styles.container}>
+      <br />
+      <div >
         <div>
+          <label htmlFor="sortOrder">Sort by Date: </label>
           <select value={sortingOption} onChange={handleSortingChange}>
             <option value="newest-to-oldest">Newest First</option>
             <option value="oldest-to-newest">Oldest First</option>
