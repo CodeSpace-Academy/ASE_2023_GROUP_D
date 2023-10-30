@@ -37,16 +37,7 @@ function Recipe({ recipes, categories }) {
           }} className="maroon-button" >Previous
           </button>
         </Link>}
-      <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
-        <button onClick={() => {
-          setLoadData(20)
-          setLoadMore(80)
-        }} className="maroon-button" >Next
-        </button>
-      </Link>
-     
-      <SearchBar />
-
+      
       </div>
       <div className={styles.footer}>
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
