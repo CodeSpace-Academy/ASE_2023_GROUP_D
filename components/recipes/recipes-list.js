@@ -1,12 +1,14 @@
-// RecipeList.js
 import React, { useState } from "react";
 import RecipesItems from "./recipes-items";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
+
 function RecipeList({ recipes, patcheNo }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
-  const [sortingOption, setSortingOption] = useState("newest-to-oldest");
+  const [sortingOption, setSortingOption] = useState("default"); // Set the default sorting option
+  const [defaultSortOrder, setDefaultSortOrder] = useState("ascending"); // Set the default sorting order
+
   const sortRecipesByPrepTime = (newSortOrder) => {
     const sorted = [...sortedRecipes];
     sorted.sort((a, b) => {
@@ -18,6 +20,8 @@ function RecipeList({ recipes, patcheNo }) {
     });
     setSortedRecipes(sorted);
     setSortOrder(newSortOrder);
+    setSortingOption("default"); // Reset to default sorting when user sorts by prep time
+    setDefaultSortOrder(newSortOrder); // Update default sorting order
   };
 
   const filterRecipesByPrepTime = (maxPrepTime) => {
@@ -28,35 +32,41 @@ function RecipeList({ recipes, patcheNo }) {
       return recipe.prep <= maxPrepTime;
     });
     setSortedRecipes(filteredRecipes);
+    setSortingOption("default"); // Reset to default sorting when user filters by prep time
   };
 
-  //sortByPublishedDate
-  // function sortByPublishedDate() {
-  //   const sortedRecipes = [...recipes];
-
-
-  // };
-
-  //  const sortedRecipes = sortByPublishedDate();
-
   const handleSortingChange = (e) => {
-    setSortingOption(e.target.value);
-    if (sortingOption === "newest-to-oldest") {
-      const newToOld = sortedRecipes.sort((a, b) => new Date(b.published) - new Date(a.published));
+    const selectedOption = e.target.value;
+    setSortingOption(selectedOption);
+
+    if (selectedOption === "default") {
+      // Return to default sorting
+      const sorted = [...recipes];
+      if (defaultSortOrder === "ascending") {
+        sorted.sort((a, b) => new Date(a.published) - new Date(b.published));
+      } else {
+        sorted.sort((a, b) => new Date(b.published) - new Date(a.published));
+      }
+      setSortedRecipes(sorted);
+      setSortOrder(defaultSortOrder);
+    } else if (selectedOption === "newest-to-oldest") {
+      const newToOld = [...sortedRecipes];
+      newToOld.sort((a, b) => new Date(b.published) - new Date(a.published));
       setSortedRecipes(newToOld);
-    } else if (sortingOption === "oldest-to-newest") {
-      const oldToNew = sortedRecipes.sort((a, b) => new Date(a.published) - new Date(b.published));
+
+    } else if (selectedOption === "oldest-to-newest") {
+      const oldToNew = [...sortedRecipes];
+      oldToNew.sort((a, b) => new Date(a.published) - new Date(b.published));
+
       setSortedRecipes(oldToNew);
     }
   };
 
   return (
-    <div >
-      <br/>
-      <Sort
-        sortOrder={sortOrder}
-        onSortOrderChange={sortRecipesByPrepTime}
-      />
+
+    <div className={styles.container}>
+      <Sort sortOrder={sortOrder} onSortOrderChange={sortRecipesByPrepTime} />
+
       <div>
         <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
         <button onClick={() => filterRecipesByPrepTime(30)}>{"< 30 min"}</button>
@@ -66,11 +76,14 @@ function RecipeList({ recipes, patcheNo }) {
         <button onClick={() => filterRecipesByPrepTime("90+")}>{"> 90 min"}</button>
       </div>
 
+
+      <div className={styles.container}>
       <br />
-      <div >
+
         <div>
           <label htmlFor="sortOrder">Sort by Date: </label>
           <select value={sortingOption} onChange={handleSortingChange}>
+            <option value="default">Default Sorting</option>
             <option value="newest-to-oldest">Newest First</option>
             <option value="oldest-to-newest">Oldest First</option>
           </select>
@@ -91,6 +104,7 @@ function RecipeList({ recipes, patcheNo }) {
               servings={recipe.servings}
               published={recipe.published}
             />
+            
           ))}
         </ul>
       </div>
