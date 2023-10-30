@@ -13,9 +13,9 @@ function SearchBar() {
     };
     return (
         <section>
-            <div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '12vh' }}>
                 <div className={styles.searchBar}>
-                    <input className={styles.input} type="text"  placeholder="Search..." onChange={e => setQuery(e.target.value)} />
+                    <input className={styles.input} type="text"  placeholder=" Enter text ..." onChange={e => setQuery(e.target.value)} />
                     <Link href={`/Search/${query}`}>
                         <button className={styles.button}>Search</button></Link>
                 </div>

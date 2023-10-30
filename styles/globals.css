@@ -28,30 +28,6 @@ h6 {
   text-align: center; /* Align the buttons to the left */
 }
 
-.maroon-button {
-  background-color: #E12626; /* Maroon background color */
-  font-weight: bold;
-  color: #fff; /* White text color */
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s; /* Add a smooth transition for hover effect */
-
-  /* Black background on hover */
-  &:hover {
-    background-color: black;
-  }
-
-  /* Disable button style */
-  &:disabled {
-    background-color: #ccc; /* Light gray background for disabled state */
-    cursor: not-allowed;
-  }
-}
-
-
 /* .recipeDetails{
 text-align: center;
 } */
@@ -90,15 +66,6 @@ text-align: center;
   box-sizing: border-box;
   }
 
-  .carousel-container {
-  display: flex;
-  width: 100%;
-  overflow-x: auto;
-  }
-
-  .carousel-container > * {
-  min-width: 100%;
-  }
 
 
 .show-info {
