@@ -82,7 +82,8 @@ const Recipe = ({ recipeId, data1, allergens }) => {
         ))}
       </ul>
       <h2>Instructions</h2>
-       {recipes.instructions.length > 0 ? (
+      <RecipesInstructions instructions={recipes.instructions}/>
+       {/* {recipes.instructions.length > 0 ? (
          <ol>
            {recipes.instructions.map((step, index) => (
              <li key={index}>{step}</li>
@@ -90,7 +91,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
          </ol>
      ) : (
         <ErrorComponent message="Failed to load instructions" />
-      )}
+      )} */}
     </div>
   );
 };
