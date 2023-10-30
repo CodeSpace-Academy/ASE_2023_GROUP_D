@@ -26,9 +26,6 @@ function Recipe({ recipes, categories }) {
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-      <div>
-      <FindTags tags={recipes.tags}/>
-      </div>
       {recipeId > 1 &&
         <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
           <button onClick={() => {
