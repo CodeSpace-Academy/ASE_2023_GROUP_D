@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 function SearchBar() {
   const [query, setQuery] = useState("");
   const router = useRouter();
-  const delay = 500; // Adjust this value to control the delay
+  const delay = 5000; // Adjust this value to control the delay
   let debounceTimeout;
 
   const handleInputChange = (e) => {
