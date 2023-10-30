@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './FilterByTags.module.css';
+
 
 function FilterAndSortTags({ recipes }) {
     const [tag, setTag] = useState('');
@@ -13,6 +15,7 @@ function FilterAndSortTags({ recipes }) {
     }
 
     return (
+
         <div className={styles.container}>
           <div>
             <label htmlFor="tag" className={styles.label}>
@@ -36,6 +39,7 @@ function FilterAndSortTags({ recipes }) {
               </div>
             </Link>
           </div>
+
         </div>
       );
     };
