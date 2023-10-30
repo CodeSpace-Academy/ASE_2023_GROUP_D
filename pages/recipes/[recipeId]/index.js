@@ -25,7 +25,7 @@ function Recipe({ recipes, categories }) {
     <>
       <Navbar />
       <div >
-        <Image src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
+        <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
       <div>
       <FindTags tags={recipes.tags}/>
       </div>
@@ -50,6 +50,9 @@ function Recipe({ recipes, categories }) {
       </div>
       <div className="search-container">
         <SearchBar />
+      </div>
+      <div>
+        <FindTags tags={recipes.tags} />
       </div>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />

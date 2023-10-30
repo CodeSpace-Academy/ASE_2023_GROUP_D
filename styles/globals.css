@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
 * {
   box-sizing: border-box;
 }
@@ -90,7 +94,7 @@ text-align: center;
   box-sizing: border-box;
   }
 
-  .carousel-container {
+  /* .carousel-container {
   display: flex;
   width: 100%;
   overflow-x: auto;
@@ -98,7 +102,7 @@ text-align: center;
 
   .carousel-container > * {
   min-width: 100%;
-  }
+  } */
 
 
 .show-info {
@@ -108,7 +112,7 @@ text-align: center;
 
 }
 
-.show-info>div {
+.show-info > div {
   padding: 5px;
   text-align: center;
   background-color: #fff;
