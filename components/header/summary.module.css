@@ -32,10 +32,36 @@
   }
   
   .summaryText {
+    padding: 20px;
+    text-align: center;
     font-size: 16px;
   }
   
   .italianoFont {
     font-family: "ItallianoFont", cursive;
   }
+
+  /* ButtonStyles.module.css */
+.button {
+  background: rgb(168, 48, 48); /* Red background color */
+  color: #FFFFFF; /* White text color */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px; /* Add margin between buttons */
+}
+
+.button:hover {
+  background: #f80404; /* White background color on hover */
+  color: #e5e2e2; /* Red text color on hover */
+}
+
+.disabled {
+  background: #ac9696; /* Grey background for disabled button */
+  color: #666666; /* Dark grey text for disabled button */
+  cursor: not-allowed;
+}
+
   
