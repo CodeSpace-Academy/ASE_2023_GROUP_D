@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import styles from './FilterByTags.module.css';
+import styles from '@/components/Navbar/filtertags/filterByTags.module.css';
 
 function FilterAndSortTags({ recipes }) {
     const [tag, setTag] = useState('');
