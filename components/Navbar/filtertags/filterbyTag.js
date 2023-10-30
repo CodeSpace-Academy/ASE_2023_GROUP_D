@@ -1,41 +1,6 @@
-// import React, { useState } from 'react';
-// import Link from 'next/link';
 
-// function FindTags(tag) {
-//     const [tag, setTag] = useState('');
-//     function handleFindTags() {
-//         // Filter recipes based on the entered tag
-//         console.log(tag);
-//     }
-
-//     return (
-//         <div>
-//             <div>
-//                 <label htmlFor="tagString">Enter Tag: </label>
-//                 <input
-//                     type='text'
-//                     id="tagString"
-//                     value={tag}
-//                     onChange={(e) => setTag(e.target.value)}
-//                 />
-
-
-//             </div>
-
-//             <div>
-//                 <Link href={`/filters/1/${tag}`}>
-//                     <button onClick={handleFindTags}>Find Recipes tags</button>
-//                 </Link>
-//             </div>
-//         </div>
-
-//     );
-// }
-
-// export default FindTags;
-
-import React, { useState } from 'react';
 import Link from 'next/link';
+import React, { useState } from 'react';
 
 function FilterAndSortTags({ recipes }) {
     const [tag, setTag] = useState('');
@@ -60,7 +25,7 @@ function FilterAndSortTags({ recipes }) {
             </div>
             <div>
                 <Link href={`/filters/1/${tag}`}>
-                    <button onClick={handleFindTags}>Find Recipes</button>
+                    <button onClick={handleFindTags}>Find Recipes Tags</button>
                 </Link>
             </div>
 

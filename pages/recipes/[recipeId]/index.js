@@ -26,7 +26,18 @@ function Recipe({ recipes, categories, favRecipes }) {
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-
+      <div>
+      <FindTags tags={recipes.tags}/>
+      </div>
+      {recipeId > 1 &&
+        <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
+          <button onClick={() => {
+            setLoadData(20)
+            setLoadMore(80)
+          }} className="maroon-button" >Previous
+          </button>
+        </Link>}
+      
       </div>
       <div className={styles.footer}>
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
