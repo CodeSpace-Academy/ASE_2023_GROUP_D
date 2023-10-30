@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import React, { useState, useEffect } from "react";
 import RecipesItems from "./recipes-items";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
