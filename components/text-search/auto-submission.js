@@ -1,23 +1,44 @@
-import { useState } from "react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 function SearchBar() {
-      // State to store the search query
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const delay = 5000; // Adjust this value to control the delay
+  let debounceTimeout;
 
-  // Function to handle the search button click
-  const handleSearch = () => {
-    // Call the onSearch function with the current query as an argument
-    onSearch(query);
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setQuery(inputValue);
   };
-    return (
-        <section>
-            <div>
-                <label htmlFor="search">Search</label>
-                <input type="text" onChange={e => setQuery(e.target.value)} />
-                <Link href={`/Search/${query}`}><button>Search</button></Link> 
-            </div>
-        </section>
-    );
+
+  useEffect(() => {
+    // Clear the previous timeout when the input changes
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    // Set a new timeout to submit the search query
+    if (query) {
+      debounceTimeout = setTimeout(() => {
+        router.push(`/Search/${query}`);
+      }, delay);
+    }
+
+    // Cleanup: Clear the timeout when the component unmounts
+    return () => {
+      clearTimeout(debounceTimeout);
+    };
+  }, [query, router, delay]);
+
+  return (
+    <section>
+      <div>
+        <label htmlFor="search">Search</label>
+        <input type="text" onChange={handleInputChange} value={query} />
+      </div>
+    </section>
+  );
 }
+
 export default SearchBar;

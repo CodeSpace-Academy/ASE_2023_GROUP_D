@@ -1,4 +1,4 @@
-import { runSearch } from "@/fetching-data/data";
+import { runFilter } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
 import SearchBar from "@/components/text-search/auto-submission";
@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
 
     console.log(filterCharacter)
     // This is the list of recipes that were found based on the user's search.
-    const filteredCharacters = await runSearch(1, filterCharacter)
+    const filteredCharacters = await runFilter(1, filterCharacter)
 
     // Send the list of recipes to be displayed on the webpage.
     return {
