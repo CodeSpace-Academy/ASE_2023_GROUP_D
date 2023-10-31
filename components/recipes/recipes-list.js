@@ -7,17 +7,38 @@ function RecipeList({ recipes, patcheNo }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
   const [sortingOption, setSortingOption] = useState("newest-to-oldest");
-  const sortRecipesByPrepTime = (newSortOrder) => {
+
+  const [sortingField, setSortingField] = useState('prep');
+  // const sortRecipesByPrepTime = (newSortOrder) => {
+  //   const sorted = [...sortedRecipes];
+    
+  
+
+  //   sorted.sort((a, b) => {
+  //     if (newSortOrder === "ascending") {
+  //       return a.prep - b.prep;
+  //     } else {
+  //       return b.prep - a.prep;
+  //     }
+  //   });
+  //   setSortedRecipes(sorted);
+  //   setSortOrder(newSortOrder);
+  // };
+
+  const sortRecipesByField = (newSortField, newSortOrder) => {
     const sorted = [...sortedRecipes];
+
     sorted.sort((a, b) => {
       if (newSortOrder === "ascending") {
-        return a.prep - b.prep;
+        return a[newSortField] - b[newSortField];
       } else {
-        return b.prep - a.prep;
+        return b[newSortField] - a[newSortField];
       }
     });
+
     setSortedRecipes(sorted);
     setSortOrder(newSortOrder);
+    setSortingField(newSortField);
   };
 
   const filterRecipesByPrepTime = (maxPrepTime) => {
@@ -30,6 +51,27 @@ function RecipeList({ recipes, patcheNo }) {
     setSortedRecipes(filteredRecipes);
   };
 
+
+  const filterRecipesByCookTime = (maxCookTime) => {
+    const filteredRecipes = recipes.filter((recipe) => {
+      if (maxCookTime === "15") {
+        return recipe.cook <= 15;
+      } else if (maxCookTime === "30") {
+        return recipe.cook <= 30;
+      } else if (maxCookTime === "45") {
+        return recipe.cook <= 45;
+      } else if (maxCookTime === "60") {
+        return recipe.cook <= 60;
+      } else if (maxCookTime === "75") {
+        return recipe.cook <= 75;
+      } else if (maxCookTime === "100") {
+        return recipe.cook <= 100;
+      } else {
+        return recipe.cook > 100;
+      }
+    });
+    setSortedRecipes(filteredRecipes);
+  };
   //sortByPublishedDate
   // function sortByPublishedDate() {
   //   const sortedRecipes = [...recipes];
@@ -52,10 +94,17 @@ function RecipeList({ recipes, patcheNo }) {
 
   return (
     <div className={styles.container}>
-      <Sort
+      {/* <Sort
         sortOrder={sortOrder}
         onSortOrderChange={sortRecipesByPrepTime}
+      /> */}
+
+     <Sort
+        sortOrder={sortOrder}
+        onSortOrderChange={sortRecipesByField.bind(null, sortingField)}
       />
+   
+
       <div>
         <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
         <button onClick={() => filterRecipesByPrepTime(30)}>{"< 30 min"}</button>
@@ -64,6 +113,21 @@ function RecipeList({ recipes, patcheNo }) {
         <button onClick={() => filterRecipesByPrepTime(90)}>{"< 90 min"}</button>
         <button onClick={() => filterRecipesByPrepTime("90+")}>{"> 90 min"}</button>
       </div>
+      <br />
+
+      <button onClick={() => sortRecipesByField("cook", "ascending")}>Sort by Cook Time (Ascending)</button>
+<button onClick={() => sortRecipesByField("cook", "descending")}>Sort by Cook Time (Descending)</button>
+
+<div>
+  <button onClick={() => filterRecipesByCookTime("15")}>{"< 15 min"}</button>
+  <button onClick={() => filterRecipesByCookTime("30")}>{"< 30 min"}</button>
+  <button onClick={() => filterRecipesByCookTime("45")}>{"< 45 min"}</button>
+  <button onClick={() => filterRecipesByCookTime("60")}>{"< 60 min"}</button>
+  <button onClick={() => filterRecipesByCookTime("75")}>{"< 75 min"}</button>
+  <button onClick={() => filterRecipesByCookTime("100")}>{"< 100 min"}</button>
+  <button onClick={() => filterRecipesByCookTime("200")}>{"> 100 min"}</button>
+</div>
+<br />
 
 
       <div className={styles.container}>
