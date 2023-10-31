@@ -61,7 +61,7 @@ function Recipe({ recipes, categories }) {
             setLoadData(loadData + 20)
           }}
             disabled={loadmore == 0 ? true : false}
-            className={`${styles.button} ${loadmore === 0 ? styles.disabled : ''}`}
+            className={`${styles.button} `}
           >Load More {`(${loadmore})`}
           </button>
         </div>
