@@ -42,7 +42,8 @@ function Recipe({ recipes, categories }) {
           <span className={styles.italianoFont}>
             Indulge in a culinary adventure like never before. Our handpicked selection of recipes caters to every palate,
             from savory delights to sweet temptations.
-          </span> Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
+            Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
+          </span> 
         </p>
       </div>
 
@@ -61,7 +62,7 @@ function Recipe({ recipes, categories }) {
             setLoadData(loadData + 20)
           }}
             disabled={loadmore == 0 ? true : false}
-            className={`${styles.button} ${loadmore === 0 ? styles.disabled : ''}`}
+            className={`${styles.button} `}
           >Load More {`(${loadmore})`}
           </button>
         </div>
