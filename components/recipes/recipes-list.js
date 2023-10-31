@@ -4,7 +4,6 @@ import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 import FilterBySteps from "../Navbar/Filter/FilterSteps";
 import FilterByIngredients from '../Navbar/Filter/filterIngredients';
-import styles from './recipes-list.module.css';
 import { runFilter } from "@/fetching-data/data";
 
 function RecipeList({ recipes, patcheNo }) {
@@ -76,7 +75,7 @@ function RecipeList({ recipes, patcheNo }) {
       const filteredData = await runFilter(1, filter); // Assuming you're on page 1
 
       if (filteredData.length > 0) {
-        setFilteredRecipes(filtered);
+        setFilteredRecipes(filteredData);
         setNoRecipesMessage(null);
       } else {
         setFilteredRecipes(null);
@@ -89,7 +88,7 @@ function RecipeList({ recipes, patcheNo }) {
   };
 
   const handleFilterBySteps = (numSteps) => {
-    const filteredData = recipes.filter(recipe => recipe.instructions.length === numSteps);
+    const filtered= recipes.filter(recipe => recipe.instructions.length === numSteps);
     if (filtered.length > 0) {
       setFilteredRecipes(filtered);
       setNoRecipesMessage(null);
