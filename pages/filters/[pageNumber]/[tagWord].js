@@ -2,6 +2,7 @@
 import { runFilter } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import { useState } from "react";
+import Link from "next/link";
 
 function FilteredRecipes({ Recipesfiltered, pageNo }) {
   const [tags, setTags] = useState([]);
@@ -35,6 +36,9 @@ function FilteredRecipes({ Recipesfiltered, pageNo }) {
           onChange={(e) => setNewTag(e.target.value)}
         />
         <button onClick={handleAddTag}>Add tag</button>
+        <Link href={`/recipes/${_id}`}>
+          <button>Back</button>
+        </Link>
       </div>
 
       {tags.map((tag, index) => (
