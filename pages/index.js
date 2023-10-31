@@ -31,6 +31,7 @@ function Home(props) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+
           zIndex: 2, // Ensure buttons are on top of the background
         }}
       >
@@ -65,6 +66,7 @@ function Home(props) {
       </div>
     </div>
   );
+
 }
 
 export default Home;
