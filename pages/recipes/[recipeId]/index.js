@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 //import FilterAndSortSteps from '@/components/Navbar/filtertags/filterbyTag';
-import FindTags from '@/components/Navbar/filtertags/filterbyTag';
+import FilterAndSortTags from '@/components/Navbar/filtertags/filterbyTag';
 import SearchBar from '@/components/text-search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
@@ -26,9 +26,7 @@ function Recipe({ recipes, categories }) {
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-      <div>
-      <FindTags tags={recipes.tags}/>
-      </div>
+      
       {recipeId > 1 &&
         <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
           <button onClick={() => {
@@ -52,7 +50,7 @@ function Recipe({ recipes, categories }) {
         <SearchBar />
       </div>
       <div>
-        <FindTags tags={recipes.tags} />
+        <FilterAndSortTags recipes={recipes} />
       </div>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />

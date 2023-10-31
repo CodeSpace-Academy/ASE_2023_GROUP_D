@@ -26,7 +26,7 @@ function FilteredRecipes({ Recipesfiltered, pageNo }) {
 
   return (
     <>
-    <div>
+      <div>
         <label htmlFor="tag">Add Another Tag: </label>
         <input
           type="text"
@@ -36,15 +36,15 @@ function FilteredRecipes({ Recipesfiltered, pageNo }) {
         />
         <button onClick={handleAddTag}>Add tag</button>
       </div>
-    
-      {tags.map(tag => (
-        <div>
-        <button onClick={() => handleRemoveTag(tag)} key={tag}>{tag}</button>
-        <RecipeList recipes={filteredRecipes} pageNo={pageNo} />
+
+      {tags.map((tag, index) => (
+        <div key={index}>
+          <button onClick={() => handleRemoveTag(tag)} key={tag}>{tag}</button>
+          <RecipeList recipes={filteredRecipes} pageNo={pageNo} />
         </div>
       ))}
 
-      
+
       <RecipeList recipes={filteredRecipes} pageNo={pageNo} />
     </>
   );
