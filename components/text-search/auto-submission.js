@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-function SearchBar() {
+function SearchBar({search}) {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const delay = 5000; // Adjust this value to control the delay
@@ -35,7 +35,7 @@ function SearchBar() {
     <section>
       <div>
         <label htmlFor="search">Search</label>
-        <input type="text" onChange={handleInputChange} value={query} />
+        <input type="text" placeholder={search} onChange={handleInputChange} value={query} />
       </div>
     </section>
   );

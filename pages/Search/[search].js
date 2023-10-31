@@ -2,12 +2,15 @@ import { runFilter } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
 import SearchBar from "@/components/text-search/auto-submission";
+import { useRouter } from "next/router";
 
 function Search({ filteredCharacters }) {
+    const router = useRouter();
+    const {search} = router.query
     return (
         <>
             <Navbar />
-            <SearchBar />
+            <SearchBar  search={search} />
             {/* Render the 'RecipeList' component, passing in the first 20 items of the 'filteredCharacters' array and 'patcheNo' as a prop. */}
             <RecipeList recipes={filteredCharacters.slice(0, 20)} patcheNo={1} />
         </>
