@@ -1,4 +1,3 @@
-import SearchBar from "@/components/text-search/auto-submission";
 import Link from "next/link";
 
 
@@ -18,7 +17,7 @@ function Home(props) {
         <button className="theme-button">All Recipe</button>
       </Link>
 
-      <SearchBar />
+     
     </>
   )
 }
