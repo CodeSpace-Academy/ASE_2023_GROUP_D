@@ -169,3 +169,15 @@ export async function insertFavOrHistory(collection, document) {
 	}
  }
 
+ export async function DeleteFav(recipe) {
+	try {
+		// Connect the client to the server    (optional starting in v4.7)
+		await client.connect();
+		// Send a ping to confirm a successful connection
+		const db = client.db("devdb");
+		const result = await db.collection("favourites").deleteOne(recipe);
+		return console.log("deleted");
+	} catch (error) {
+		console.error("Failed to connect to MongoDB To save favourites", error);
+	}
+ }
