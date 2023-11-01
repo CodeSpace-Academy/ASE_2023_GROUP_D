@@ -4,7 +4,7 @@ import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 import FilterBySteps from "../Navbar/Filter/FilterSteps";
 import FilterByIngredients from '../Navbar/Filter/filterIngredients';
-import { runFilter } from "@/fetching-data/data";
+
 
 function RecipeList({ recipes, patcheNo }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
@@ -72,7 +72,7 @@ function RecipeList({ recipes, patcheNo }) {
       const filter = {
         'ingredients.name': { $regex: ingredients, $options: 'i' } // Case-insensitive search
       };
-      const filteredData = await runFilter(1, filter); // Assuming you're on page 1
+      const filteredData = await(1, filter); // Assuming you're on page 1
 
       if (filteredData.length > 0) {
         setFilteredRecipes(filteredData);

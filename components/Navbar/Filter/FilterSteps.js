@@ -21,7 +21,7 @@ function FilterBySteps({ onFilter }) {
       {!showInput && <button onClick={() => setShowInput(true)}>Filter by Steps</button>}
       {showInput && (
         <div>
-          <div className="input-container"
+          <input
             type="number"
             value={filterValue}
             onChange={handleInputChange}
@@ -34,6 +34,8 @@ function FilterBySteps({ onFilter }) {
 }
 
 export default FilterBySteps;
+
+
 
 
 
