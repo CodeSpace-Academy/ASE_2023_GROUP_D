@@ -5,7 +5,7 @@ import styles from "@/components/search/searchBar.module.css"
 function SearchBar({search}) {
   const [query, setQuery] = useState("");
   const router = useRouter();
-  const delay = 5000; // Adjust this value to control the delay
+  const delay = 5000; // Adjust this value to control the 1delay
   let debounceTimeout;
 
   const handleInputChange = (e) => {
