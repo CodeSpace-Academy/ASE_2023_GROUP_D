@@ -33,13 +33,11 @@ function SearchBar({search}) {
   }, [query, router, delay]);
 
   return (
-    <section>
-      <div className={styles.container}>
-      <div className={styles.searchBar}>
-        <input className={styles.input} type="text" placeholder="Enter text ..." />
-        <button className={styles.button}>Search</button>
+    <section className={styles.container}>
+     <div className={styles.searchBar}>
+        <label htmlFor="search">Search</label>
+        <input className={styles.input} type="text" placeholder={search} onChange={handleInputChange} value={query} />
       </div>
-    </div>
     </section>
   );
 }
