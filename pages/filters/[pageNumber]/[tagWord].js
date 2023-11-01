@@ -36,7 +36,7 @@ function FilteredRecipes({ Recipesfiltered, pageNo }) {
           onChange={(e) => setNewTag(e.target.value)}
         />
         <button onClick={handleAddTag}>Add tag</button>
-        <Link href={`/recipes/${_id}`}>
+        <Link href={`/recipes/${pageNo}`}>
           <button>Back</button>
         </Link>
       </div>

@@ -1,11 +1,4 @@
 
-// import Link from 'next/link';
-// import React, { useState } from 'react';
-
-// function FilterAndSortTags({ recipes }) {
-//     const [tag, setTag] = useState('');
-//     const [filteredRecipes, setFilteredRecipes] = useState([]);
-
 
 import Link from 'next/link';
 import React, { useState } from 'react';

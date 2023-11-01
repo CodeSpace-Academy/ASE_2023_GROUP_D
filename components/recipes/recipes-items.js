@@ -35,7 +35,7 @@ function RecipesItems(props) {
                 </div>
                 <div> {category} </div>
                 <div> {servings} </div>
-                <div className={styles.date}>{formattedPublishedDate} </div>
+                <div className={styles.date}> {formattedPublishedDate} </div>
                 <div className={styles.actions}>
                     <Button link={viewRecipeLink} className={styles.viewRecipeButton}>
                         <span className={styles.viewRecipeButtonText}>View Recipe</span>

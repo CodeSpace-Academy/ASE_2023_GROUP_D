@@ -10,6 +10,7 @@ import SearchBar from '@/components/text-search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
+import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
 
 
@@ -51,6 +52,9 @@ function Recipe({ recipes, categories }) {
       </div>
       <div>
         <FilterAndSortTags recipes={recipes} />
+      </div>
+      <div>
+        <MatchCategoryToIngredients recipes={recipes.ingredient} />
       </div>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
