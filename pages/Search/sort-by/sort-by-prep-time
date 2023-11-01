@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+
+function SortByPrepTime() {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedTime, setSelectedTime] = useState("All");
+
+  const prepTimes = ["< 15 min", "< 30 min", "< 45 min", "< 60 min", "< 90 min", "> 90 min"];
+
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time);
+    setShowDropdown(false);
+  };
+
+  return (
+    <div className="sort-by-prep-time">
+      <div className="dropdown">
+        <button onClick={() => setShowDropdown(!showDropdown)}>
+          Sort by Prep Time: {selectedTime}
+          {showDropdown ? "▲" : "▼"}
+        </button>
+        {showDropdown && (
+          <div className="dropdown-content">
+            {prepTimes.map((time) => (
+              <button key={time} onClick={() => handleTimeSelect(time)}>
+                {time}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default SortByPrepTime;
