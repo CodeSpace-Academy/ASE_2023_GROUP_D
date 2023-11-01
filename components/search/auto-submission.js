@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/text-search/searchBar.module.css"
+import styles from "@/components/search/searchBar.module.css"
 
 function SearchBar({search}) {
   const [query, setQuery] = useState("");
