@@ -16,8 +16,6 @@ function Home(props) {
         }}>
         <button className="theme-button">All Recipe</button>
       </Link>
-
-      <SearchBar />
     </>
   )
 }

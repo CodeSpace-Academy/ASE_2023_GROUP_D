@@ -1,4 +1,4 @@
-import { runSearch } from "@/fetching-data/data";
+import { runFilter } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 
 function Search({filteredCharacters}) {
@@ -15,7 +15,7 @@ export async function getServerSideProps(context) {
     const filterCharacter = { title: {$regex: searchChar, $options: 'i'}}
  
     console.log(filterCharacter)
-    const filteredCharacters = await runSearch(1, filterCharacter)
+    const filteredCharacters = await runFilter(1, filterCharacter)
  
 
     return {

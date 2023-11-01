@@ -41,8 +41,7 @@ function Recipe({ recipes, categories }) {
         }} className="maroon-button" >Next
         </button>
       </Link>
-     
-      <SearchBar />
+
 
       </div>
       <div className={styles.footer}>

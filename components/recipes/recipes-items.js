@@ -1,21 +1,37 @@
 import styles from './recipes-items.module.css';
 import React from 'react';
 import Button from '../ui/button/button';
+import { useState, useEffect } from 'react';
 
 function RecipesItems(props) {
-    const { id, title, prep, cook, category, servings, published, image, patcheNo } = props
+    const { id, title, prep, cook, category, servings, published, image, patcheNo, highlightQuery } = props
 
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
+    const [i, setI] = useState(highlightQuery);
+    const [text, setText] = useState(title);
 
-    const viewRecipeLink = `/recipes/${patcheNo}/${id}`
+//     useEffect(()=> {
+//         highlightQuery && title.toLowerCase().includes(highlightQuery.toLowerCase()) ? setText("yes") : setText(title)
+//     // const highlightTitle = () => { //added highlightTitle function 
+//     //     if (highlightQuery && title.toLowerCase().includes(highlightQuery.toLowerCase())) {
+//     //         const parts = title.split(new RegExp(`(${highlightQuery})`, 'gi'));
+//     //         return parts.map((part, index) =>
+//     //             part.toLowerCase() === highlightQuery.toLowerCase() ? <span key={index} className={styles.highlight}>{part}</span> : part
+//     //         );
+//     //     }
+//     //     else
+//     // };
+// })
+
+    // const title2 = highlightTitle
 
     return (
         <div className={styles.link}>
 
             <li className={styles.item}>
                 <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
-                <div className={styles.title1}><h2> {title} </h2></div>
+                <div className={styles.title1}><h2>{ text }</h2></div>
 
 
                 {/* <div className={styles.address}>Preparation: {prep} minutes </div>
@@ -37,7 +53,7 @@ function RecipesItems(props) {
                 <div> {servings} </div>
                 <div className={styles.date}>{formattedPublishedDate} </div>
                 <div className={styles.actions}>
-                    <Button link={viewRecipeLink} className={styles.viewRecipeButton}>
+                    <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                         <span className={styles.viewRecipeButtonText}>View Recipe</span>
                     </Button>
                 </div>

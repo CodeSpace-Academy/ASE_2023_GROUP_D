@@ -1,38 +1,4 @@
-// import React from "react";
-// import RecipesItems from "./recipes-items";
-// //import LoadMoreButton from "../ui/button/button"; // Import the LoadMoreButton component
-// import styles from './recipes-list.module.css'
 
-// function RecipeList({ recipes, patcheNo }) {
-
-//   return (
-//     <div className={styles.container}>
-//       <ul className={styles.list}>
-//         {recipes.map((recipe) => (
-//           <RecipesItems
-//             key={recipe._id}
-//             id={recipe._id}
-//             patcheNo={patcheNo}
-//             title={recipe.title}
-//             image={recipe.images[0]} 
-//             description={recipe.description}
-//             prep={recipe.prep}
-//             cook={recipe.cook}
-//             category={recipe.category}
-//             servings={recipe.servings}
-//             published={recipe.published}
-//           />
-//         ))} 
-//       </ul>
-//       {/* {visibleRecipes < recipes.length && (
-//         <LoadMoreButton onClick={loadMore} remaining={remainingRecipes} />
-//       )}
-//       {isLoading && <p>Loading...</p>} */}
-//     </div>
-//   );
-// }
-
-// export default RecipeList;
 
 
 
@@ -40,8 +6,9 @@ import React, { useState } from "react";
 import RecipesItems from "./recipes-items";
 import SearchBar from "../text-search/text-search-highlighting"; // Import the SearchBar component
 import styles from './recipes-list.module.css';
+import Sort from "../Navbar/sort-by-prep/sort-by-prep"
 
-function RecipeList({ recipes, patcheNo }) {
+function RecipeList({ recipes, patcheNo, hightlightQuery }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
   const [sortingOption, setSortingOption] = useState("newest-to-oldest");
@@ -68,14 +35,7 @@ function RecipeList({ recipes, patcheNo }) {
     setSortedRecipes(filteredRecipes);
   };
 
-  //sortByPublishedDate
-  // function sortByPublishedDate() {
-  //   const sortedRecipes = [...recipes];
-
-
-  // };
-
-  //  const sortedRecipes = sortByPublishedDate();
+  
 
   const handleSortingChange = (e) => {
     setSortingOption(e.target.value);
@@ -90,6 +50,7 @@ function RecipeList({ recipes, patcheNo }) {
 
   return (
     <div >
+      <SearchBar  />
       <br/>
       <Sort
         sortOrder={sortOrder}
@@ -128,6 +89,7 @@ function RecipeList({ recipes, patcheNo }) {
               category={recipe.category}
               servings={recipe.servings}
               published={recipe.published}
+              higlightQuery={hightlightQuery}
             />
           ))}
         </ul>
