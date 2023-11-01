@@ -27,7 +27,6 @@ function Recipe({ recipes, categories }) {
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-      
       {recipeId > 1 &&
         <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
           <button onClick={() => {
@@ -44,8 +43,13 @@ function Recipe({ recipes, categories }) {
           <span className={styles.italianoFont}>
             Indulge in a culinary adventure like never before. Our handpicked selection of recipes caters to every palate,
             from savory delights to sweet temptations.
-          </span> Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
+            Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
+          </span> 
         </p>
+      </div>
+
+      <div>
+        <FindTags tags={recipes.tags} />
       </div>
       <div className="search-container">
         <SearchBar />
@@ -64,10 +68,11 @@ function Recipe({ recipes, categories }) {
             setLoadData(loadData + 20)
           }}
             disabled={loadmore == 0 ? true : false}
-            className="maroon-button">Load More {`(${loadmore})`}
+            className={`${styles.button} `}
+          >Load More {`(${loadmore})`}
           </button>
         </div>
-        <div className="button-container">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
           {recipeId > 1 && (
             <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
               <button
@@ -75,7 +80,7 @@ function Recipe({ recipes, categories }) {
                   setLoadData(20);
                   setLoadMore(80);
                 }}
-                className="maroon-button"
+                className={styles.button}
               >
                 Previous
               </button>
@@ -87,7 +92,7 @@ function Recipe({ recipes, categories }) {
                 setLoadData(20);
                 setLoadMore(80);
               }}
-              className="maroon-button"
+              className={styles.button}
             >
               Next
             </button>
