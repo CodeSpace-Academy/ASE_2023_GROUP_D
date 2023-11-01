@@ -1,7 +1,8 @@
-import { insertFavOrHistory, runFav} from "@/fetching-data/data";
+import { insertFavOrHistory, DeleteFav} from "@/fetching-data/data";
 
 async function handler(req, res) {
 const FavRecipe = req.body
+const recipeID = req.query.filter;
 
     if (req.method === 'POST') {
         try {
@@ -12,15 +13,14 @@ const FavRecipe = req.body
         }
     }
 
-    // if (req.method === 'GET') {
-    //     try {
-    //         const recipes = await runFav(1);
-    //         // console.log(recipes)
-    //         res.status(200).json({ recipes: recipes});
-    //     } catch (error) {
-    //         res.status(500).json({ message: 'Inserting to Favourites failed!' });
-    //     }
-    // }
+    if (req.method === 'DELETE') {
+        try {
+            const recipes = await DeleteFav({recipeID});
+            res.status(200).json({ recipes: recipeID});
+        } catch (error) {
+            res.status(500).json({ message: 'Deleting from Favourites failed!' });
+        }
+    }
 }
 
 export default handler;
