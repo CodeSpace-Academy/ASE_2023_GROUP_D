@@ -53,9 +53,7 @@ function Recipe({ recipes, categories }) {
       <div>
         <FilterAndSortTags recipes={recipes} />
       </div>
-      <div>
-        <MatchCategoryToIngredients recipes={recipes.ingredient} />
-      </div>
+      
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
 
