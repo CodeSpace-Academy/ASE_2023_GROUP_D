@@ -54,10 +54,9 @@ function Recipe({ recipes, categories, favRecipes }) {
       <div>
         <FindTags tags={recipes.tags} />
       </div>
-      <Link href={'/favourites/1'}>
+      {/* <Link href={'/favourites/1'}>
         <button className="maroon-button">Favourites</button>
-      </Link>
-
+      </Link> */}
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} favRecipes={favRecipes} />
 
       <div>

@@ -34,7 +34,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/favourites">
+          <Link href={'/favourites/1'}>
             <h2 className={styles.link}>Favourites</h2>
           </Link>
         </li>
