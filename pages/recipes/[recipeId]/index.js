@@ -11,6 +11,7 @@ import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import Search from '@/components/search/filter';
+import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
 //import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
 
@@ -28,15 +29,15 @@ function Recipe({ recipes, categories }) {
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-      {recipeId > 1 &&
-        <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
-          <button onClick={() => {
-            setLoadData(20)
-            setLoadMore(80)
-          }} className="maroon-button" >Previous
-          </button>
-        </Link>}
-      
+        {recipeId > 1 &&
+          <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
+            <button onClick={() => {
+              setLoadData(20)
+              setLoadMore(80)
+            }} className="maroon-button" >Previous
+            </button>
+          </Link>}
+
       </div>
       <div className={styles.footer}>
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
@@ -45,21 +46,27 @@ function Recipe({ recipes, categories }) {
             Indulge in a culinary adventure like never before. Our handpicked selection of recipes caters to every palate,
             from savory delights to sweet temptations.
             Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
-          </span> 
+          </span>
         </p>
       </div>
 
       {/* <div>
         <FindTags tags={recipes.tags} />
       </div> */}
+
       <div className="search-container">
         <SearchBar />
-        <Search />
       </div>
+
+      
+
       <div>
         <FilterAndSortTags recipes={recipes} />
       </div>
-      
+
+      <div>
+        <FilterIngredients recipes={recipes} />
+      </div>
 
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
 
