@@ -5,8 +5,9 @@ import styles from "@/components/search/searchBar.module.css"
 function SearchBar({search}) {
   const [query, setQuery] = useState("");
   const router = useRouter();
-  const delay = 5000; // Adjust this value to control the delay
+  const delay = 500; // Adjust this value to control the delay
   let debounceTimeout;
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -19,24 +20,31 @@ function SearchBar({search}) {
       clearTimeout(debounceTimeout);
     }
 
-    // Set a new timeout to submit the search query
-    if (query) {
-      debounceTimeout = setTimeout(() => {
-        router.push(`/Search/${query}`);
-      }, delay);
-    }
+   
 
-    // Cleanup: Clear the timeout when the component unmounts
-    return () => {
-      clearTimeout(debounceTimeout);
-    };
-  }, [query, router, delay]);
-
+      // Set a new timeout to submit the search query
+      if (query) {
+        setLoading(true);
+  
+        debounceTimeout = setTimeout(() => {
+          router.push(`/Search/${query}`).then(() => {
+            setLoading(false);
+          });
+        }, delay);
+      }
+  
+      // Cleanup: Clear the timeout when the component unmounts
+      return () => {
+        clearTimeout(debounceTimeout);
+      };
+    }, [query, router, delay]);
   return (
     <section className={styles.container}>
       <div className={styles.searchBar}>
      <label htmlFor="search">Search</label>
         <input className={styles.input} type="text" placeholder={search} onChange={handleInputChange} value={query} />
+        <button className={styles.button}>Search</button>
+        {loading && <div className={styles.loader}></div>}
         </div>
     </section>
   );
