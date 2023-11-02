@@ -1,4 +1,4 @@
-import { run, run1 } from '@/fetching-data/data';
+import { run, run1, runFav } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -16,7 +16,7 @@ import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByI
 
 
 
-function Recipe({ recipes, categories }) {
+function Recipe({ recipes, categories, favRecipes }) {
 
   const router = useRouter();
   const { recipeId } = router.query
@@ -67,8 +67,10 @@ function Recipe({ recipes, categories }) {
       <div>
         <FilterIngredients recipes={recipes} />
       </div>
-
-      <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
+      {/* <Link href={'/favourites/1'}>
+        <button className="maroon-button">Favourites</button>
+      </Link> */}
+      <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} favRecipes={favRecipes} />
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
@@ -118,11 +120,13 @@ function Recipe({ recipes, categories }) {
 export async function getServerSideProps(context) {
   const patcheNo = context.params.recipeId;
   const recipes = await run(parseInt(patcheNo));
+  const favRecipes = await runFav(1);
   const categories = await run1();
   return {
     props: {
       recipes,
       categories,
+      favRecipes,
     },
   };
 }
