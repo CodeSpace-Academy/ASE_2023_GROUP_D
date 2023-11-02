@@ -113,7 +113,7 @@ function RecipeList({ recipes, patcheNo }) {
               category={recipe.category}
               servings={recipe.servings}
               published={recipe.published}
-              higlightQuery={hightlightQuery}
+              // higlightQuery={hightlightQuery}
             />
             
           ))}

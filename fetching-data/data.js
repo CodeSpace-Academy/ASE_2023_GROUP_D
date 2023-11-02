@@ -93,7 +93,7 @@ export async function runFilter(page,filter) {
 
 		const skip = (page - 1) * 100
 		// Use the find() method to retrieve data
-		const data = await collection.find(filter).skip(skip).limit(5).toArray();
+		const data = await collection.find(filter).skip(skip).limit(100).toArray();
 		// return data.slice(0, limit);
 		return data
 

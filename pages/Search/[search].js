@@ -20,11 +20,12 @@ function Search({ filteredCharacters }) {
 export async function getServerSideProps(context) {
 
     const searchChar = context.params.search
+    console.log(searchChar)
     {/* Display a list of recipes, showing the first 20 recipes from the search results. */ }
     const filterCharacter = { title: { $regex: searchChar, $options: 'i' } }
 
     console.log(filterCharacter)
-    const filteredCharacters = await runSearch(1, filterCharacter)
+    const filteredCharacters = await runFilter(1, filterCharacter)
  
 
     return {

@@ -7,8 +7,8 @@ const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [previousSearches, setPreviousSearches] = useState([]);
 
-async function searchF() {
-    await   fetch(`/api/searchOpt?filter=${searchQuery}`)
+async function searchF(sead) {
+    await   fetch(`/api/searchOpt?filter=${sead}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.recipe.map((rec) => rec.title));
@@ -19,7 +19,7 @@ async function searchF() {
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
       setTimeout(()=>{
-      searchF()
+      searchF(event.target.value)
     }, 3000)
   };
 
