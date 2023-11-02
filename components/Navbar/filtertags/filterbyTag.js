@@ -1,6 +1,8 @@
 
-import Link from 'next/link';
 import React, { useState } from 'react';
+import Link from 'next/link';
+import styles from '@/components/Navbar/filtertags/filterByTags.module.css';
+
 
 function FilterAndSortTags({ recipes }) {
     const [tag, setTag] = useState('');
@@ -13,31 +15,40 @@ function FilterAndSortTags({ recipes }) {
     }
 
     return (
-        <div>
-            <div>
-                <label htmlFor="tag">Enter Tag: </label>
-                <input
-                    type='text'
-                    id="tagString"
-                    value={tag}
-                    onChange={(e) => setTag(e.target.value)}
-                />
-            </div>
-            <div>
-                <Link href={`/filters/1/${tag}`}>
-                    <button onClick={handleFindTags}>Find Recipes Tags</button>
-                </Link>
-            </div>
+
+        <div className={styles.container}>
+          <div>
+            <label htmlFor="tag" className={styles.label}>
+              Enter Tag:
+            </label>
+            <input
+              type="text"
+              id="tagString"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.buttonContainer}>
+            <Link href={`/filters/1/${tag}`}>
+                <br/>
+              <div >
+                <button onClick={handleFindTags} className={styles.button}>
+                  Find Tags
+                </button>
+              </div>
+            </Link>
+          </div>
 
         </div>
-    );
-}
+      );
+    };
 
 export default FilterAndSortTags;
 
 
 
-
+/* <Link href={`/filters/1/?filter=${tag}`}></Link> */
 
 
 
