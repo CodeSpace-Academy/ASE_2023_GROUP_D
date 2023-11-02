@@ -2,14 +2,29 @@ import React, { useState } from "react";
 import RecipesItems from "./recipes-items";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
-
 function RecipeList({ recipes, patcheNo }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
-  const [sortingOption, setSortingOption] = useState("default"); // Set the default sorting option
-  const [defaultSortOrder, setDefaultSortOrder] = useState("ascending"); // Set the default sorting order
+  const [sortingOption, setSortingOption] = useState("newest-to-oldest");
 
-  const sortRecipesByPrepTime = (newSortOrder) => {
+  const [sortingField, setSortingField] = useState('prep');
+  // const sortRecipesByPrepTime = (newSortOrder) => {
+  //   const sorted = [...sortedRecipes];
+    
+  
+
+  //   sorted.sort((a, b) => {
+  //     if (newSortOrder === "ascending") {
+  //       return a.prep - b.prep;
+  //     } else {
+  //       return b.prep - a.prep;
+  //     }
+  //   });
+  //   setSortedRecipes(sorted);
+  //   setSortOrder(newSortOrder);
+  // };
+
+  const sortRecipesByField = (newSortField, newSortOrder) => {
     const sorted = [...sortedRecipes];
 
     sorted.sort((a, b) => {
@@ -22,8 +37,7 @@ function RecipeList({ recipes, patcheNo }) {
 
     setSortedRecipes(sorted);
     setSortOrder(newSortOrder);
-    setSortingOption("default"); // Reset to default sorting when user sorts by prep time
-    setDefaultSortOrder(newSortOrder); // Update default sorting order
+    setSortingField(newSortField);
   };
 
   const filterRecipesByPrepTime = (maxPrepTime) => {
@@ -34,40 +48,61 @@ function RecipeList({ recipes, patcheNo }) {
       return recipe.prep <= maxPrepTime;
     });
     setSortedRecipes(filteredRecipes);
-    setSortingOption("default"); // Reset to default sorting when user filters by prep time
   };
 
-  const handleSortingChange = (e) => {
-    const selectedOption = e.target.value;
-    setSortingOption(selectedOption);
 
-    if (selectedOption === "default") {
-      // Return to default sorting
-      const sorted = [...recipes];
-      if (defaultSortOrder === "ascending") {
-        sorted.sort((a, b) => new Date(a.published) - new Date(b.published));
+  const filterRecipesByCookTime = (maxCookTime) => {
+    const filteredRecipes = recipes.filter((recipe) => {
+      if (maxCookTime === "15") {
+        return recipe.cook <= 15;
+      } else if (maxCookTime === "30") {
+        return recipe.cook <= 30;
+      } else if (maxCookTime === "45") {
+        return recipe.cook <= 45;
+      } else if (maxCookTime === "60") {
+        return recipe.cook <= 60;
+      } else if (maxCookTime === "75") {
+        return recipe.cook <= 75;
+      } else if (maxCookTime === "100") {
+        return recipe.cook <= 100;
       } else {
-        sorted.sort((a, b) => new Date(b.published) - new Date(a.published));
+        return recipe.cook > 100;
       }
-      setSortedRecipes(sorted);
-      setSortOrder(defaultSortOrder);
-    } else if (selectedOption === "newest-to-oldest") {
-      const newToOld = [...sortedRecipes];
-      newToOld.sort((a, b) => new Date(b.published) - new Date(a.published));
+    });
+    setSortedRecipes(filteredRecipes);
+  };
+  //sortByPublishedDate
+  // function sortByPublishedDate() {
+  //   const sortedRecipes = [...recipes];
+   
+   
+  // };
+
+  //  const sortedRecipes = sortByPublishedDate();
+
+  const handleSortingChange = (e) => {
+    setSortingOption(e.target.value);
+    if (sortingOption === "newest-to-oldest") {
+      const newToOld = sortedRecipes.sort((a, b) => new Date(b.published) - new Date(a.published));
       setSortedRecipes(newToOld);
-
-    } else if (selectedOption === "oldest-to-newest") {
-      const oldToNew = [...sortedRecipes];
-      oldToNew.sort((a, b) => new Date(a.published) - new Date(b.published));
-
+    } else if (sortingOption === "oldest-to-newest") {
+     const oldToNew = sortedRecipes.sort((a, b) => new Date(a.published) - new Date(b.published));
       setSortedRecipes(oldToNew);
     }
   };
 
   return (
-
     <div className={styles.container}>
-      <Sort sortOrder={sortOrder} onSortOrderChange={sortRecipesByPrepTime} />
+      {/* <Sort
+        sortOrder={sortOrder}
+        onSortOrderChange={sortRecipesByPrepTime}
+      /> */}
+
+     <Sort
+        sortOrder={sortOrder}
+        onSortOrderChange={sortRecipesByField.bind(null, sortingField)}
+      />
+   
 
       <div>
         <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
@@ -95,12 +130,8 @@ function RecipeList({ recipes, patcheNo }) {
 
 
       <div className={styles.container}>
-      <br />
-
         <div>
-          <label htmlFor="sortOrder">Sort by Date: </label>
           <select value={sortingOption} onChange={handleSortingChange}>
-            <option value="default">Default Sorting</option>
             <option value="newest-to-oldest">Newest First</option>
             <option value="oldest-to-newest">Oldest First</option>
           </select>
@@ -121,7 +152,6 @@ function RecipeList({ recipes, patcheNo }) {
               servings={recipe.servings}
               published={recipe.published}
             />
-            
           ))}
         </ul>
       </div>

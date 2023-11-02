@@ -14,7 +14,7 @@ function SortByPrepTime() {
   return (
     <div className="sort-by-prep-time">
       <div className="dropdown">
-        <button onClick={() => setShowDropdown(!showDropdown)}>
+        <button onClick={() => setShowDropdown(!showDropdown)}> 
           Sort by Prep Time: {selectedTime}
           {showDropdown ? "▲" : "▼"}
         </button>
