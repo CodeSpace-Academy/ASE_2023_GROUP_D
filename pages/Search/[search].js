@@ -1,7 +1,7 @@
-import { runFilter, run } from "@/fetching-data/data";
+import { runFilter, run} from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
-import SearchBar from "@/components/text-search/auto-submission";
+import SearchBar from "@/components/search/auto-submission";
 import { useRouter } from "next/router";
 
 function Search({ filteredCharacters }) {
@@ -34,7 +34,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             filteredCharacters,
-            data1, 
+            // data1, 
         },
     }
 }

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 //import FilterAndSortSteps from '@/components/Navbar/filtertags/filterbyTag';
 import FindTags from '@/components/Navbar/filtertags/filterbyTag';
-import SearchBar from '@/components/text-search/auto-submission';
+import SearchBar from '@/components/search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
