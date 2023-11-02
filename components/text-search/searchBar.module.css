@@ -1,17 +1,29 @@
+/* searchBar.module.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background: white; /* Background color */
+
+  /* Create space around the search bar */
+  padding: 20px; /* Adjust the padding as needed */
+}
+
 
 .search-bar {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 30px; /* Rounded edges */
-  padding: 10px;
+  padding: 30px;
   background: rgb(61, 52, 52);
-  width: 300px;
+  width: 400px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
 
 /* searchBar.module.css */
-/* ... other styles ... */
 
 .input {
     flex: 1;
@@ -22,8 +34,6 @@
     padding: 10px;
     border-radius: 30px;
   }
-  
-  /* ... other styles ... */
   
 
 .button {
