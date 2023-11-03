@@ -4,6 +4,7 @@ import { run, run2 } from '../../../fetching-data/data'
 import styles from '@/components/recipes/UpdateDescription.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
 import ErrorComponent from '../../../components/Errors/errors'
+import Image from 'next/image';
 const Recipe = ({ recipeId, data1, allergens }) => {
   const recipes = data1;
   // Convert the ingredients object into an array of strings.
@@ -28,7 +29,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   return (
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
-      <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+      <Image src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
       {isEditingDescription ? (
          <UpdateDescription
            initialDescription={editedDescription}

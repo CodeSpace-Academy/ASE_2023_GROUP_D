@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styles from "./navbar.module.css"; // Import the CSS module
+import Image from "next/image";
 
 
 const Navbar = () => {
@@ -13,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <img src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
+        <Image src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
       </div>
 
       <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
