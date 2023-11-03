@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/search/searchBar.module.css"
+import styles from "./searchBar.module.css"
 
 function SearchBar({search}) {
   const [query, setQuery] = useState("");
@@ -44,8 +44,8 @@ function SearchBar({search}) {
      <label htmlFor="search">Search</label>
         <input className={styles.input} type="text" placeholder={search} onChange={handleInputChange} value={query} />
         <button className={styles.button}>Search</button>
-        {loading && <div className={styles.loader}></div>}
         </div>
+        {loading && <div className={styles.loader}></div>}
     </section>
   );
 }

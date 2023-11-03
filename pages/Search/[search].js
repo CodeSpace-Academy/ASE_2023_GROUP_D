@@ -34,7 +34,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             filteredCharacters,
-            // data1, 
+             data1, 
         },
     }
 }

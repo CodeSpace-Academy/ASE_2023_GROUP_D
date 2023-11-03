@@ -3,7 +3,7 @@ import RecipesItems from "./recipes-items";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 
-function RecipeList({ recipes, patcheNo, favRecipes}) {
+function RecipeList({ recipes, patcheNo}) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
   const [sortingOption, setSortingOption] = useState("default"); // Set the default sorting option
@@ -103,7 +103,7 @@ function RecipeList({ recipes, patcheNo, favRecipes}) {
               category={recipe.category}
               servings={recipe.servings}
               published={recipe.published}
-              favRecipes={favRecipes}
+              favRecipes={recipes}
             />
             
           ))}
