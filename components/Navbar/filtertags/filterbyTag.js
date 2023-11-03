@@ -34,7 +34,7 @@ function FilterAndSortTags({ recipes }) {
                 <br/>
               <div >
                 <button onClick={handleFindTags} className={styles.button}>
-                  Find Recipes
+                  Find Tags
                 </button>
               </div>
             </Link>
@@ -48,7 +48,7 @@ export default FilterAndSortTags;
 
 
 
-
+/* <Link href={`/filters/1/?filter=${tag}`}></Link> */
 
 
 
