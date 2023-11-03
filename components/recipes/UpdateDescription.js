@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from '@/stylespages/RecipeDetails.module.css'
 
 
 const UpdateDescription = ({ initialDescription, onSave }) => {
@@ -18,7 +19,7 @@ const UpdateDescription = ({ initialDescription, onSave }) => {
         value={description}
         onChange={handleDescriptionChange}
       />
-      <button onClick={handleSave}>Save Description</button>
+      <button className={styles.instructionsButton} onClick={handleSave}>Save Description</button>
     </div>
   );
 };

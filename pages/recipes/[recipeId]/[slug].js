@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { run, run2 } from '../../../fetching-data/data'
-import styles from '@/components/recipes/UpdateDescription.module.css'
-
+import styles from '@/stylespages/RecipeDetails.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
 
 
@@ -36,75 +35,75 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   };
 
   const tagsString = recipes.tags.join(', ');
-  
+
 
   return (
 
-    <div className={styles.recipePreview}>
-      <div className={styles.imageDiv}>
-        <h1>{recipes.title}</h1>
-        <img src={recipes.images[0]} alt={recipes._id} width={400} height={300} />
-      </div>
-
-
-      {isEditingDescription ? (
-         <UpdateDescription
-           initialDescription={editedDescription}
-           onSave={handleSaveDescription}
-         />
-      ) : (
-        editedDescription ? (
-           <p>{editedDescription}</p>
+    <div className={styles.recipeDetails}>
+      <div className={styles.leftColumn}>
+        <h1 className={styles.recipeTitle}>{recipes.title}</h1>
+        <br/>
+        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={250} height={250} />
+        {isEditingDescription ? (
+          <UpdateDescription
+            initialDescription={editedDescription}
+            onSave={handleSaveDescription}
+          />
         ) : (
-           <ErrorComponent message="Failed to load description" />
-         )
-      )}
+          editedDescription ? (
+            <p className={styles.description}>{editedDescription}</p>
+          ) : (
+            <ErrorComponent message="Failed to load description" />
+          )
+        )}
+        <button className={styles.updateButton}
+          onClick={() => setIsEditingDescription(!isEditingDescription)}>
+          {isEditingDescription ? 'Cancel' : 'Update Description'}
+        </button>
+        <h2 className={styles.allergens}>Allergens</h2>
+        {allergensForRecipe.length > 0 ? (
+          <ul>
+            {allergensForRecipe.map((allergen, index) => (
+              <li key={index}>{allergen}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No allergens present in this recipe.</p>
+        )}
 
+        <h2 className={styles.tags}>Tags</h2>
+        <div className={styles.tagsContainer}>
+          {tagsString ? (
+            <p className={styles.tagBlock} >{tagsString}</p>
+          ) : (
+            <ErrorComponent message="Failed to load tags" />)}
 
-      <button className={styles['update-button']}
-        onClick={() => setIsEditingDescription(!isEditingDescription)}>
+        </div>
 
-        {isEditingDescription ? 'Cancel' : 'Update Description'}
-      </button>
-      <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''}</p>
-      <h2>Allergens</h2>
-      {allergensForRecipe.length > 0 ? (
-        <ul>
-          {allergensForRecipe.map((allergen, index) => (
-            <li key={index}>{allergen}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No allergens present in this recipe.</p>
-      )}
-
-<h2>Tags</h2>
-       {tagsString ? (
-        <p>{tagsString}</p>
-      ) : (
-         <ErrorComponent message="Failed to load tags" />       )} 
-      <h2>Ingredients</h2>
-      <ul>
-        {ingredientsArray.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
-      <h2>Instructions</h2>
-
-
-
-      <div>
-        <RecipesInstructions instructions={recipes.instructions} />
       </div>
-
-
-      {/* <button className={styles['update-button']}
-        onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
-        {isEditingInstructions ? 'Cancel' : 'Edit Instructions'}
-      </button> */}
-
+      <div className={styles.rightColumn}>
+        <div className={styles.rightContentContainer}>
+          <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
+          <h2 className={styles.ingredients}>Ingredients</h2>
+          <ul>
+            {ingredientsArray.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+          <h2 className={styles.instructions}>Instructions</h2>
+          <RecipesInstructions instructions={recipes.instructions} />
+          {/* {recipes.instructions.length > 0 ? (
+         <ol>
+           {recipes.instructions.map((step, index) => (
+             <li key={index}>{step}</li>
+           ))}
+         </ol>
+     ) : (
+        <ErrorComponent message="Failed to load instructions" />
+      )} */}
+        </div>
+      </div>
     </div>
-
 
   );
 };
@@ -128,12 +127,3 @@ export async function getServerSideProps(context) {
   }
 }
 export default Recipe;
-
-
-
-
-
-
-
-
-
