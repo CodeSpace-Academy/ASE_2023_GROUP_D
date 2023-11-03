@@ -39,10 +39,8 @@ function RecipesItems(props) {
         else{
          setFavToggle(!favToggle)
         }
-        //  console.log(data)
-        //        setFavToggle(!favToggle)
-        //  });
      }
+
     async function removeFromFavourite(recipeId) {
      const response =   await fetch('/api/favourites', {
             method: 'DELETE',
@@ -59,6 +57,7 @@ function RecipesItems(props) {
          setFavToggle(!favToggle)
         }
     }
+    
     return (
         <>{
             <div className={styles.link}>
