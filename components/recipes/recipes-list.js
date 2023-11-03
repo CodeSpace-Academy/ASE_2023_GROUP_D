@@ -4,7 +4,7 @@ import RecipesFavItems from "./recipes-FavItems";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
-import FilterSteps from "../Navbar/Filter/filterBySteps";
+import FilterSteps from "../Navbar/FilterBysteps/filterBySteps";
 
 
 
