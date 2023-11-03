@@ -29,7 +29,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   return (
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
-      <Image src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+      <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
       {isEditingDescription ? (
          <UpdateDescription
            initialDescription={editedDescription}

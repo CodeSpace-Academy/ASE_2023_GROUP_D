@@ -63,7 +63,7 @@ function RecipesItems(props) {
         <>{
             <div className={styles.link}>
                 <li className={styles.item}>
-                    <Image src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
+                    <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
                     <div className={styles.title1}><h2> {title} </h2></div>
                     <div className={styles.cookingContainer}>
                         <div >

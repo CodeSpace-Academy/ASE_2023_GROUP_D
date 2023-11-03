@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <Image src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
+        <img src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
       </div>
 
       <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
