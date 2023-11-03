@@ -155,27 +155,11 @@ const [isLoading, setIsLoading] = useState(false);
                 published={recipe.published}
                 favRecipes={favRecipes}
               />))}
-          {sortedRecipes.map((recipe) => (
-            <RecipesItems
-              key={recipe._id}
-              id={recipe._id}
-              patcheNo={patcheNo}
-              title={recipe.title}
-              image={recipe.images[0]}
-              description={recipe.description}
-              prep={recipe.prep}
-              cook={recipe.cook}
-              category={recipe.category}
-              servings={recipe.servings}
-              published={recipe.published}
-              favRecipes={favRecipes}
-              
-            />
-          ))}
+      
         </ul>
       </div>
       {noRecipesMessage && <p>{noRecipesMessage}</p>}
-      <ul className={styles.list}>
+      {/* <ul className={styles.list}>
         {(filteredRecipes || recipes).map((recipe) => (
           <RecipesItems
             key={recipe._id}
@@ -193,7 +177,7 @@ const [isLoading, setIsLoading] = useState(false);
             favRecipes={favRecipes} 
           />
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 }
