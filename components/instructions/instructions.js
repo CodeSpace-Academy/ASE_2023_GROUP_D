@@ -5,7 +5,7 @@ import styles from './instructions.module.css';
 function RecipeInstructions({ instructions, onSave }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
-  const instructionRefs =  useRef([]);
+  const instructionRefs = useRef([]);
 
   async function saveInstructions() {
     //event.preventDefault();
@@ -25,7 +25,7 @@ function RecipeInstructions({ instructions, onSave }) {
   }
 
   const handleEditInstructions = () => {
-    
+
     setIsEditingInstructions(true);
   };
 
@@ -63,7 +63,7 @@ function RecipeInstructions({ instructions, onSave }) {
                   //onSave={'tshepo'}
                   className={styles.insContainer}
                   ref={instructionRefs}
-                  
+
                 />
               </li>
             ))}
@@ -80,7 +80,18 @@ function RecipeInstructions({ instructions, onSave }) {
               <li key={index}>{instruction}</li>
             ))}
           </ol>
-          <button onClick={handleEditInstructions}>Edit Instructions</button>
+          <button style={{
+            background: 'red',
+            borderRadius: '20px',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            cursor: 'pointer',
+            transition: 'background-color 0.3s',
+          }}
+            onMouseEnter={(e) => (e.target.style.background = '#972f2f')}
+            onMouseLeave={(e) => (e.target.style.background = 'red')}
+            onClick={handleEditInstructions}>Edit Instructions</button>
         </div>
       )}
     </div>
