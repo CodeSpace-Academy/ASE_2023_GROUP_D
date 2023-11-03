@@ -15,9 +15,10 @@ function RecipesItems(props) {
 
     return (
         <div className={styles.link}>
-        <li className={styles.item}>
-            <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
-            <div className={styles.title1}><h2> {title} </h2></div>
+
+            <li className={styles.item}>
+                <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
+                <div className={styles.title1}><h2> {title} </h2></div>
 
 
                 {/* <div className={styles.address}>Preparation: {prep} minutes </div>

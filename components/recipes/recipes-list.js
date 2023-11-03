@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipesItems from "./recipes-items";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
-import styles from "./recipes-list.module.css";
-import FilterBySteps from "../Navbar/Filter/FilterSteps";
-import FilterByIngredients from '../Navbar/Filter/filterIngredients';
-
-
+import styles from "./recipes-list.module.css";;
+import FilterSteps from "../Navbar/Filter/filterBySteps";
 function RecipeList({ recipes, patcheNo }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
-  const [sortingOption, setSortingOption] = useState("default"); // Set the default sorting option
-  const [defaultSortOrder, setDefaultSortOrder] = useState("ascending"); // Set the default sorting order
+  const [sortingOption, setSortingOption] = useState("default"); 
+  const [defaultSortOrder, setDefaultSortOrder] = useState("ascending"); 
 
   const sortRecipesByPrepTime = (newSortOrder) => {
     const sorted = [...sortedRecipes];
@@ -23,8 +20,8 @@ function RecipeList({ recipes, patcheNo }) {
     });
     setSortedRecipes(sorted);
     setSortOrder(newSortOrder);
-    setSortingOption("default"); // Reset to default sorting when user sorts by prep time
-    setDefaultSortOrder(newSortOrder); // Update default sorting order
+    setSortingOption("default");
+    setDefaultSortOrder(newSortOrder);
   };
 
   const filterRecipesByPrepTime = (maxPrepTime) => {
@@ -35,7 +32,7 @@ function RecipeList({ recipes, patcheNo }) {
       return recipe.prep <= maxPrepTime;
     });
     setSortedRecipes(filteredRecipes);
-    setSortingOption("default"); // Reset to default sorting when user filters by prep time
+    setSortingOption("default");
   };
 
   const handleSortingChange = (e) => {
@@ -43,7 +40,6 @@ function RecipeList({ recipes, patcheNo }) {
     setSortingOption(selectedOption);
 
     if (selectedOption === "default") {
-      // Return to default sorting
       const sorted = [...recipes];
       if (defaultSortOrder === "ascending") {
         sorted.sort((a, b) => new Date(a.published) - new Date(b.published));
@@ -60,49 +56,42 @@ function RecipeList({ recipes, patcheNo }) {
     } else if (selectedOption === "oldest-to-newest") {
       const oldToNew = [...sortedRecipes];
       oldToNew.sort((a, b) => new Date(a.published) - new Date(b.published));
-
       setSortedRecipes(oldToNew);
     }
   };
+
   const [filteredRecipes, setFilteredRecipes] = useState(null);
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
+  const [numSteps, setNumSteps] = useState('');
+const [isLoading, setIsLoading] = useState(false);
 
-  const handleFilterByIngredients = async (ingredients) => {
-    if (ingredients) {
-      const filter = {
-        'ingredients.name': { $regex: ingredients, $options: 'i' } // Case-insensitive search
-      };
-      const filteredData = await(1, filter); // Assuming you're on page 1
-
+  const handleFilterBySteps = async (numSteps) => {
+    try {
+      setIsLoading(true);
+  
+      const res = await fetch(`/api/filterBySteps?numSteps=${numSteps}`);
+      const filteredData = await res.json();
+  
       if (filteredData.length > 0) {
-        setFilteredRecipes(filteredData);
+        setSortedRecipes(filteredData);
         setNoRecipesMessage(null);
       } else {
-        setFilteredRecipes(null);
-        setNoRecipesMessage(`No recipes with ingredients matching "${ingredients}" found.`);
+        setSortedRecipes([]);
+        setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
       }
-    } else {
-      setFilteredRecipes(null);
-      setNoRecipesMessage(null);
-    }
-  };
-
-  const handleFilterBySteps = (numSteps) => {
-    const filtered= recipes.filter(recipe => recipe.instructions.length === numSteps);
-    if (filtered.length > 0) {
-      setFilteredRecipes(filtered);
-      setNoRecipesMessage(null);
-    } else {
-      setFilteredRecipes(null);
-      setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
+    } catch (error) {
+      console.error('Error filtering by steps:', error);
+      setSortedRecipes([]);
+      setNoRecipesMessage('An error occurred while filtering recipes.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-
     <div className={styles.container}>
+<FilterSteps onFilter={handleFilterBySteps} isLoading={isLoading} />
       <Sort sortOrder={sortOrder} onSortOrderChange={sortRecipesByPrepTime} />
-
       <div>
         <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
         <button onClick={() => filterRecipesByPrepTime(30)}>{"< 30 min"}</button>
@@ -112,10 +101,8 @@ function RecipeList({ recipes, patcheNo }) {
         <button onClick={() => filterRecipesByPrepTime("90+")}>{"> 90 min"}</button>
       </div>
 
-
       <div className={styles.container}>
-      <br />
-
+        <br />
         <div>
           <label htmlFor="sortOrder">Sort by Date: </label>
           <select value={sortingOption} onChange={handleSortingChange}>
@@ -124,7 +111,7 @@ function RecipeList({ recipes, patcheNo }) {
             <option value="oldest-to-newest">Oldest First</option>
           </select>
         </div>
-
+    
         <ul className={styles.list}>
           {sortedRecipes.map((recipe) => (
             <RecipesItems
@@ -140,12 +127,9 @@ function RecipeList({ recipes, patcheNo }) {
               servings={recipe.servings}
               published={recipe.published}
             />
-            
           ))}
         </ul>
       </div>
-      <FilterBySteps onFilter={handleFilterBySteps} />
-      <FilterByIngredients onFilter={handleFilterByIngredients} />
       {noRecipesMessage && <p>{noRecipesMessage}</p>}
       <ul className={styles.list}>
         {(filteredRecipes || recipes).map((recipe) => (
@@ -170,3 +154,4 @@ function RecipeList({ recipes, patcheNo }) {
 }
 
 export default RecipeList;
+
