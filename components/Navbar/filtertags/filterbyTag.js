@@ -19,7 +19,7 @@ function FilterAndSortTags({ recipes }) {
         <div className={styles.container}>
           <div>
             <label htmlFor="tag" className={styles.label}>
-              Enter Tag:
+              Enter Tag :
             </label>
             <input
               type="text"

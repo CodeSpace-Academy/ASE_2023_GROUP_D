@@ -59,7 +59,7 @@ function Home(props) {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          backgroundColor: 'black',
+          //backgroundColor: 'black',
         }}
       >
         
