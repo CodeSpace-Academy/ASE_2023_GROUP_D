@@ -2,7 +2,9 @@ import { insertFavOrHistory, DeleteFav} from "@/fetching-data/data";
 
 async function handler(req, res) {
 const FavRecipe = req.body
-const recipeID = req.query.filter;
+// const recipeID = req.query.filterByid;
+
+console.log(FavRecipe)
 
     if (req.method === 'POST') {
         try {
@@ -15,8 +17,8 @@ const recipeID = req.query.filter;
 
     if (req.method === 'DELETE') {
         try {
-            const recipes = await DeleteFav({recipeID});
-            res.status(200).json({ recipes: recipeID});
+            const recipes = await DeleteFav(FavRecipe);
+            res.status(200).json({ recipes: recipes});
         } catch (error) {
             res.status(500).json({ message: 'Deleting from Favourites failed!' });
         }
