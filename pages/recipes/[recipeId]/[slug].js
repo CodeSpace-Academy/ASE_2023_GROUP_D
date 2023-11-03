@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { run, run2 } from '../../../fetching-data/data'
 import styles from '@/components/recipes/UpdateDescription.module.css'
-
+import ErrorComponent from '../../../components/Errors/errors';
 import RecipesInstructions from '@/components/instructions/instructions'
 
 
@@ -41,7 +41,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
 
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
-      <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+      <image src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
       {isEditingDescription ? (
          <UpdateDescription
            initialDescription={editedDescription}
