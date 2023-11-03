@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import RecipesItems from "./recipes-items";
+import RecipesFavItems from "./recipes-FavItems";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
+import styles from "./recipes-list.module.css";
+import { useRouter } from "next/router";
+
+function RecipeList({ recipes, patcheNo, favRecipes }) {
+  const router = useRouter();
 import styles from "./recipes-list.module.css";;
 import FilterSteps from "../Navbar/Filter/filterBySteps";
 function RecipeList({ recipes, patcheNo }) {
@@ -59,6 +65,7 @@ function RecipeList({ recipes, patcheNo }) {
       setSortedRecipes(oldToNew);
     }
   };
+  console.log(router.pathname)
 
   const [filteredRecipes, setFilteredRecipes] = useState(null);
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
@@ -103,6 +110,8 @@ const [isLoading, setIsLoading] = useState(false);
 
       <div className={styles.container}>
         <br />
+
+        <br />
         <div>
           <label htmlFor="sortOrder">Sort by Date: </label>
           <select value={sortingOption} onChange={handleSortingChange}>
@@ -113,6 +122,38 @@ const [isLoading, setIsLoading] = useState(false);
         </div>
     
         <ul className={styles.list}>
+          {router.pathname.includes('/recipes/') ?
+            sortedRecipes.map((recipe) => (
+              <RecipesItems
+                key={recipe._id}
+                id={recipe._id}
+                patcheNo={patcheNo}
+                title={recipe.title}
+                image={recipe.images[0]}
+                description={recipe.description}
+                prep={recipe.prep}
+                cook={recipe.cook}
+                category={recipe.category}
+                servings={recipe.servings}
+                published={recipe.published}
+                favRecipes={favRecipes}
+              />
+            )) :
+            sortedRecipes.map((recipe) => (
+              <RecipesFavItems
+                key={recipe._id}
+                id={recipe._id}
+                patcheNo={patcheNo}
+                title={recipe.title}
+                image={recipe.images[0]}
+                description={recipe.description}
+                prep={recipe.prep}
+                cook={recipe.cook}
+                category={recipe.category}
+                servings={recipe.servings}
+                published={recipe.published}
+                favRecipes={favRecipes}
+              />))}
           {sortedRecipes.map((recipe) => (
             <RecipesItems
               key={recipe._id}
