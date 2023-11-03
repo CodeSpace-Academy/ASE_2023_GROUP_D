@@ -4,16 +4,20 @@ import RecipesFavItems from "./recipes-FavItems";
 import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
+import FilterSteps from "../Navbar/Filter/filterBySteps";
+
+
 
 function RecipeList({ recipes, patcheNo, favRecipes }) {
   const router = useRouter();
-import styles from "./recipes-list.module.css";;
-import FilterSteps from "../Navbar/Filter/filterBySteps";
-function RecipeList({ recipes, patcheNo }) {
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
   const [sortingOption, setSortingOption] = useState("default"); 
-  const [defaultSortOrder, setDefaultSortOrder] = useState("ascending"); 
+  const [defaultSortOrder, setDefaultSortOrder] = useState("ascending");
+    const [filteredRecipes, setFilteredRecipes] = useState(null);
+  const [noRecipesMessage, setNoRecipesMessage] = useState(null);
+  const [numSteps, setNumSteps] = useState('');
+const [isLoading, setIsLoading] = useState(false); 
 
   const sortRecipesByPrepTime = (newSortOrder) => {
     const sorted = [...sortedRecipes];
@@ -67,10 +71,7 @@ function RecipeList({ recipes, patcheNo }) {
   };
   console.log(router.pathname)
 
-  const [filteredRecipes, setFilteredRecipes] = useState(null);
-  const [noRecipesMessage, setNoRecipesMessage] = useState(null);
-  const [numSteps, setNumSteps] = useState('');
-const [isLoading, setIsLoading] = useState(false);
+
 
   const handleFilterBySteps = async (numSteps) => {
     try {
@@ -167,6 +168,8 @@ const [isLoading, setIsLoading] = useState(false);
               category={recipe.category}
               servings={recipe.servings}
               published={recipe.published}
+              favRecipes={favRecipes}
+              
             />
           ))}
         </ul>
@@ -187,6 +190,7 @@ const [isLoading, setIsLoading] = useState(false);
             servings={recipe.servings}
             published={recipe.published}
             instructions={recipe.instructions}
+            favRecipes={favRecipes} 
           />
         ))}
       </ul>
