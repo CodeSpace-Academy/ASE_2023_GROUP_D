@@ -16,7 +16,7 @@
   .input {
     border: 1px solid #FF0000; /* Red border */
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 30px;
   }
   
   .button-container {
@@ -24,17 +24,16 @@
   }
   
   .button {
-    background: #FF0000; /* Red button background */
-    color: #FFFFFF; /* White text */
-    padding: 10px 20px;
+    background: #ff0000; /* Red button color */
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
+    padding: 10px 20px;
     cursor: pointer;
-    font-size: 16px;
+    margin-left: 10px;
   }
   
   .button:hover {
-    background: #FFFFFF; /* White button background on hover */
-    color: #FF0000; /* Red text on hover */
+    background: #972f2f; /* Darker red color on hover */
   }
   
