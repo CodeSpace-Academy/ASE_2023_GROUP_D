@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 function RecipesItems(props) {
     const router = useRouter();
     // console.log(router.pathname);
@@ -57,12 +58,12 @@ function RecipesItems(props) {
          setFavToggle(!favToggle)
         }
     }
-    
+
     return (
         <>{
             <div className={styles.link}>
                 <li className={styles.item}>
-                    <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
+                    <Image src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
                     <div className={styles.title1}><h2> {title} </h2></div>
                     <div className={styles.cookingContainer}>
                         <div >
