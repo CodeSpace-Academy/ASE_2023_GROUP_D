@@ -19,10 +19,10 @@ function FilteredRecipesIngredients({ recipesfiltered, pageNo }) {
     setIngredients(updatedIngredients);
   }
 
-  const filteredRecipes = recipesfiltered.filter(recipe => {
-    
+  const filteredRecipesIngredients = recipesfiltered.filter(recipe => {
+
     return Object.keys(ingredients).every(ingredient => recipe.ingredients.hasOwnProperty(ingredient));
-});
+  });
 
   //console.log(filteredRecipes);
 
@@ -45,29 +45,29 @@ function FilteredRecipesIngredients({ recipesfiltered, pageNo }) {
       {ingredients.map((ingredient, index) => (
         <div key={index}>
           <button onClick={() => handleRemoveIngredient(ingredient)} key={ingredient}>{ingredient}</button>
-          <RecipeList recipes={filteredRecipes} pageNo={pageNo} />
+          <RecipeList recipes={filteredRecipesIngredients} pageNo={pageNo} />
         </div>
       ))}
 
-      <RecipeList recipes={filteredRecipes} pageNo={pageNo} />
+      <RecipeList recipes={filteredRecipesIngredients} pageNo={pageNo} />
     </>
   );
 }
 
 export async function getServerSideProps(context) {
-    const pageNo = context.params.pageNumber;
-    const tagIngredient = context.params.tagIngredient;
-    const filteredRecipes2 = { ingredients: tagIngredient };
-    console.log(pageNo);
-    console.log(filteredRecipes2);
-    const recipesfiltered = await runFilter(pageNo, filteredRecipes2);
-  
-    return {
-      props: {
-        recipesfiltered,
-        pageNo,
-      },
-    };
-  }
+  const pageNo = context.params.pageNumber;
+  const tagIngredient = context.params.tagIngredient;
+  const filteredRecipes2 = { ingredients: tagIngredient };
+  console.log(pageNo);
+  console.log(filteredRecipes2);
+  const recipesfiltered = await runFilter(pageNo, filteredRecipes2);
 
-  export default FilteredRecipesIngredients;
+  return {
+    props: {
+      recipesfiltered,
+      pageNo,
+    },
+  };
+}
+
+export default FilteredRecipesIngredients;
