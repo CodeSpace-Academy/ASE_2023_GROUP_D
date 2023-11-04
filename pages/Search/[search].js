@@ -1,4 +1,4 @@
-import { runFilter } from "@/fetching-data/data";
+import { runFilter2 } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
 import SearchBar from "@/components/text-search/auto-submission";
@@ -20,19 +20,22 @@ function Search({ filteredCharacters }) {
 export async function getServerSideProps(context) {
 
     const searchChar = context.params.search
+    const Prep = parseInt(context.query.Prep)
+    console.log(Prep)
     {/* Display a list of recipes, showing the first 20 recipes from the search results. */ }
-    const filterCharacter = { title: { $regex: searchChar, $options: 'i' } }
+    const filterCharacter = { title: { $regex: searchChar, $options: 'i' }}
+    const sortCharacter = Prep ? {prep: Prep } : {}
 
-    console.log(filterCharacter)
+    console.log(sortCharacter)
     // This is the list of recipes that were found based on the user's search.
-    const filteredCharacters = await runFilter(1, filterCharacter)
+    const filteredCharacters = await runFilter2(1, filterCharacter, sortCharacter)
 
     // Send the list of recipes to be displayed on the webpage.
     return {
         props: {
             filteredCharacters,
         },
-    }
+    };
 }
 
 export default Search;
