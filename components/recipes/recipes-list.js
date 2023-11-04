@@ -94,7 +94,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
         </div>
 
         <ul className={styles.list}>
-          {router.pathname.includes('/recipes/') ?
+          {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
             recipes.map((recipe) => (
               <RecipesItems
                 key={recipe._id}
