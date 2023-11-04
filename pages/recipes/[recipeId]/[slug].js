@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { run, run2 } from '../../../fetching-data/data'
+import { run, run2, runFav } from '../../../fetching-data/data'
 import styles from '@/components/recipes/UpdateDescription.module.css'
 
 import RecipesInstructions from '@/components/instructions/instructions'
 
 
-const Recipe = ({ recipeId, data1, allergens }) => {
+const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
+  const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
+  const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
 
   const recipes = data1;
   // Convert the ingredients object into an array of strings.
@@ -35,6 +37,55 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   };
 
   const tagsString = recipes.tags.join(', ');
+
+  const recipeToBeInsertedToFav = {
+    _id: recipeId,
+    title: recipes.title,
+    images: [recipes.images[0]],
+    description: recipes.description,
+    prep: recipes.prep,
+    cook: recipes.cook,
+    category: recipes.category,
+    servings: recipes.servings,
+    published: recipes.published
+}
+
+  async function addToFavourite(recipeData) {
+    const response =  await fetch('/api/favourites', {
+         method: 'POST',
+         body: JSON.stringify(recipeData),
+         headers: {
+             'Content-Type': 'application/json',
+         },
+     })
+     const data = await response.json();
+
+     if (!response.ok) {
+       throw new Error(data.message || "Something went wrong!");
+     }
+     else{
+      setFavToggle(!favToggle) 
+     }
+     
+ }
+
+ async function removeFromFavourite(recipeId) {
+  const response =   await fetch('/api/favourites', {
+         method: 'DELETE',
+         body: JSON.stringify(recipeId),
+         headers: {
+             'Content-Type': 'application/json',
+         },
+     })
+     const data = await response.json();
+
+     if (!response.ok) {
+       throw new Error(data.message || "Recipe failed to delete");
+     }
+     else if(response.ok){
+      setFavToggle(!favToggle) 
+     }
+ }
   
 
   return (
@@ -42,6 +93,8 @@ const Recipe = ({ recipeId, data1, allergens }) => {
     <div className='.recipeDetails'>
       <h1>{recipes.title}</h1>
       <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+      { favToggle ? <button onClick={() => removeFromFavourite({ _id: recipeId })}>Rev From Fav</button> : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
+
       {isEditingDescription ? (
          <UpdateDescription
            initialDescription={editedDescription}
@@ -98,10 +151,9 @@ const Recipe = ({ recipeId, data1, allergens }) => {
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
   const recipedataNo = context.params.recipeId;
-  console.log(recipeId)
-  console.log(recipedataNo)
   const docs2 = await run2();
   const data = await run(recipedataNo)
+  const favRecipes = await runFav(1);
 
   const data1 = data.filter((recipe) => recipe._id === recipeId)[0]
 
@@ -109,6 +161,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       recipeId,
+      favRecipes,
       data1,
       allergens: docs2[0],
     },
