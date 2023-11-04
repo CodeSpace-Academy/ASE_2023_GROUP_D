@@ -4,7 +4,7 @@ import Button from '../ui/button/button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
 
 
 function RecipesItems(props) {
@@ -13,6 +13,7 @@ function RecipesItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes } = props
     const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
     const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
+    const [hoverToggle, setHoverToggle] = useState(false)
 
 
     // const favRecipeIds = favRecipes.map((recipe) => recipe._id)
@@ -77,6 +78,15 @@ function RecipesItems(props) {
                     <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
                     <div className={styles.title1}><h2> {title} </h2></div>
 
+                    {favToggle ? (
+                        <>
+                            {!hoverToggle && <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />}
+                            {hoverToggle && <FontAwesomeIcon onMouseLeave={() => setHoverToggle(!hoverToggle)} icon={brokenHeart} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} shake />}
+                        </>
+                    ) : (
+                        <FontAwesomeIcon icon={regularHeart} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                    )}
+
                     <div className={styles.cookingContainer}>
                         <div >
                             <div className={styles.cookingTime}>
@@ -97,17 +107,6 @@ function RecipesItems(props) {
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
-                        {favToggle ? (
-                            // <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}>
-                            <FontAwesomeIcon icon={solidHeart} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} />
-                            // </button> 
-                        ) : (
-                            // <button className={styles.favoriteButton} onClick={() => addToFavourite(recipeToBeInsertedToFav)}>
-                            <FontAwesomeIcon icon={regularHeart} className={styles.heartIcon} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
-                            // <FontAwesomeIcon icon="fa-solid fa-heart" />
-                            // </button>
-
-                        )}
                     </div>
 
                 </li>

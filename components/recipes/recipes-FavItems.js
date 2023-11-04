@@ -3,12 +3,13 @@ import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons';
-import { faHeadphones } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as solidHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
+
 
 function RecipesFavItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo } = props
     const [removeFromFav, setRemoveFromFav] = useState(true)
+    const [hoverToggle, setHoverToggle] = useState(false)
 
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
@@ -25,9 +26,9 @@ function RecipesFavItems(props) {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Recipe failed to delete");
+            throw new Error(data.message || "Recipe failed to delete");
         }
-        else if(response.ok){
+        else if (response.ok) {
             setRemoveFromFav(false)
         }
     }
@@ -39,6 +40,10 @@ function RecipesFavItems(props) {
                     <li className={styles.item}>
                         <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
                         <div className={styles.title1}><h2> {title} </h2></div>
+                        <>
+                            {!hoverToggle && <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />}
+                            {hoverToggle && <FontAwesomeIcon onMouseLeave={() => setHoverToggle(!hoverToggle)} icon={brokenHeart} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} shake />}
+                        </>
                         <div className={styles.cookingContainer}>
                             <div >
                                 <div className={styles.cookingTime}>
@@ -58,9 +63,6 @@ function RecipesFavItems(props) {
                             <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                                 <span className={styles.viewRecipeButtonText}>View Recipe</span>
                             </Button>
-                            {/* <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}> */}
-                           <FontAwesomeIcon icon={faHeadphones} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} />
-                            {/* </button> */}
                         </div>
                     </li>
                 </div>
