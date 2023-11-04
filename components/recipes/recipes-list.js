@@ -95,7 +95,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
 
         <ul className={styles.list}>
           {router.pathname.includes('/recipes/') ?
-            sortedRecipes.map((recipe) => (
+            recipes.map((recipe) => (
               <RecipesItems
                 key={recipe._id}
                 id={recipe._id}
@@ -111,7 +111,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
                 favRecipes={favRecipes}
               />
             )) :
-            sortedRecipes.map((recipe) => (
+            recipes.map((recipe) => (
               <RecipesFavItems
                 key={recipe._id}
                 id={recipe._id}
