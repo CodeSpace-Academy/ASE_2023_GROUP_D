@@ -19,7 +19,6 @@ function RecipesItems(props) {
 
     const recipeToBeInsertedToFav = {
         _id: id,
-        patcheNo: patcheNo,
         title: title,
         images: [image],
         description: description,
@@ -46,9 +45,7 @@ function RecipesItems(props) {
         else{
          setFavToggle(!favToggle) 
         }
-            //     // console.log(data)
-            //     setFavToggle(!favToggle)
-            // });
+        
     }
 
     async function removeFromFavourite(recipeId) {
