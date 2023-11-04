@@ -27,10 +27,9 @@
   padding: 0.5rem 1.5rem;
   text-align: center;
   box-shadow: 0 1px 6px #312d2d;
-  transition: background-color 0.3s;
 }
 
 .btn:hover {
-  background-color: black;
+  background-color: #972f2f;
 }
 

@@ -2,6 +2,8 @@ import styles from './recipes-items.module.css';
 import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
 
 function RecipesFavItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo } = props
@@ -55,7 +57,9 @@ function RecipesFavItems(props) {
                             <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                                 <span className={styles.viewRecipeButtonText}>View Recipe</span>
                             </Button>
-                            <button onClick={() => removeFromFavourite({ _id: id })}>Rev From Fav</button>
+                            <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}>
+                                <FontAwesomeIcon icon={solidHeart} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} />
+                            </button>
                         </div>
                     </li>
                 </div>

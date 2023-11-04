@@ -3,6 +3,9 @@ import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
+
 
 function RecipesItems(props) {
     const router = useRouter();
@@ -10,7 +13,7 @@ function RecipesItems(props) {
     const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes } = props
     const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
     const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
-   
+
 
     // const favRecipeIds = favRecipes.map((recipe) => recipe._id)
 
@@ -30,7 +33,7 @@ function RecipesItems(props) {
     }
 
     async function addToFavourite(recipeData) {
-       const response =  await fetch('/api/favourites', {
+        const response = await fetch('/api/favourites', {
             method: 'POST',
             body: JSON.stringify(recipeData),
             headers: {
@@ -40,16 +43,16 @@ function RecipesItems(props) {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Something went wrong!");
+            throw new Error(data.message || "Something went wrong!");
         }
-        else{
-         setFavToggle(!favToggle) 
+        else {
+            setFavToggle(!favToggle)
         }
         
     }
 
     async function removeFromFavourite(recipeId) {
-     const response =   await fetch('/api/favourites', {
+        const response = await fetch('/api/favourites', {
             method: 'DELETE',
             body: JSON.stringify(recipeId),
             headers: {
@@ -59,10 +62,10 @@ function RecipesItems(props) {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Recipe failed to delete");
+            throw new Error(data.message || "Recipe failed to delete");
         }
-        else if(response.ok){
-         setFavToggle(!favToggle) 
+        else if (response.ok) {
+            setFavToggle(!favToggle)
         }
     }
 
@@ -94,9 +97,17 @@ function RecipesItems(props) {
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
-                        { favToggle ? <button onClick={() => removeFromFavourite({ _id: id })}>Rev From Fav</button> : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
-
+                        {favToggle ? (
+                            <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}>
+                                <FontAwesomeIcon icon={solidHeart} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} />
+                            </button>
+                        ) : (
+                            <button className={styles.favoriteButton} onClick={() => addToFavourite(recipeToBeInsertedToFav)}>
+                                <FontAwesomeIcon icon={regularHeart} className={styles.heartIcon} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                            </button>
+                        )}
                     </div>
+
                 </li>
             </div>
         }</>
