@@ -3,8 +3,8 @@ import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
 
 
 function RecipesItems(props) {
@@ -48,7 +48,7 @@ function RecipesItems(props) {
         else {
             setFavToggle(!favToggle)
         }
-        
+
     }
 
     async function removeFromFavourite(recipeId) {
@@ -98,13 +98,15 @@ function RecipesItems(props) {
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
                         {favToggle ? (
-                            <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}>
-                                {'rev'/* <FontAwesomeIcon icon={solidHeart} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} /> */}
-                            </button>
+                            // <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}>
+                            <FontAwesomeIcon icon={solidHeart} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} />
+                            // </button> 
                         ) : (
-                            <button className={styles.favoriteButton} onClick={() => addToFavourite(recipeToBeInsertedToFav)}>
-                                {'add'/* <FontAwesomeIcon icon={regularHeart} className={styles.heartIcon} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} /> */}
-                            </button>
+                            // <button className={styles.favoriteButton} onClick={() => addToFavourite(recipeToBeInsertedToFav)}>
+                            <FontAwesomeIcon icon={regularHeart} className={styles.heartIcon} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                            // <FontAwesomeIcon icon="fa-solid fa-heart" />
+                            // </button>
+
                         )}
                     </div>
 
