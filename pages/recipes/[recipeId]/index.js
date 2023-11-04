@@ -23,20 +23,21 @@ function Recipe({ recipes, categories, favRecipes }) {
 
   const [loadmore, setLoadMore] = useState(80)
   const [loadData, setLoadData] = useState(20)
+  console.log(recipes)
 
   return (
     <>
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-        {recipeId > 1 &&
+        {/* {recipeId > 1 &&
           <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
             <button onClick={() => {
               setLoadData(20)
               setLoadMore(80)
             }} className="maroon-button" >Previous
             </button>
-          </Link>}
+          </Link>} */}
 
       </div>
       <div className={styles.footer}>
@@ -58,12 +59,6 @@ function Recipe({ recipes, categories, favRecipes }) {
         <SearchBar />
       </div>
 
-      
-
-      <div>
-        <FilterAndSortTags recipes={recipes} />
-      </div>
-
       <div>
         <FilterIngredients recipes={recipes} />
       </div>
@@ -74,14 +69,16 @@ function Recipe({ recipes, categories, favRecipes }) {
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
+          
           <button onClick={() => {
-            setLoadMore(loadmore - 20)
-            setLoadData(loadData + 20)
+            setLoadMore((prev)=> prev - 20)
+            setLoadData((prev)=> prev + 20)
           }}
             disabled={loadmore == 0 ? true : false}
             className={`${styles.button} `}
           >Load More {`(${loadmore})`}
           </button>
+
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
           {recipeId > 1 && (
@@ -119,7 +116,8 @@ function Recipe({ recipes, categories, favRecipes }) {
 
 export async function getServerSideProps(context) {
   const patcheNo = context.params.recipeId;
-  const recipes = await run(parseInt(patcheNo));
+  console.log(patcheNo)
+  const recipes = await run(patcheNo);
   const favRecipes = await runFav(1);
   const categories = await run1();
   return {
