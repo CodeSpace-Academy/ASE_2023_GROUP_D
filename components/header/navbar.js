@@ -39,7 +39,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/all-recipes">
+          <Link href="/recipes/1">
             <h2 className={styles.link}>All Recipes</h2>
           </Link>
         </li>
