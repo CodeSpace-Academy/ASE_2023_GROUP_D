@@ -37,7 +37,7 @@ export async function run(page) {
 	// }
 }
 
-export async function run1() {
+export async function runCategories() {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		// await client.connect();
