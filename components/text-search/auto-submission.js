@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import styles from "@/components/text-search/searchBar.module.css"
 import Link from "next/link";
 
-function SearchBar({ search }) {
+function SearchBar({ search, categories }) {
   const [query, setQuery] = useState("");
   const [backUpQuery, setBackUpQuery] = useState(search);
   const [handel, setHandelSS] = useState('')
   const [tags, setTags] = useState([])
   const delay = 5000;
   const router = useRouter();
+  console.log(categories[0])
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -64,9 +65,14 @@ function SearchBar({ search }) {
         <option value={'Healthy'}>Healthy</option>
         <option value={'Fruit'}>Fruit</option>
       </select>
+
       <select value={handel} onChange={handelSS}>
         <option value={1}>Ascending</option>
         <option value={-1}>Descending</option>
+      </select>
+
+      <select value={handel} onChange={handelSS}>
+        {categories[0].map((category, index)=> <option key={index} value={category}>{category}</option> )}
       </select>
      
       <Link href={`/Search/${query ? query : backUpQuery}?Prep=${handel}&Tags=${tags}`}>
