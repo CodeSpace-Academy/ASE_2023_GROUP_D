@@ -1,4 +1,4 @@
-import { runFilter2, runFav } from "@/fetching-data/data";
+import { runFilter2, runFav, runCategories } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
 import SearchBar from "@/components/text-search/auto-submission";
@@ -6,7 +6,7 @@ import styles from '@/components/header/summary.module.css'
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-function Search({ filteredCharacters, favRecipes }) {
+function Search({ filteredCharacters, favRecipes, categories }) {
     const router = useRouter();
     const { search } = router.query
     const [loadmore, setLoadMore] = useState(filteredCharacters.length)
@@ -17,7 +17,7 @@ function Search({ filteredCharacters, favRecipes }) {
     return (
         <>
             <Navbar />
-            <SearchBar search={search} />
+            <SearchBar search={search} categories={categories} />
             {/* Render the 'RecipeList' component, passing in the first 20 items of the 'filteredCharacters' array and 'patcheNo' as a prop. */}
             {filteredCharacters.length > 0 ? <RecipeList recipes={filteredCharacters.slice(0, loadData)} patcheNo={1} favRecipes={favRecipes} /> : <h2>No Matching Recipes Based On Search</h2>}
 
@@ -60,6 +60,7 @@ export async function getServerSideProps(context) {
     // This is the list of recipes that were found based on the user's search.
     const filteredCharacters = await runFilter2(1, finalSearchString, sortCharacter)
     const favRecipes = await runFav(1);
+    const categories = await runCategories();
 
     console.log(finalSearchString)
     // Send the list of recipes to be displayed on the webpage.
@@ -67,6 +68,7 @@ export async function getServerSideProps(context) {
         props: {
             filteredCharacters,
             favRecipes,
+            categories,
         },
     };
 }
