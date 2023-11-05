@@ -5,42 +5,27 @@ import Link from "next/link";
 
 function SearchBar({ search }) {
   const [query, setQuery] = useState("");
+  const [backUpQuery, setBackUpQuery] = useState(search);
   const [handel, setHandelSS] = useState('')
+  const [tags, setTags] = useState([])
   const delay = 5000;
   const router = useRouter();
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
-  console.log(query)
 
-  // function searchSubmit (){
-  //   const { query, pathname } = router;
-
-  //   // Create a new object by spreading the existing query parameters
-  //   const newQuery = { ...query };
-
-  //   // Add or update a new query parameter
-  //   newQuery.Prep = handel;
-
-  //   // Use router.push to navigate to the updated URL with the new query parameter
-  //   router.push({
-  //     pathname,
-  //     query: newQuery,
-  //   });
-  // }
   useEffect(() => {
 
     if (query) {
       const navigateToNewPage = () => {
-        router.push(`/Search/${query}`); // Replace '/new-page' with the URL of the new page
+        router.push(`/Search/${query ? query : backUpQuery}?Prep=${handel}&Tags=${tags}`); // Replace '/new-page' with the URL of the new page
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);
 
       return () => {
         clearTimeout(timeoutId); // Clear the timeout if the component unmounts before the delay is reached
-        // timeoutId === 0 && setQuery('')
       };
     }
   }, [router, query, delay]);
@@ -55,22 +40,45 @@ function SearchBar({ search }) {
     setHandelSS(event.target.value)
   }
 
+  function handleTag(event) {
+    setTags((prev) => [...prev, event.target.value])
+  }
+
+  function handleDeleteTag(event) {
+    setTags(tags.filter((tag) => tag !== event.target.value))
+  }
+
   return (
-    <section>
+    <div>
       <div className={styles.container}>
         <div className={styles.searchBar}>
           <input className={styles.input} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
           <button className={styles.button}>Search</button>
         </div>
       </div>
+      <select value={tags[tags.length - 1]} onChange={handleTag}>
+        <option value={'Beans'}>Beans</option>
+        <option value={'Vegetable'}>Vegetable</option>
+        <option value={'Oven'}>Oven</option>
+        <option value={'Dessert'}>Dessert</option>
+        <option value={'Healthy'}>Healthy</option>
+        <option value={'Fruit'}>Fruit</option>
+      </select>
       <select value={handel} onChange={handelSS}>
         <option value={1}>Ascending</option>
         <option value={-1}>Descending</option>
       </select>
-      <Link href={`/Search/${query}?Prep=${handel}`}>
+     
+      <Link href={`/Search/${query ? query : backUpQuery}?Prep=${handel}&Tags=${tags}`}>
         <button>submit</button>
       </Link>
-    </section>
+
+      {tags.map((tag, index) => {
+        return (<button key={index} onClick={handleDeleteTag} value={tag}>{tag}</button>)
+      })}
+    </div>
+
+    
   );
 }
 

@@ -59,7 +59,7 @@ export async function getServerSideProps(context) {
     const tagIngredient = context.params.tagIngredient;
     const filteredRecipes2 = { ingredients: tagIngredient };
     console.log(pageNo);
-    console.log(filteredRecipes2);
+    // console.log(filteredRecipes2);
     const recipesfiltered = await runFilter(pageNo, filteredRecipes2);
   
     return {

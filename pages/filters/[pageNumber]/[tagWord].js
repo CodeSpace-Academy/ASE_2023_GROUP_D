@@ -58,8 +58,6 @@ export async function getServerSideProps(context) {
   const pageNo = context.params.pageNumber;
   const tagWord = context.params.tagWord;
   const filteredRecipes1 = { tags: tagWord };
-  console.log(pageNo);
-  console.log(filteredRecipes1);
   const Recipesfiltered = await runFilter(pageNo, filteredRecipes1);
 
   return {

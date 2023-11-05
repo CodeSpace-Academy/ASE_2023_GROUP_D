@@ -69,7 +69,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
   return (
 
     <div className={styles.container}>
-      <Sort sortOrder={sortOrder} onSortOrderChange={sortRecipesByPrepTime} />
+      {/* <Sort sortOrder={sortOrder} onSortOrderChange={sortRecipesByPrepTime} />
 
       <div>
         <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
@@ -78,20 +78,20 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
         <button onClick={() => filterRecipesByPrepTime(60)}>{"< 60 min"}</button>
         <button onClick={() => filterRecipesByPrepTime(90)}>{"< 90 min"}</button>
         <button onClick={() => filterRecipesByPrepTime("90+")}>{"> 90 min"}</button>
-      </div>
+      </div> */}
 
 
       <div className={styles.container}>
         <br />
 
-        <div>
+        {/* <div>
           <label htmlFor="sortOrder">Sort by Date: </label>
           <select value={sortingOption} onChange={handleSortingChange}>
             <option value="default">Default Sorting</option>
             <option value="newest-to-oldest">Newest First</option>
             <option value="oldest-to-newest">Oldest First</option>
           </select>
-        </div>
+        </div> */}
 
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?

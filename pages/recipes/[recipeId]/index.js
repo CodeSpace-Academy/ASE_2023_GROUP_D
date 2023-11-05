@@ -23,7 +23,7 @@ function Recipe({ recipes, categories, favRecipes }) {
 
   const [loadmore, setLoadMore] = useState(80)
   const [loadData, setLoadData] = useState(20)
-  console.log(recipes)
+  // console.log(recipes)
 
   return (
     <>
@@ -68,7 +68,7 @@ function Recipe({ recipes, categories, favRecipes }) {
       <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} favRecipes={favRecipes} />
 
       <div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
           
           <button onClick={() => {
             setLoadMore((prev)=> prev - 20)
@@ -80,7 +80,7 @@ function Recipe({ recipes, categories, favRecipes }) {
           </button>
 
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
           {recipeId > 1 && (
             <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
               <button
@@ -116,7 +116,6 @@ function Recipe({ recipes, categories, favRecipes }) {
 
 export async function getServerSideProps(context) {
   const patcheNo = context.params.recipeId;
-  console.log(patcheNo)
   const recipes = await run(patcheNo);
   const favRecipes = await runFav(1);
   const categories = await run1();

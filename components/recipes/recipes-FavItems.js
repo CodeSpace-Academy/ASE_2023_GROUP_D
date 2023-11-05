@@ -15,7 +15,6 @@ function RecipesFavItems(props) {
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
 
     async function removeFromFavourite(recipeId) {
-        console.log(recipeId)
         const response = await fetch('/api/favourites', {
             method: 'DELETE',
             body: JSON.stringify(recipeId),
