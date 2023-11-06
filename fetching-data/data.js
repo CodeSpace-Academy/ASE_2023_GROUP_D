@@ -67,7 +67,9 @@ export async function run2() {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("allergens");
-		const data = await collection.find({}).toArray();
+		const data = await collection.find(query).skip(skip).limit(100).toArray();
+console.log("Data:", data); // Add this line
+
 		const dataArray = data.map(document => document.allergens);
 
 		return dataArray;
@@ -92,12 +94,24 @@ export async function runFilter(page, filter) {
   
 	  const skip = (page - 1) * 100;
   
-	  // Include filtering by steps if provided in the filter object
 	  let query = {};
+  
 	  if (filter.steps) {
 		query = { "instructions": { $size: filter.steps } };
 	  }
-const data = await collection.find(query).skip(skip).limit(100).toArray();
+  
+	  if (filter.ingredients) {
+		const ingredientsQuery = Object.keys(filter.ingredients).map(ingredient => ({
+		  [`ingredients.${ingredient}`]: { $exists: true }
+		}));
+	  
+		query = { $and: [...ingredientsQuery, query] };
+	  }
+	  
+  
+	  console.log("Query:", query);
+  
+	  const data = await collection.find(query).skip(skip).limit(100).toArray();
   
 	  return data;
 	} catch (error) {
@@ -106,6 +120,10 @@ const data = await collection.find(query).skip(skip).limit(100).toArray();
 	  await client.close();
 	}
   }
+  
+  
+  
+  
   
 
 

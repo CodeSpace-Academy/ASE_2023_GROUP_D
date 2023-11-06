@@ -5,7 +5,7 @@ import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
 import FilterSteps from "../Navbar/FilterBysteps/filterBySteps";
-
+import FilterByIngredients from "../Navbar/filterByIngredients/filterByIngredients";
 
 
 function RecipeList({ recipes, patcheNo, favRecipes }) {
@@ -18,8 +18,12 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
   const [numSteps, setNumSteps] = useState('');
 const [isLoading, setIsLoading] = useState(false); 
+const [filteredData, setFilteredData] = useState(null);
+const [filterApplied, setFilterApplied] = useState(false);
 
-  const sortRecipesByPrepTime = (newSortOrder) => {
+
+const sortRecipesByPrepTime = (newSortOrder) => {
+  if (!filterApplied) {
     const sorted = [...sortedRecipes];
     sorted.sort((a, b) => {
       if (newSortOrder === "ascending") {
@@ -32,7 +36,8 @@ const [isLoading, setIsLoading] = useState(false);
     setSortOrder(newSortOrder);
     setSortingOption("default");
     setDefaultSortOrder(newSortOrder);
-  };
+  }
+};
 
   const filterRecipesByPrepTime = (maxPrepTime) => {
     const filteredRecipes = recipes.filter((recipe) => {
@@ -46,8 +51,9 @@ const [isLoading, setIsLoading] = useState(false);
   };
 
   const handleSortingChange = (e) => {
-    const selectedOption = e.target.value;
-    setSortingOption(selectedOption);
+    if (!filterApplied) {
+      const selectedOption = e.target.value;
+      setSortingOption(selectedOption);
 
     if (selectedOption === "default") {
       const sorted = [...recipes];
@@ -69,6 +75,7 @@ const [isLoading, setIsLoading] = useState(false);
       setSortedRecipes(oldToNew);
     }
   };
+}
   console.log(router.pathname)
 
 
@@ -96,9 +103,50 @@ const [isLoading, setIsLoading] = useState(false);
     }
   };
 
+  const handleFilter = async (ingredientsString) => {
+    try {
+      setIsLoading(true);
+  
+      const ingredientsArray = ingredientsString.split(',').map(ingredient => ingredient.trim());
+  
+      const filter = {
+        ingredients: ingredientsArray.reduce((acc, ingredient) => {
+          acc[ingredient] = true;
+          return acc;
+        }, {})
+      };
+  
+      const response = await fetch(`/api/filterByIngredients?ingredient=${JSON.stringify(filter)}`);
+  
+      if (!response.ok) {
+        throw new Error('Error fetching data');
+      }
+  
+      const data = await response.json();
+  
+      if (data && data.length > 0) {
+        setFilteredData(data);
+        setFilterApplied(true);  // Set flag for filtering applied
+        setSortingDisabled(true);  // Disable sorting
+      } else {
+        // Handle case where data is empty
+      }
+    } catch (error) {
+      console.error('Error filtering by ingredients:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  
+  
+  
+  
+
   return (
     <div className={styles.container}>
 <FilterSteps onFilter={handleFilterBySteps} isLoading={isLoading} />
+<FilterByIngredients onApplyFilter={handleFilter} />
       <Sort sortOrder={sortOrder} onSortOrderChange={sortRecipesByPrepTime} />
       <div>
         <button onClick={() => filterRecipesByPrepTime(15)}>{"< 15 min"}</button>
@@ -123,40 +171,43 @@ const [isLoading, setIsLoading] = useState(false);
         </div>
     
         <ul className={styles.list}>
-          {router.pathname.includes('/recipes/') ?
-            sortedRecipes.map((recipe) => (
-              <RecipesItems
-                key={recipe._id}
-                id={recipe._id}
-                patcheNo={patcheNo}
-                title={recipe.title}
-                image={recipe.images[0]}
-                description={recipe.description}
-                prep={recipe.prep}
-                cook={recipe.cook}
-                category={recipe.category}
-                servings={recipe.servings}
-                published={recipe.published}
-                favRecipes={favRecipes}
-              />
-            )) :
-            sortedRecipes.map((recipe) => (
-              <RecipesFavItems
-                key={recipe._id}
-                id={recipe._id}
-                patcheNo={patcheNo}
-                title={recipe.title}
-                image={recipe.images[0]}
-                description={recipe.description}
-                prep={recipe.prep}
-                cook={recipe.cook}
-                category={recipe.category}
-                servings={recipe.servings}
-                published={recipe.published}
-                favRecipes={favRecipes}
-              />))}
-      
-        </ul>
+  {filterApplied ? (
+    filteredData.map((recipe) => (
+      <RecipesItems
+        key={recipe._id}
+        id={recipe._id}
+        patcheNo={patcheNo}
+        title={recipe.title}
+        image={recipe.images[0]}
+        description={recipe.description}
+        prep={recipe.prep}
+        cook={recipe.cook}
+        category={recipe.category}
+        servings={recipe.servings}
+        published={recipe.published}
+        favRecipes={favRecipes}
+      />
+    ))
+  ) : (
+    sortedRecipes.map((recipe) => (
+      <RecipesItems
+        key={recipe._id}
+        id={recipe._id}
+        patcheNo={patcheNo}
+        title={recipe.title}
+        image={recipe.images[0]}
+        description={recipe.description}
+        prep={recipe.prep}
+        cook={recipe.cook}
+        category={recipe.category}
+        servings={recipe.servings}
+        published={recipe.published}
+        favRecipes={favRecipes}
+      />
+    ))
+  )}
+</ul>
+
       </div>
       {noRecipesMessage && <p>{noRecipesMessage}</p>}
       {/* <ul className={styles.list}>
