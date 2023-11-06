@@ -68,9 +68,7 @@ export async function run2() {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("allergens");
-		const data = await collection.find(query).skip(skip).limit(100).toArray();
-console.log("Data:", data); // Add this line
-
+		const data = await collection.find({}).toArray();
 		const dataArray = data.map(document => document.allergens);
 
 		return dataArray;
@@ -84,8 +82,6 @@ console.log("Data:", data); // Add this line
 	// 	await client.close();
 	// }
 }
-
-
 
 export async function runFilter(page, filter) {
 	try {
