@@ -2,13 +2,20 @@ import styles from './recipes-items.module.css';
 import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
+
 
 function RecipesItems(props) {
+    const router = useRouter();
+    // console.log(router.pathname);
     const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes } = props
-    const [favToggle, setFavToggle] = useState(false)
-    const [removeFromFav, setRemoveFromFav] = useState(true)
+    const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
+    const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
 
-    const favRecipeIds = favRecipes.map((recipe) => recipe._id)
+
+    // const favRecipeIds = favRecipes.map((recipe) => recipe._id)
 
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
@@ -27,35 +34,46 @@ function RecipesItems(props) {
     }
 
     async function addToFavourite(recipeData) {
-        await fetch('/api/favourites', {
+        const response = await fetch('/api/favourites', {
             method: 'POST',
             body: JSON.stringify(recipeData),
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log(data)
-                setFavToggle(!favToggle)
-            });
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Something went wrong!");
+        }
+        else {
+            setFavToggle(!favToggle)
+        }
+        //     // console.log(data)
+        //     setFavToggle(!favToggle)
+        // });
     }
 
-    async function removeFromFavourite(recipeData) {
-        await fetch(`/api/favourites?id=${id}`, {
+    async function removeFromFavourite(recipeId) {
+        const response = await fetch('/api/favourites', {
             method: 'DELETE',
-            body: JSON.stringify(recipeData),
+            body: JSON.stringify(recipeId),
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-        setFavToggle(!favToggle)
-        setRemoveFromFav(false)
-    } 
+        const data = await response.json();
 
-    //   console.log(favRecipes)
+        if (!response.ok) {
+            throw new Error(data.message || "Recipe failed to delete");
+        }
+        else if (response.ok) {
+            setFavToggle(!favToggle)
+        }
+    }
+
     return (
-        <>{removeFromFav &&
+        <>{
             <div className={styles.link}>
 
                 <li className={styles.item}>
@@ -82,9 +100,17 @@ function RecipesItems(props) {
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
-                        {favRecipeIds.includes(id) ? <button onClick={() => removeFromFavourite({ _id: id })}>Rev From Fav</button>
-                            : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>{favToggle ? 'Rev From Fav' : 'Add To Fav'}</button>}
+                        {favToggle ? (
+                            <button className={styles.favoriteButton} onClick={() => removeFromFavourite({ _id: id })}>
+                                <FontAwesomeIcon icon={solidHeart} className={styles.heartIcon} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} />
+                            </button>
+                        ) : (
+                            <button className={styles.favoriteButton} onClick={() => addToFavourite(recipeToBeInsertedToFav)}>
+                                <FontAwesomeIcon icon={regularHeart} className={styles.heartIcon} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                            </button>
+                        )}
                     </div>
+
                 </li>
             </div>
         }</>
