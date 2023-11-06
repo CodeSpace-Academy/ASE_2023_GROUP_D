@@ -53,7 +53,7 @@ function Recipe({ favRecipes, patcheNo }) {
 export async function getServerSideProps(context) {
   const patcheNo = context.params.pageNo;
   console.log(patcheNo)
-  const favRecipes = await runFav(parseInt(patcheNo));
+  const favRecipes = await runFav(1);
   return {
     props: {
       patcheNo,

@@ -48,8 +48,9 @@ function FilteredRecipesIngredients({ recipesfiltered, pageNo }) {
           <RecipeList recipes={filteredRecipesIngredients} pageNo={pageNo} />
         </div>
       ))}
+      
+        <RecipeList recipes={filteredRecipesIngredients} pageNo={pageNo} />
 
-      <RecipeList recipes={filteredRecipesIngredients} pageNo={pageNo} />
     </>
   );
 }

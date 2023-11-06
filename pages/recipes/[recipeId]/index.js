@@ -11,6 +11,7 @@ import Footer from '@/components/footer/footer';
 import Search from '@/components/search/filter';
 import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
 
+
 function Recipe({ recipes, categories, favRecipes }) {
 
   const router = useRouter();
@@ -60,13 +61,20 @@ function Recipe({ recipes, categories, favRecipes }) {
       <div>
         <FilterIngredients recipes={recipes} />
       </div>
+
+      
+
       {/* <Link href={'/favourites/1'}>
         <button className="maroon-button">Favourites</button>
       </Link> */}
-      <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} favRecipes={favRecipes} />
-
-
-      <RecipeList recipes={recipes.slice(0, loadData)} categories={categories} patcheNo={recipeId} />
+      <RecipeList
+        recipes={recipes.slice(0, loadData)}
+        categories={categories}
+        patcheNo={recipeId}
+        favRecipes={favRecipes}
+        ingredients={recipes.ingredients}
+        tags={recipes.tags}
+      />
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0' }}>

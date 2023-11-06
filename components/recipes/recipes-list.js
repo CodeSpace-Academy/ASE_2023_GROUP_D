@@ -64,7 +64,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
       setSortedRecipes(oldToNew);
     }
   };
-  console.log(router.pathname)
+  //console.log(router.pathname)
 
   return (
 
@@ -109,6 +109,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
                 servings={recipe.servings}
                 published={recipe.published}
                 favRecipes={favRecipes}
+
               />
             )) :
             sortedRecipes.map((recipe) => (
