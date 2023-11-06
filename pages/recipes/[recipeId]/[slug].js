@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { run, run2, runFav } from '../../../fetching-data/data'
+import { runFilter, run2, runFav } from '../../../fetching-data/data'
 import styles from '@/stylespages/RecipeDetails.module.css'
 // import styles from '@/components/recipes/UpdateDescription.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
@@ -10,7 +10,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
 
-  const recipes = data1;
+  const recipes = data1[0];
   // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
 
@@ -164,11 +164,8 @@ export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
   const recipedataNo = context.params.recipeId;
   const docs2 = await run2();
-  const data = await run(recipedataNo)
+  const data1 = await runFilter(recipedataNo, {_id: recipeId})
   const favRecipes = await runFav(1);
-
-  const data1 = data.filter((recipe) => recipe._id === recipeId)[0]
-
 
   return {
     props: {
