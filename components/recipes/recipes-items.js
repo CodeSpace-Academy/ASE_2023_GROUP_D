@@ -78,7 +78,8 @@ function RecipesItems(props) {
 
                 <li className={styles.item}>
                     <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
-                    <h2>{title.replace(new RegExp(search, 'gi'), <span>{search}</span>)}</h2>
+                    {/* <h2>{title.replace(new RegExp(search, 'gi'), <span>{search}</span>)}</h2> */}
+                    <h2 >{title}</h2>
 
                     {favToggle ? (
                         <>
