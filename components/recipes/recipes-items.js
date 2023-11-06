@@ -10,7 +10,7 @@ import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as broken
 function RecipesItems(props) {
     const router = useRouter();
     // console.log(router.pathname);
-    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes } = props
+    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search } = props
     const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
     const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
     const [hoverToggle, setHoverToggle] = useState(false)
@@ -69,6 +69,8 @@ function RecipesItems(props) {
             setFavToggle(!favToggle)
         }
     }
+    
+
 
     return (
         <>{
@@ -76,7 +78,7 @@ function RecipesItems(props) {
 
                 <li className={styles.item}>
                     <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
-                    <div className={styles.title1}><h2> {title} </h2></div>
+                    <p>{title.replace(new RegExp(search, 'gi'), <span className='highlight'>{search}</span>)}</p>
 
                     {favToggle ? (
                         <>
