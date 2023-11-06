@@ -5,6 +5,22 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
+import Highlighter from 'react-highlight-words';
+
+
+// export default function TextHighlighter() { 
+// return ( 
+// 	<div> 
+// 	<h3>GeeksforGeeks - Highlighter</h3> 
+// 	<Highlighter 
+// 		highlightClassName="YourHighlightClass"
+// 		searchWords={["Gfg", "text"]} 
+// 		autoEscape={true} 
+// 		textToHighlight="This is text for GfG example"
+// 	/> 
+// 	</div> 
+// ) 
+// } 
 
 
 function RecipesItems(props) {
@@ -69,7 +85,7 @@ function RecipesItems(props) {
             setFavToggle(!favToggle)
         }
     }
-    
+
 
 
     return (
@@ -78,8 +94,12 @@ function RecipesItems(props) {
 
                 <li className={styles.item}>
                     <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
-                    {/* <h2>{title.replace(new RegExp(search, 'gi'), <span>{search}</span>)}</h2> */}
-                    <h2 >{title}</h2>
+                    {search ? <h2><Highlighter
+                        highlightClassName="YourHighlightClass"
+                        searchWords={[search]}
+                        autoEscape={true}
+                        textToHighlight={title}
+                    /></h2> : <h2>{title}</h2>}
 
                     {favToggle ? (
                         <>
