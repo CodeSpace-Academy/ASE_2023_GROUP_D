@@ -68,7 +68,9 @@ export async function run2() {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("allergens");
-		const data = await collection.find({}).toArray();
+		const data = await collection.find(query).skip(skip).limit(100).toArray();
+console.log("Data:", data); // Add this line
+
 		const dataArray = data.map(document => document.allergens);
 
 		return dataArray;
@@ -83,8 +85,9 @@ export async function run2() {
 	// }
 }
 
-export async function runFilter(page,filter) {
 
+
+export async function runFilter(page, filter) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		// await client.connect();
@@ -202,7 +205,7 @@ export async function insertFavOrHistory(collection, document) {
  export async function DeleteFav(recipe) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
-		// await client.connect();
+		
 		// Send a ping to confirm a successful connection
 		const db = client.db("devdb");
 		const result = await db.collection("favourites").deleteOne(recipe);

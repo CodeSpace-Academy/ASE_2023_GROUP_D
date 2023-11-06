@@ -37,9 +37,9 @@ function Recipe({ recipes, favRecipes, categories }) {
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
         <p className={styles.summaryText}>
           <span className={styles.italianoFont}>
-            Indulge in a culinary adventure like never before. Our handpicked selection of recipes caters to every palate,
+            {`Indulge in a culinary adventure like never before. Our handpicked selection of recipes caters to every palate,
             from savory delights to sweet temptations.
-            Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.
+            Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.`}
           </span>
         </p>
       </div>

@@ -1,0 +1,38 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    background: #ededed; /* Grey background */
+  }
+  
+  .label {
+    color: #FF0000; /* Red text */
+    font-size: 18px;
+  }
+  
+  .input {
+    border: 1px solid #FF0000; /* Red border */
+    padding: 8px;
+    border-radius: 30px;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+  }
+  
+  .button {
+    background: #ff0000; /* Red button color */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .button:hover {
+    background: #972f2f; /* Darker red color on hover */
+  }
