@@ -5,7 +5,7 @@ import Sort from "../Navbar/sort-by-prep/sort-by-prep";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
 
-function RecipeList({ recipes, patcheNo, favRecipes }) {
+function RecipeList({ recipes, patcheNo, favRecipes , search}) {
   const router = useRouter();
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [sortOrder, setSortOrder] = useState("ascending");
@@ -64,7 +64,6 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
       setSortedRecipes(oldToNew);
     }
   };
-  console.log(router.pathname)
 
   return (
 
@@ -109,6 +108,7 @@ function RecipeList({ recipes, patcheNo, favRecipes }) {
                 servings={recipe.servings}
                 published={recipe.published}
                 favRecipes={favRecipes}
+                search={search}
               />
             )) :
             recipes.map((recipe) => (
