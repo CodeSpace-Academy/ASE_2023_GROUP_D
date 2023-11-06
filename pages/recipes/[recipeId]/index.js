@@ -1,22 +1,16 @@
-import { run, runFav } from '@/fetching-data/data';
+import { run, runFav, runCategories } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-//import FilterAndSortSteps from '@/components/Navbar/filtertags/filterbyTag';
-import FilterAndSortTags from '@/components/Navbar/filtertags/filterbyTag';
 import SearchBar from '@/components/text-search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
-import Search from '@/components/search/filter';
 import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
 //import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
-
-
-function Recipe({ recipes, favRecipes }) {
+function Recipe({ recipes, favRecipes, categories }) {
 
   const router = useRouter();
   const { recipeId } = router.query
@@ -56,12 +50,12 @@ function Recipe({ recipes, favRecipes }) {
       </div> */}
 
       <div className="search-container">
-        <SearchBar />
+        <SearchBar categories={categories} />
       </div>
 
-      <div>
+      {/* <div>
         <FilterIngredients recipes={recipes} />
-      </div>
+      </div> */}
       {/* <Link href={'/favourites/1'}>
         <button className="maroon-button">Favourites</button>
       </Link> */}
@@ -118,10 +112,12 @@ export async function getServerSideProps(context) {
   const patcheNo = context.params.recipeId;
   const recipes = await run(patcheNo);
   const favRecipes = await runFav(1);
+  const categories = await runCategories();
   return {
     props: {
       recipes,
       favRecipes,
+      categories,
     },
   };
 }
