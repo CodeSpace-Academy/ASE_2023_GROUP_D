@@ -17,7 +17,6 @@ function Recipe({ recipes, favRecipes, categories }) {
 
   const [loadmore, setLoadMore] = useState(80)
   const [loadData, setLoadData] = useState(20)
-  // console.log(recipes)
 
   return (
     <>
@@ -44,10 +43,6 @@ function Recipe({ recipes, favRecipes, categories }) {
           </span>
         </p>
       </div>
-
-      {/* <div>
-        <FindTags tags={recipes.tags} />
-      </div> */}
 
       <div className="search-container">
         <SearchBar categories={categories} />

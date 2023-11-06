@@ -10,7 +10,6 @@ function Recipe({ favRecipes, patcheNo }) {
   const [loadmore, setLoadMore] = useState(favRecipes.length)
   const [loadData, setLoadData] = useState(20)
 
-  console.log(favRecipes)
   return (
     <>
       <Navbar />

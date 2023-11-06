@@ -13,8 +13,6 @@ function Search({ filteredCharacters, favRecipes, categories }) {
     const [loadmore, setLoadMore] = useState(filteredCharacters.length)
     const [loadData, setLoadData] = useState(20)
 
-    console.log(search)
-    // console.log(filteredCharacters)
     return (
         <>
             <Navbar />
@@ -56,13 +54,10 @@ export async function getServerSideProps(context) {
     Categories ? finalSearchString.category = Categories : undefined
     Ingredients ? ingredientsArray.map((ingredient)=> finalSearchString[`ingredients.${ingredient}`] = {$exists: true}) : undefined
 
-    // This is the list of recipes that were found based on the user's search.
     const filteredCharacters = await runFilter2(1, finalSearchString, sortCharacter)
     const favRecipes = await runFav(1);
     const categories = await runCategories();
 
-    console.log(finalSearchString)
-    // Send the list of recipes to be displayed on the webpage.
     return {
         props: {
             filteredCharacters,

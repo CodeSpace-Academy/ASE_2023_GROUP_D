@@ -7,32 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
 import Highlighter from 'react-highlight-words';
 
-
-// export default function TextHighlighter() { 
-// return ( 
-// 	<div> 
-// 	<h3>GeeksforGeeks - Highlighter</h3> 
-// 	<Highlighter 
-// 		highlightClassName="YourHighlightClass"
-// 		searchWords={["Gfg", "text"]} 
-// 		autoEscape={true} 
-// 		textToHighlight="This is text for GfG example"
-// 	/> 
-// 	</div> 
-// ) 
-// } 
-
-
 function RecipesItems(props) {
     const router = useRouter();
-    // console.log(router.pathname);
     const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search } = props
     const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
     const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
     const [hoverToggle, setHoverToggle] = useState(false)
-
-
-    // const favRecipeIds = favRecipes.map((recipe) => recipe._id)
 
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
