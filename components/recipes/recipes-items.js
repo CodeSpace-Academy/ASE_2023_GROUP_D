@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart } from '@fortawesome/free-solid-svg-icons';
 
 
-import Image from 'next/image';
 function RecipesItems(props) {
     const router = useRouter();
     // console.log(router.pathname);
@@ -17,8 +16,10 @@ function RecipesItems(props) {
 
 
     // const favRecipeIds = favRecipes.map((recipe) => recipe._id)
+
     const publishedDate = new Date(published);
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
+
     const recipeToBeInsertedToFav = {
         _id: id,
         patcheNo: patcheNo,
@@ -31,6 +32,7 @@ function RecipesItems(props) {
         servings: servings,
         published: published
     }
+
     async function addToFavourite(recipeData) {
         const response = await fetch('/api/favourites', {
             method: 'POST',
@@ -40,19 +42,17 @@ function RecipesItems(props) {
             },
         })
         const data = await response.json();
+
         if (!response.ok) {
             throw new Error(data.message || "Something went wrong!");
         }
         else {
             setFavToggle(!favToggle)
-        else{
-         setFavToggle(!favToggle)
         }
         //     // console.log(data)
         //     setFavToggle(!favToggle)
         // });
     }
-     }
 
     async function removeFromFavourite(recipeId) {
         const response = await fetch('/api/favourites', {
@@ -63,22 +63,23 @@ function RecipesItems(props) {
             },
         })
         const data = await response.json();
+
         if (!response.ok) {
             throw new Error(data.message || "Recipe failed to delete");
         }
         else if (response.ok) {
             setFavToggle(!favToggle)
-        else if(response.ok){
-         setFavToggle(!favToggle)
         }
     }
 
     return (
         <>{
             <div className={styles.link}>
+
                 <li className={styles.item}>
                     <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
                     <div className={styles.title1}><h2> {title} </h2></div>
+
                     <div className={styles.cookingContainer}>
                         <div >
                             <div className={styles.cookingTime}>
@@ -88,6 +89,7 @@ function RecipesItems(props) {
                             <div className={styles.cookingTime}>
                                 <div className={styles.value}>{prep} mins</div>
                                 <div className={styles.value}>{cook} mins</div>
+
                             </div>
                         </div>
                     </div>
@@ -107,7 +109,6 @@ function RecipesItems(props) {
                                 <FontAwesomeIcon icon={regularHeart} className={styles.heartIcon} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
                             </button>
                         )}
-                        { favToggle ? <button onClick={() => removeFromFavourite({ _id: id })}>Rev From Fav</button> : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
                     </div>
 
                 </li>
@@ -115,7 +116,8 @@ function RecipesItems(props) {
         }</>
     )
 }
-export default RecipesItems;
+
+export default RecipesItems; 
 
 
 
