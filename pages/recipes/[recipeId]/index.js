@@ -65,7 +65,7 @@ function Recipe({ recipes, categories, favRecipes }) {
       </div>
 
       <div>
-        <FilterIngredients recipes={recipes} />
+        {/* <FilterIngredients recipes={recipes} /> */}
       </div>
       {/* <Link href={'/favourites/1'}>
         <button className="maroon-button">Favourites</button>
