@@ -30,8 +30,8 @@ export async function run(page) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	 } 
-	 //finally {
+	}
+	//finally {
 	// 	// Ensures that the client will close when you finish/error
 	// 	await client.close();
 	// }
@@ -100,7 +100,7 @@ export async function runFilter(page, filter) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	} 
+	}
 	//finally {
 	// 	// Ensures that the client will close when you finish/error
 	// 	await client.close();
@@ -108,7 +108,7 @@ export async function runFilter(page, filter) {
 	// }
 }
 
-export async function runFilter2(page,filter, sort) {
+export async function runFilter2(page, filter, sort) {
 
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
@@ -126,7 +126,7 @@ export async function runFilter2(page,filter, sort) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	} 
+	}
 	//finally {
 	// 	// Ensures that the client will close when you finish/error
 	// 	await client.close();
@@ -151,7 +151,7 @@ export async function runSortDate(page) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	  } 
+	}
 	// finally {
 	// 	// Ensures that the client will close when you finish/error
 	// 	await client.close();
@@ -176,7 +176,7 @@ export async function runFav(page) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	 } 
+	}
 	//finally {
 	// 	// Ensures that the client will close when you finish/error
 	// 	await client.close();
@@ -201,50 +201,31 @@ export async function insertFavOrHistory(collection, document) {
 export async function DeleteFav(recipe) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
-		
+
 		// Send a ping to confirm a successful connection
 		const db = client.db("devdb");
 		const result = await db.collection("favourites").deleteOne(recipe);
 		return console.log("deleted");
 	} catch (error) {
 		console.error("Failed to connect to MongoDB To save favourites", error);
+	}
 }
 
 export async function runUpdateInstructions(recipeId, updatedInstruction) {
-	const db = client.db('devdb'); // Use the existing MongoDB client from run
+	const db = client.db('devdb');
 	const collection = db.collection('recipes');
-
 	try {
-		// Find the recipe by its ID
-		const existingRecipe = await collection.findOne({ recipeId });
 
-		if (!existingRecipe) {
-			return { success: false, message: 'Recipe not found' };
-		}
-
-		// Get the original instructions array
-		const originalInstructions = existingRecipe.instructions;
-		const indexToUpdate = originalInstructions.findIndex(
-			(instruction) => instruction.id === updatedInstruction._id
-		);
-
-		if (indexToUpdate === -1) {
-			return { success: false, message: 'Instruction not found' };
-		}
-
-		// Update the instruction with the provided data
-		originalInstructions[indexToUpdate] = updatedInstruction;
-		// Update the recipe with the modified instructions array
 		await collection.updateOne(
-			{ recipeId },
+			{_id: recipeId},
 			{
-				$set: { instructions: originalInstructions },
-			}
+				$set: { "instructions": updatedInstruction},
+			},
 		);
 
 		return { success: true, message: 'Instruction updated successfully' };
 	} catch (error) {
 		console.error('Database update error:', error);
-		throw error; // Rethrow the error for proper error handling in the route handler
+		throw error;
 	}
 }

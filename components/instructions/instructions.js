@@ -48,7 +48,6 @@ import styles from './instructions.module.css';
 function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
-  
   const handleEditInstructions = () => {
     setIsEditingInstructions(true);
   };
