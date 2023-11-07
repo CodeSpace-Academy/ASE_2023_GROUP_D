@@ -6,6 +6,7 @@ import styles from '@/stylespages/RecipeDetails.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
 import ErrorComponent from '../../../components/Errors/errors'
 import Image from 'next/image';
+
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
@@ -22,6 +23,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const minutes = recipes.cook % 60;
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
+  
   const handleSaveDescription = (updatedDescription) => {
     // Here, you should implement logic to save the updated description.
     console.log("Updated Description:", updatedDescription);
