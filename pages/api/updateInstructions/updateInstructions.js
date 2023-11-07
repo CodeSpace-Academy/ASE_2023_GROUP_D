@@ -5,7 +5,7 @@ import {runUpdateInstructions} from '../../../fetching-data/data';
     if (req.method === 'POST') {
         try {
             const { recipeId, instructions} = req.body;
-            console.log(recipeId)
+            //console.log(recipeId)
 
             if (!instructions) {
                 return res.status(400).json({ message: 'Invalid instructions format' });

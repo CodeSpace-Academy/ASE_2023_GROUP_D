@@ -214,6 +214,7 @@ export async function DeleteFav(recipe) {
 export async function runUpdateInstructions(recipeId, updatedInstruction) {
 	const db = client.db('devdb');
 	const collection = db.collection('recipes');
+	console.log(recipeId)
 	try {
 
 		await collection.updateOne(
