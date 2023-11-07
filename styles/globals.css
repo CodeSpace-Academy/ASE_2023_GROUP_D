@@ -16,6 +16,10 @@ body {
   display: flex;
   justify-content: center;
 }
+ 
+.highlight{
+  background: yellow;
+}
 
 h1,
 h3,
@@ -118,9 +122,10 @@ text-align: center;
 }
 
 /* Add this CSS to your stylesheet */
-.search-container {
+/* .search-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 10vh; /* Set a specific height or adjust as needed */
-}
+  justify-content: center; /* Center horizontally *
+  align-items: center; /* Center vertically 
+  height: 20vh; /* Set a specific height or adjust as needed *
+  background-color: #8e8989;
+} */
