@@ -1,4 +1,8 @@
 /* Recipe Details Container */
+* {
+  margin: 0;
+}
+
 .recipeDetails {
     display: flex;
     justify-content: space-between;
