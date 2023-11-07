@@ -1,58 +1,46 @@
-
-// import React, { useState, useRef } from 'react';
-// import styles from './instructions.module.css';
-
-// function RecipeInstructions({ instructions }) {
-//   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
-//   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
-//   const instructionRefs = useRef([]);
-
-//   async function saveInstructions() {
-//     //event.preventDefault();
-
-//     const enteredInstruction = instructionRefs.current.value;
-
-//     fetch('/api/updateInstructions/updateInstructions', {
-//       method: 'POST',
-//       body: JSON.stringify({ instructions: enteredInstruction }),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//     })
-//       .then(response => response.json())
-//       .then(data => console.log(data));
-
-//   }
-
-//   const handleEditInstructions = () => {
-
-//     setIsEditingInstructions(true);
-//   };
-
- 
-
-//   const handleSave = (onSave) => {
-//     onSave(editedInstructions)
-//     setIsEditingInstructions(false);
-//   };
-
-//   const handleCancel = () => {
-//     setEditedInstructions([...instructions]);
-//     setIsEditingInstructions(false);
-//   };
-
-
-import React, { useState } from 'react';
+    
+import React, { useState, useRef } from 'react';
 import styles from './instructions.module.css';
+import SuccessNotification from '@/components/Errors/SuccessNotification';
+import ErrorNotification from '@/components/Errors/ErrorNotification';
 
-function RecipeInstructions({ instructions, recipeId }) {
+function RecipeInstructions({ instructions, onSave }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
+  const instructionRefs = useRef([]);
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [showErrorNotification, setShowErrorNotification] = useState(false);
+
+  async function saveInstructions() {
+    try {
+
+      // Check if any instruction is empty
+      if (instructionRefs.current.some((ref) => ref.value.trim() === '')) {
+        setEmptyInstructionsError(true);
+        return; // Do not proceed if any instruction is empty
+      }
+      const enteredInstructions = instructionRefs.current.map((ref) => ref.value);
+
+      // Simulate a success response
+      setShowSuccessNotification(true);
+
+      // Simulate closing the success notification after a few seconds (you can adjust the duration)
+      setTimeout(() => {
+        setShowSuccessNotification(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error updating instructions:", error);
+      setShowErrorNotification(true);
+    }
+  }
+
   const handleEditInstructions = () => {
     setIsEditingInstructions(true);
   };
 
   const handleSave = () => {
+    // Call the saveInstructions function to update the instructions.
+    saveInstructions();
     setIsEditingInstructions(false);
 
     // Save the instructions using an API request here
@@ -69,6 +57,7 @@ function RecipeInstructions({ instructions, recipeId }) {
     updatedInstructions[index] = newValue;
     setEditedInstructions(updatedInstructions);
   };
+
 
   const saveInstructions = async (updatedInstructions) => {
     try {
@@ -93,25 +82,29 @@ function RecipeInstructions({ instructions, recipeId }) {
       console.error('An error occurred while saving instructions:', error);
     }
   };
-
+  
   return (
     <div>
       {isEditingInstructions ? (
         <div>
-          <ol>
+          <ol className={styles.instructionsList}>
             {editedInstructions.map((instruction, index) => (
-              <li key={index}>
+              <li key={index} className={styles.instructionsListItem}>
                 <input
                   value={instruction}
                   onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  className={styles.insContainer}
+
+
+                  className={styles.inputField}
+                  ref={(ref) => (instructionRefs.current[index] = ref)}
                 />
               </li>
             ))}
           </ol>
-          <div>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+          <div className={styles.buttonContainer}>
+            <button className={styles.saveButton} onClick={handleSave}>Save</button>
+            <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>
+
           </div>
         </div>
       ) : (
@@ -139,8 +132,23 @@ function RecipeInstructions({ instructions, recipeId }) {
           </button>
         </div>
       )}
+      <br/>
+      {showSuccessNotification && (
+        <SuccessNotification
+          message="Instructions updated successfully."
+          onClose={() => setShowSuccessNotification(false)}
+        />
+      )}
+      {showErrorNotification && (
+        <ErrorNotification
+          message="Failed to update instructions. Please try again later."
+          onClose={() => setShowErrorNotification(false)}
+        />
+      )}
     </div>
   );
 }
 
+
 export default RecipeInstructions;
+
