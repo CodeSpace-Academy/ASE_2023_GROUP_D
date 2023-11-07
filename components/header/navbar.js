@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
-      <Link href="/">
+       <Link href="/recipes/1">
       <div className={styles.logo}>
         <img src="/images/BrandLogo.png" alt="Logo" width={200} height={50}/>
       </div>
