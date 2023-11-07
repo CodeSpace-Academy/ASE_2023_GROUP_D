@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import Image from "next/image";
 
 function Home(props) {
   const buttonStyles = {
@@ -35,7 +35,7 @@ function Home(props) {
           zIndex: 2, // Ensure buttons are on top of the background
         }}
       >
-        <img src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
+        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
           <button style={buttonStyles}>All Recipe</button>
         </Link>
@@ -59,7 +59,7 @@ function Home(props) {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          backgroundColor: 'black',
+          //backgroundColor: 'black',
         }}
       >
         

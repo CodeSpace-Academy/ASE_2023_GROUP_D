@@ -10,9 +10,9 @@
 
 .rando {
   text-align: center;
-  font-family: var(--v-heading-font);
   font-weight: 400;
-  font-style: italic;
+  font-family: "Arial", "Lucida Console", "Courier New", monospace;
+
 
 }
 

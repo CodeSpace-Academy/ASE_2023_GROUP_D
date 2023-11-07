@@ -1,4 +1,4 @@
-/* FilterByTags.module.css */
+
 .container {
     display: flex;
     flex-direction: column;
@@ -36,4 +36,3 @@
   .button:hover {
     background: #972f2f; /* Darker red color on hover */
   }
-  

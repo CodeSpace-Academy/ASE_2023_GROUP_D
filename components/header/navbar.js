@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styles from "./navbar.module.css"; // Import the CSS module
+import Image from "next/image";
 
 
 const Navbar = () => {
@@ -34,12 +35,12 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/favourites">
+          <Link href={'/favourites/1'}>
             <h2 className={styles.link}>Favourites</h2>
           </Link>
         </li>
         <li>
-          <Link href="/all-recipes">
+          <Link href="/recipes/1">
             <h2 className={styles.link}>All Recipes</h2>
           </Link>
         </li>
