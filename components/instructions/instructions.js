@@ -58,21 +58,21 @@ function RecipeInstructions({ instructions, onSave }) {
     <div>
       {isEditingInstructions ? (
         <div>
-          <ol>
+          <ol className={styles.instructionsList}>
             {editedInstructions.map((instruction, index) => (
-              <li key={index}>
+              <li key={index} className={styles.instructionsListItem}>
                 <input
                   value={instruction}
                   onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  className={styles.insContainer}
+                  className={styles.inputField}
                   ref={(ref) => (instructionRefs.current[index] = ref)}
                 />
               </li>
             ))}
           </ol>
-          <div>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+          <div className={styles.buttonContainer}>
+            <button className={styles.saveButton} onClick={handleSave}>Save</button>
+            <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>
           </div>
         </div>
       ) : (
@@ -100,7 +100,7 @@ function RecipeInstructions({ instructions, onSave }) {
           </button>
         </div>
       )}
-
+      <br/>
       {showSuccessNotification && (
         <SuccessNotification
           message="Instructions updated successfully."

@@ -1,27 +1,53 @@
-.container3 {
-    background-color: aliceblue;
+/* styles.module.css */
+
+.instructionsList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .instructionsListItem {
+    margin-bottom: 10px;
+  }
+  
+  .inputField {
+    width: 90%;
+    padding: 20px;
+    border: 1px solid #8e8e8e;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .buttonContainer {
     display: flex;
-    align-items: center;
-    padding: 5px;
-    border: 1px solid black;
-    width: 800px;
-}
-
-.insContainer {
-    width: 500px;
-    height: 60px;
-}
-
-.orderedList {
-    margin: 10px;
-}
-
-
-
-.container4 {
-    margin-left: auto;
-}
-
-.container5 {
-    width: 700px;
-}
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .saveButton {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .saveButton:hover {
+    background-color: #444;
+  }
+  
+  .cancelButton {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cancelButton:hover {
+    background-color: #999;
+  }
+  
