@@ -1,41 +1,31 @@
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { run, run2 } from '../../../fetching-data/data'
-import styles from '@/stylespages/RecipeDetails.module.css'
+import styles from '@/components/recipes/UpdateDescription.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
-
-
+import ErrorComponent from '../../../components/Errors/errors'
+import Image from 'next/image';
 const Recipe = ({ recipeId, data1, allergens }) => {
-
   const recipes = data1;
   // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-
   // Filter allergens based on ingredients
   const allergensForRecipe = allergens.filter(allergen =>
     ingredientsArray.some(ingredient => ingredient.includes(allergen))
   );
-
   //calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
   const hours = Math.floor(recipes.cook / 60);
   //calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
   const minutes = recipes.cook % 60;
-
-
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
-
-
   const handleSaveDescription = (updatedDescription) => {
     // Here, you should implement logic to save the updated description.
     console.log("Updated Description:", updatedDescription);
     setEditedDescription(updatedDescription);
     setIsEditingDescription(false);
   };
-
   const tagsString = recipes.tags.join(', ');
-
-
   return (
 
     <div className={styles.recipeDetails}>
@@ -100,10 +90,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
      ) : (
         <ErrorComponent message="Failed to load instructions" />
       )} */}
-        </div>
-      </div>
     </div>
-
   );
 };
 export async function getServerSideProps(context) {
@@ -113,10 +100,7 @@ export async function getServerSideProps(context) {
   console.log(recipedataNo)
   const docs2 = await run2();
   const data = await run(recipedataNo)
-
   const data1 = data.filter((recipe) => recipe._id === recipeId)[0]
-
-
   return {
     props: {
       recipeId,
@@ -126,3 +110,4 @@ export async function getServerSideProps(context) {
   }
 }
 export default Recipe;
+

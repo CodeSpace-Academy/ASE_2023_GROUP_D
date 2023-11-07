@@ -1,50 +1,47 @@
 import React, { useState } from 'react';
-import styles from '@/components/Navbar/filtertags/filterByTags.module.css';
-import Link from 'next/link';
+import styles from './filterByIngredients.module.css'; // Import your CSS module
 
-function FilterIngredients({ recipes }) {
-    const [ingredient, setIngredient] = useState('');
-    const [filteredRecipes, setFilteredRecipes] = useState([]);
+function FilterByIngredients({ onApplyFilter }) {
+  const [showInput, setShowInput] = useState(false);
+  const [filterValue, setFilterValue] = useState('');
 
-    function handleFilterIngredients() {
-        // Filter recipes based on the entered ingredient
-        const filtered = recipes.filter(recipe => {
-            // Check if the ingredient exists in the values of the ingredients object
-            return Object.values(recipe.ingredients).some(value => value.includes(ingredient));
-        });
-        setFilteredRecipes(filtered);
-    }
+  const handleApplyFilter = () => {
+    setShowInput(true);
+  };
 
-    return (
-        <div className={styles.container}>
-            <div>
-                <label htmlFor="ingredient" className={styles.label}>
-                    Enter Ingredient:
-                </label>
-                <input
-                    type="text"
-                    id="ingredientString"
-                    value={ingredient}
-                    onChange={(e) => setIngredient(e.target.value)}
-                    className={styles.input}
-                />
-            </div>
-            <br/>
-            <div className={styles.buttonContainer}>
-                <Link href={`/filterIngredients/1/${ingredient}`}>
-                    <button onClick={handleFilterIngredients} className={styles.button}>
-                        Find Ingredients
-                    </button>
-                </Link>
-            </div>
+  const handleFilterApply = () => {
+    onApplyFilter(filterValue.trim());
+    setShowInput(true); // Hide the input after applying filter
+  };
 
-            {/* <ul className={styles.filteredIngredientList}>
-                {filteredRecipes.map((recipe, index) => (
-                    <li key={index}>{recipe.title}</li>
-                ))}
-            </ul> */}
+  const handleInputChange = (e) => {
+    setFilterValue(e.target.value);
+  };
+
+  return (
+    <div className={styles.container}>
+      {!showInput && (
+        <button className={styles.button} onClick={handleApplyFilter}>
+          Filter by Ingredients
+        </button>
+      )}
+
+      {showInput && (
+        <div className={styles.buttonContainer}>
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Enter ingredient"
+            value={filterValue}
+            onChange={handleInputChange}
+          />
+          <button className={styles.button} onClick={handleFilterApply}>
+            Apply
+          </button>
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
-export default FilterIngredients;
+export default FilterByIngredients;

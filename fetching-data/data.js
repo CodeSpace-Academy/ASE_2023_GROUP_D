@@ -67,7 +67,9 @@ export async function run2() {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("allergens");
-		const data = await collection.find({}).toArray();
+		const data = await collection.find(query).skip(skip).limit(100).toArray();
+console.log("Data:", data); // Add this line
+
 		const dataArray = data.map(document => document.allergens);
 
 		return dataArray;
@@ -81,30 +83,50 @@ export async function run2() {
 	}
 }
 
+
+
 export async function runFilter(page, filter) {
-
 	try {
-		// Connect the client to the server    (optional starting in v4.7)
-		await client.connect();
-		// Send a ping to confirm a successful connection
-		const db = client.db("devdb");
-		await client.db("devdb").command({ ping: 1 });
-		const collection = db.collection("recipes");
-
-		const skip = (page - 1) * 100
-		// Use the find() method to retrieve data
-		const data = await collection.find(filter).skip(skip).limit(100).toArray();
-		// return data.slice(0, limit);
-		return data
-
+	  await client.connect();
+	  const db = client.db("devdb");
+	  await client.db("devdb").command({ ping: 1 });
+	  const collection = db.collection("recipes");
+  
+	  const skip = (page - 1) * 100;
+  
+	  let query = {};
+  
+	  if (filter.steps) {
+		query = { "instructions": { $size: filter.steps } };
+	  }
+  
+	  if (filter.ingredients) {
+		const ingredientsQuery = Object.keys(filter.ingredients).map(ingredient => ({
+		  [`ingredients.${ingredient}`]: { $exists: true }
+		}));
+	  
+		query = { $and: [...ingredientsQuery, query] };
+	  }
+	  
+  
+	  console.log("Query:", query);
+  
+	  const data = await collection.find(query).skip(skip).limit(100).toArray();
+  
+	  return data;
 	} catch (error) {
-		console.error("Failed to connect to MongoDB:", error);
+	  console.error("Failed to connect to MongoDB:", error);
 	} finally {
-		// Ensures that the client will close when you finish/error
-		await client.close();
-
+	  await client.close();
 	}
-}
+  }
+  
+  
+  
+  
+  
+
+
 
 
 export async function runSortDate(page) {
@@ -179,7 +201,6 @@ export async function DeleteFav(recipe) {
 		return console.log("deleted");
 	} catch (error) {
 		console.error("Failed to connect to MongoDB To save favourites", error);
-	}
 }
 
 export async function runUpdateInstructions(recipeId, updatedInstruction) {
