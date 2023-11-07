@@ -81,7 +81,7 @@ export async function run2() {
 	}
 }
 
-export async function runFilter(page,filter) {
+export async function runFilter(page, filter) {
 
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
@@ -99,7 +99,7 @@ export async function runFilter(page,filter) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	 } finally {
+	} finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
 
@@ -124,7 +124,7 @@ export async function runSortDate(page) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
-	 } finally {
+	} finally {
 		// Ensures that the client will close when you finish/error
 		await client.close();
 
@@ -167,9 +167,9 @@ export async function insertFavOrHistory(collection, document) {
 	} catch (error) {
 		console.error("Failed to connect to MongoDB To save favourites", error);
 	}
- }
+}
 
- export async function DeleteFav(recipe) {
+export async function DeleteFav(recipe) {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
 		await client.connect();
@@ -180,4 +180,45 @@ export async function insertFavOrHistory(collection, document) {
 	} catch (error) {
 		console.error("Failed to connect to MongoDB To save favourites", error);
 	}
- }
+}
+
+export async function runUpdateInstructions(recipeId, updatedInstruction) {
+	const db = client.db('devdb'); // Use the existing MongoDB client from run
+	const collection = db.collection('recipes');
+
+	try {
+		// Find the recipe by its ID
+		const existingRecipe = await collection.findOne({ recipeId });
+
+		if (!existingRecipe) {
+			return { success: false, message: 'Recipe not found' };
+		}
+
+		// Get the original instructions array
+		const originalInstructions = existingRecipe.instructions;
+		const indexToUpdate = originalInstructions.findIndex(
+			(instruction) => instruction.id === updatedInstruction._id
+		);
+
+		if (indexToUpdate === -1) {
+			return { success: false, message: 'Instruction not found' };
+		}
+
+		// Update the instruction with the provided data
+		originalInstructions[indexToUpdate] = updatedInstruction;
+		// Update the recipe with the modified instructions array
+		await collection.updateOne(
+			{ recipeId },
+			{
+				$set: { instructions: originalInstructions },
+			}
+		);
+
+		return { success: true, message: 'Instruction updated successfully' };
+	} catch (error) {
+		console.error('Database update error:', error);
+		throw error; // Rethrow the error for proper error handling in the route handler
+	}
+}
+
+

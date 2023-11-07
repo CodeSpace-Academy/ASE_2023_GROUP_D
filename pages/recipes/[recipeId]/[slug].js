@@ -90,7 +90,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
             ))}
           </ul>
           <h2 className={styles.instructions}>Instructions</h2>
-          <RecipesInstructions instructions={recipes.instructions} />
+          <RecipesInstructions instructions={recipes.instructions}  />
           {/* {recipes.instructions.length > 0 ? (
          <ol>
            {recipes.instructions.map((step, index) => (
