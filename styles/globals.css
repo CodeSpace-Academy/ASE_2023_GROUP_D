@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 * {
   margin: 0;
@@ -18,6 +15,10 @@ body {
 .logo {
   display: flex;
   justify-content: center;
+}
+ 
+.highlight{
+  background: yellow;
 }
 
 h1,
@@ -121,9 +122,10 @@ text-align: center;
 }
 
 /* Add this CSS to your stylesheet */
-.search-container {
+/* .search-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 10vh; /* Set a specific height or adjust as needed */
-}
+  justify-content: center; /* Center horizontally *
+  align-items: center; /* Center vertically 
+  height: 20vh; /* Set a specific height or adjust as needed *
+  background-color: #8e8989;
+} */
