@@ -241,5 +241,3 @@ export async function runUpdateInstructions(recipeId, updatedInstruction) {
 		throw error; // Rethrow the error for proper error handling in the route handler
 	}
 }
-
-

@@ -5,6 +5,7 @@ import styles from '@/components/recipes/UpdateDescription.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
 import ErrorComponent from '../../../components/Errors/errors'
 import Image from 'next/image';
+
 const Recipe = ({ recipeId, data1, allergens }) => {
   const recipes = data1;
   // Convert the ingredients object into an array of strings.
@@ -90,6 +91,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
      ) : (
         <ErrorComponent message="Failed to load instructions" />
       )} */}
+    </div>
     </div>
   );
 };
