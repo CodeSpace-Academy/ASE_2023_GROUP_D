@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
+//Landing Page
 function Home(props) {
   const buttonStyles = {
     backgroundColor: '#ff0000',
