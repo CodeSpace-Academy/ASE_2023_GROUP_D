@@ -1,7 +1,4 @@
 /* Recipe Details Container */
-* {
-  margin: 0;
-}
 
 .recipeDetails {
     display: flex;
@@ -51,7 +48,7 @@
   
   /* Update Button */
   .updateButton {
-    background: red;
+    background: #972f2f;
     border-radius: 20px;
     color: white;
     border: none;

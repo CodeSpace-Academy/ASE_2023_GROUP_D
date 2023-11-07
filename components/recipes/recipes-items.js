@@ -104,8 +104,8 @@ function RecipesItems(props) {
                         </div>
                     </div>
                     <div> {category} </div>
-                    <div> {servings} </div>
-                    <div className={styles.date}>{formattedPublishedDate} </div>
+                    <div> Servings: {servings} </div>
+                    <div className={styles.date}>Published: {formattedPublishedDate} </div>
                     <div className={styles.actions}>
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
