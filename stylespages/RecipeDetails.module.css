@@ -103,3 +103,26 @@
     margin: 30px 0;
   }
   
+  .update-button {
+    padding: 10px 20px;
+    background-color: #7d1608dd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .update-button:hover {
+    background-color: #b55144dd;
+  }
+  
+  .container3{
+    background-color: #C34A36;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid black;
+    width: 800px;
+  }
+

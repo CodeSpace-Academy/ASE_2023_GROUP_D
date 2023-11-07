@@ -3,7 +3,8 @@ import UpdateDescription from '@/components/recipes/UpdateDescription';
 import SuccessNotification from '@/components/Errors/SuccessNotification';
 import ErrorNotification from '@/components/Errors/ErrorNotification';
 import { run, run2 } from '../../../fetching-data/data';
-import styles from '@/components/recipes/UpdateDescription.module.css';
+// import styles from '@/components/recipes/UpdateDescription.module.css';
+import styles from '@/stylespages/RecipeDetails.module.css'
 import RecipesInstructions from '@/components/instructions/instructions';
 import ErrorComponent from '../../../components/Errors/errors';
 import Image from 'next/image';
@@ -28,7 +29,7 @@ const Recipe = ({ recipeId, data1, allergens }) => {
         setEmptyDescriptionError(true);
         return; // Do not proceed if the description is empty
       }
-      
+
       // If the update is successful, show the success notification.
       console.log("Updated Description:", updatedDescription);
       setEditedDescription(updatedDescription);
@@ -48,62 +49,71 @@ const Recipe = ({ recipeId, data1, allergens }) => {
   const tagsString = recipes.tags.join(', ');
 
   return (
-    <div className='recipeDetails'>
-      {showSuccessNotification && (
-        <SuccessNotification
-          message="Description updated successfully."
-          onClose={() => setShowSuccessNotification(false)}
-        />
-      )}
-      {showErrorNotification && (
-        <ErrorNotification
-          message="Failed to update description. Please try again later."
-          onClose={() => setShowErrorNotification(false)}
-        />
-      )}
-      <h1>{recipes.title}</h1>
-      <img src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
-      {isEditingDescription ? (
-        <UpdateDescription
-          initialDescription={editedDescription}
-          onSave={handleSaveDescription}
-        />
-      ) : (
-        editedDescription ? (
-          <p>{editedDescription}</p>
+    <div className={styles.recipeDetails}>
+      <div className={styles.leftColumn}>
+        {showSuccessNotification && (
+          <SuccessNotification
+            message="Description updated successfully."
+            onClose={() => setShowSuccessNotification(false)}
+          />
+        )}
+        {showErrorNotification && (
+          <ErrorNotification
+            message="Failed to update description. Please try again later."
+            onClose={() => setShowErrorNotification(false)}
+          />
+        )}
+        <h1 className={styles.recipeTitle}>{recipes.title}</h1>
+        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+        {isEditingDescription ? (
+          <UpdateDescription
+            initialDescription={editedDescription}
+            onSave={handleSaveDescription}
+          />
         ) : (
-          <ErrorComponent message="Failed to load description" />
-        )
-      )}
-      <button className={styles['update-button']}
-        onClick={() => setIsEditingDescription(!isEditingDescription)}>
-        {isEditingDescription ? 'Cancel' : 'Update Description'}
-      </button>
-      <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
-      <h2>Allergens</h2>
-      {allergensForRecipe.length > 0 ? (
-        <ul>
-          {allergensForRecipe.map((allergen, index) => (
-            <li key={index}>{allergen}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No allergens present in this recipe.</p>
-      )}
-      <h2>Tags</h2>
-      {tagsString ? (
-        <p>{tagsString}</p>
-      ) : (
-        <ErrorComponent message="Failed to load tags" />
-      )}
-      <h2>Ingredients</h2>
-      <ul>
-        {ingredientsArray.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
-      <h2>Instructions</h2>
-      <RecipesInstructions instructions={recipes.instructions} />
+          editedDescription ? (
+            <p className={styles.description}>{editedDescription}</p>
+          ) : (
+            <ErrorComponent message="Failed to load description" />
+          )
+        )}
+        <button className={styles.updateButton}
+          onClick={() => setIsEditingDescription(!isEditingDescription)}>
+          {isEditingDescription ? 'Cancel' : 'Update Description'}
+        </button>
+        <h2>Allergens</h2>
+        {allergensForRecipe.length > 0 ? (
+          <ul>
+            {allergensForRecipe.map((allergen, index) => (
+              <li key={index}>{allergen}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No allergens present in this recipe.</p>
+        )}
+        <h2 className={styles.tags}>Tags</h2>
+        <div className={styles.tagsContainer}>
+          {tagsString ? (
+            <p className={styles.tagBlock}>{tagsString}</p>
+          ) : (
+            <ErrorComponent message="Failed to load tags" />
+          )}
+        </div>
+      </div>
+      <div className={styles.rightColumn}>
+        <div className={styles.rightContentContainer}>
+          <p>Cook Time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
+
+          <h2>Ingredients</h2>
+          <ul>
+            {ingredientsArray.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+          <h2>Instructions</h2>
+          <RecipesInstructions instructions={recipes.instructions} />
+        </div>
+      </div >
     </div>
   );
 };
