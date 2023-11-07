@@ -4,8 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
-  background: white; /* Background color */
+  /* height: 20vh; */
+  background-color: #ededed; /* Background color */
 
   /* Create space around the search bar */
   padding: 20px; /* Adjust the padding as needed */
