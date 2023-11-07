@@ -1,22 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
 * {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
+  padding: 0;
   margin: 0;
-  font-family: 'Open Sans', 'Lato', sans-serif;
-  background-color: white;
+  font-family: "Arial", "Lucida Console", "Courier New", monospace;
 }
 
 .logo {
   display: flex;
   justify-content: center;
+}
+ 
+.highlight{
+  background: yellow;
 }
 
 h1,
@@ -24,7 +26,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lato', sans-serif;
   color: #2b2b2b;
 }
 
@@ -121,9 +122,10 @@ text-align: center;
 }
 
 /* Add this CSS to your stylesheet */
-.search-container {
+/* .search-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 10vh; /* Set a specific height or adjust as needed */
-}
+  justify-content: center; /* Center horizontally *
+  align-items: center; /* Center vertically 
+  height: 20vh; /* Set a specific height or adjust as needed *
+  background-color: #8e8989;
+} */

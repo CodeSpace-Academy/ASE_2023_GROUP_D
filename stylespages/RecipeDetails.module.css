@@ -1,0 +1,105 @@
+/* Recipe Details Container */
+.recipeDetails {
+    display: flex;
+    justify-content: space-between;
+    background: rgb(211, 203, 203);
+    padding: 20px;
+    font-family: "Arial", "Lucida Console", "Courier New", monospace;
+  }
+  
+  /* Left Column */
+  .leftColumn {
+    flex: 1;
+    color: black;
+    background: rgb(211, 203, 203); /* White background for the left column */
+    padding: 20px;
+  }
+  
+  /* Right Column */
+  .rightColumn {
+    flex: 1;
+    background: white; /* Grey background for the right column */
+    border-radius: 20px;
+    border: 3px solid grey;
+    padding: 20px;
+ /* Text color for the right column */
+    color: black /* Text color for the right column */
+  }
+  
+  /* Recipe Title */
+  .recipeTitle {
+    font-family: "Arial", "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+    margin: auto;
+  }
+  
+  /* Recipe Image */
+  .recipeImage {
+    border: 3px solid grey;
+    border-radius: 30px;
+    max-width: 100%;
+  }
+  
+  /* Description */
+  .description {
+    margin: 10px 0;
+  }
+  
+  /* Update Button */
+  .updateButton {
+    background: red;
+    border-radius: 20px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .updateButton:hover {
+    background: #972f2f;
+  }
+  
+  /* Cook Time */
+  .cookTime {
+    font-size: 14px;
+  }
+  
+  /* Allergens */
+  .allergens {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  /* Tags */
+  .tags {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .tagBlock {
+    background: rgb(41, 30, 30);
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Ingredients */
+  .ingredients {
+    font-size: 18px;
+    margin: 30px 0;
+  }
+  
+  /* Instructions */
+  .instructions {
+    font-size: 18px;
+    margin: 30px 0;
+  }
+  
