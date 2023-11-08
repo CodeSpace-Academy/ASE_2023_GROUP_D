@@ -50,4 +50,8 @@
   .cancelButton:hover {
     background-color: #999;
   }
+
+  .container {
+    width: 200px;
+  }
   

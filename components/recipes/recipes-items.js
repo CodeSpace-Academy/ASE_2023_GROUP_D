@@ -15,6 +15,7 @@ function RecipesItems(props) {
     const [hoverToggle, setHoverToggle] = useState(false)
 
     const publishedDate = new Date(published);
+    const totalTime = prep + cook
     const formattedPublishedDate = publishedDate.toISOString().split('T')[0];
 
     const recipeToBeInsertedToFav = {
@@ -95,10 +96,12 @@ function RecipesItems(props) {
                             <div className={styles.cookingTime}>
                                 <div className={styles.label}>Preparation:</div>
                                 <div className={styles.label}>Cooking time:</div>
+                                <div className={styles.label}>Total time:</div>
                             </div>
                             <div className={styles.cookingTime}>
                                 <div className={styles.value}>{prep} mins</div>
                                 <div className={styles.value}>{cook} mins</div>
+                                <div className={styles.value}>{totalTime} mins</div>
 
                             </div>
                         </div>

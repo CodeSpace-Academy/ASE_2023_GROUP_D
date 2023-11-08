@@ -64,8 +64,7 @@ function RecipeInstructions({ instructions, recipeId }) {
                 <input
                   value={instruction}
                   onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  className={styles.insContainer}
-                  
+                  className={styles.container}  
                 />
               </li>
             ))}
