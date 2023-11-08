@@ -79,7 +79,7 @@ function SearchBar({ search, categories }) {
       <div className={styles.container}>
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
-          <input className={styles.input} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+          <input className={styles.input} type="text" placeholder="Search..." value={query} onChange={handleInputChange} />
         </div>
       </div>
 
