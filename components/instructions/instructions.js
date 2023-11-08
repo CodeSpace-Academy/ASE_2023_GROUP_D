@@ -1,36 +1,45 @@
-
 import React, { useState, useRef } from 'react';
 import styles from './instructions.module.css';
+import SuccessNotification from '@/components/Errors/SuccessNotification';
+import ErrorNotification from '@/components/Errors/ErrorNotification';
 
 function RecipeInstructions({ instructions, onSave }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
   const instructionRefs = useRef([]);
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [showErrorNotification, setShowErrorNotification] = useState(false);
 
   async function saveInstructions() {
-    //event.preventDefault();
+    try {
 
-    const enteredInstruction = instructionRefs.current.value;
+      // Check if any instruction is empty
+      if (instructionRefs.current.some((ref) => ref.value.trim() === '')) {
+        setEmptyInstructionsError(true);
+        return; // Do not proceed if any instruction is empty
+      }
+      const enteredInstructions = instructionRefs.current.map((ref) => ref.value);
 
-    fetch('/api/updateInstructions', {
-      method: 'POST',
-      body: JSON.stringify({ instructions: enteredInstruction }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(response => response.json())
-      .then(data => console.log(data));
+      // Simulate a success response
+      setShowSuccessNotification(true);
 
+      // Simulate closing the success notification after a few seconds (you can adjust the duration)
+      setTimeout(() => {
+        setShowSuccessNotification(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error updating instructions:", error);
+      setShowErrorNotification(true);
+    }
   }
 
   const handleEditInstructions = () => {
-
     setIsEditingInstructions(true);
   };
 
   const handleSave = () => {
-    //onSave(editedInstructions);
+    // Call the saveInstructions function to update the instructions.
+    saveInstructions();
     setIsEditingInstructions(false);
   };
 
@@ -45,32 +54,25 @@ function RecipeInstructions({ instructions, onSave }) {
     setEditedInstructions(updatedInstructions);
   };
 
-  function handlerTrigger() {
-    handleSave();
-    saveInstructions();
-  }
-
   return (
     <div>
       {isEditingInstructions ? (
         <div>
-          <ol>
+          <ol className={styles.instructionsList}>
             {editedInstructions.map((instruction, index) => (
-              <li key={index}>
+              <li key={index} className={styles.instructionsListItem}>
                 <input
                   value={instruction}
                   onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  //onSave={'tshepo'}
-                  className={styles.insContainer}
-                  ref={instructionRefs}
-
+                  className={styles.inputField}
+                  ref={(ref) => (instructionRefs.current[index] = ref)}
                 />
               </li>
             ))}
           </ol>
-          <div>
-            <button onClick={handlerTrigger}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+          <div className={styles.buttonContainer}>
+            <button className={styles.saveButton} onClick={handleSave}>Save</button>
+            <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>
           </div>
         </div>
       ) : (
@@ -80,23 +82,39 @@ function RecipeInstructions({ instructions, onSave }) {
               <li key={index}>{instruction}</li>
             ))}
           </ol>
-          <button style={{
-            background: 'red',
-            borderRadius: '20px',
-            color: 'white',
-            border: 'none',
-            padding: '10px 20px',
-            cursor: 'pointer',
-            transition: 'background-color 0.3s',
-          }}
+          <button
+            style={{
+              background: 'red',
+              borderRadius: '20px',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s',
+            }}
             onMouseEnter={(e) => (e.target.style.background = '#972f2f')}
             onMouseLeave={(e) => (e.target.style.background = 'red')}
-            onClick={handleEditInstructions}>Edit Instructions</button>
+            onClick={handleEditInstructions}
+          >
+            Edit Instructions
+          </button>
         </div>
+      )}
+      <br/>
+      {showSuccessNotification && (
+        <SuccessNotification
+          message="Instructions updated successfully."
+          onClose={() => setShowSuccessNotification(false)}
+        />
+      )}
+      {showErrorNotification && (
+        <ErrorNotification
+          message="Failed to update instructions. Please try again later."
+          onClose={() => setShowErrorNotification(false)}
+        />
       )}
     </div>
   );
 }
 
 export default RecipeInstructions;
-
