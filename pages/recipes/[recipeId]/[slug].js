@@ -167,15 +167,14 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
               <li key={index}>{ingredient}</li>
             ))}
           </ul>
-          <h2>Instructions</h2>
-          <RecipesInstructions instructions={recipes.instructions} />
+
+          <h2 className={styles.instructions}>Instructions</h2>
+          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId}/>
+          
+
         </div>
       </div>
     </div>
-
-
-
-
 
   );
 };

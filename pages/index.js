@@ -62,7 +62,7 @@ function Home(props) {
           //backgroundColor: 'black',
         }}
       >
-        
+
       </div>
     </div>
   );
