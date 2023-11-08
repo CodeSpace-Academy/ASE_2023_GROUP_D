@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UpdateDescription from '@/components/recipes/UpdateDescription';
+import UpdateDescription from '@/components/description/description';
 import SuccessNotification from '@/components/Errors/SuccessNotification';
 import ErrorNotification from '@/components/Errors/ErrorNotification';
 import { run2, runFilter, runFav } from '../../../fetching-data/data';
@@ -119,22 +119,9 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br/>
         <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
-        {isEditingDescription ? (
-          <UpdateDescription
-            initialDescription={editedDescription}
-            onSave={handleSaveDescription}
-          />
-        ) : (
-          editedDescription ? (
-            <p className={styles.description}>{editedDescription}</p>
-          ) : (
-            <ErrorComponent message="Failed to load description" />
-          )
-        )}
-        <button className={styles.updateButton}
-          onClick={() => setIsEditingDescription(!isEditingDescription)}>
-          {isEditingDescription ? 'Cancel' : 'Update Description'}
-        </button>
+        
+        <UpdateDescription description={recipes.description} recipeId={recipeId}/>
+
         <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
         <h2 className={styles.allergens}>Allergens</h2>
         {allergensForRecipe.length > 0 ? (

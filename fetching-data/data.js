@@ -214,17 +214,37 @@ export async function DeleteFav(recipe) {
 export async function runUpdateInstructions(recipeId, updatedInstruction) {
 	const db = client.db('devdb');
 	const collection = db.collection('recipes');
-	
+
 	try {
 
 		await collection.updateOne(
-			{_id: recipeId},
+			{ _id: recipeId },
 			{
-				$set: { "instructions": updatedInstruction},
+				$set: { "instructions": updatedInstruction },
 			},
 		);
 
 		return { success: true, message: 'Instruction updated successfully' };
+	} catch (error) {
+		console.error('Database update error:', error);
+		throw error;
+	}
+}
+
+export async function runUpdateDescription(recipeId, updatedDescription) {
+	const db = client.db('devdb');
+	const collection = db.collection('recipes');
+
+	try {
+
+		await collection.updateOne(
+			{ _id: recipeId },
+			{
+				$set: { "description": updatedDescription },
+			},
+		);
+
+		return { success: true, message: 'Description updated successfully' };
 	} catch (error) {
 		console.error('Database update error:', error);
 		throw error;
