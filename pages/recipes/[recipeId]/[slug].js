@@ -86,8 +86,11 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
       <div className={styles.leftColumn}>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br />
+
+      <div className={styles.favourite}>
         <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={250} height={250} />
-        {favToggle ? <button onClick={() => removeFromFavourite({ _id: recipeId })}>Rev From Fav</button> : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
+        {favToggle ? <button className={styles.favButton} onClick={() => removeFromFavourite({ _id: recipeId })}>Rev From Fav</button> : <button className={styles.favButton} onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
+      </div>
 
         {isEditingDescription ? (
           <UpdateDescription
