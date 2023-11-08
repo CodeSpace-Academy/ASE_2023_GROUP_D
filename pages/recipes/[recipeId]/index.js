@@ -22,7 +22,7 @@ function Recipe({ recipes, favRecipes, categories }) {
     <>
       <Navbar />
       <div >
-        <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
+        <img className={styles.image} src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
         {/* {recipeId > 1 &&
           <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
             <button onClick={() => {
