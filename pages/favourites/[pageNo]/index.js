@@ -3,6 +3,7 @@ import RecipeList from '@/components/recipes/recipes-list';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/header/navbar';
+import Footer from '@/components/footer/footer';
 
 
 function Recipe({ favRecipes, patcheNo }) {
