@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/text-search/searchBar.module.css"
+import styles from "./seachBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 
 function SearchBar({ search, categories }) {
-  const [query, setQuery] = useState("");
-  const [backUpQuery, setBackUpQuery] = useState(search);
-  const [prep, setHandlePrep] = useState('')
-  const [tags, setTags] = useState([])
+  const [query, setQuery] = useState(""); //Storing the text entered in the search bar
+  const [backUpQuery, setBackUpQuery] = useState(search); // Storing a backup of the search term
+  const [prep, setHandlePrep] = useState('') // Storing sorting information
+  const [tags, setTags] = useState([]) 
   const [ingredients, setIngredients] = useState([])
   const [category, setCategory] = useState('')
-  const router = useRouter();
-  const delay = 5000;
+  const router = useRouter();// Using Next.js to manage routing
+  const delay = 2000;
 
+  // When someone types in the search bar, this function updates the 'query' variable.
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
 
+    // When a search is performed, this function navigates to the search results page.
   useEffect(() => {
 
     if (query) {
@@ -34,6 +36,7 @@ function SearchBar({ search, categories }) {
     }
   }, [router, query, delay]);
 
+  // When the component is unmounted or the route changes, this function clears the search query.
   useEffect(() => {
     return () => {
       setQuery('');
@@ -81,7 +84,7 @@ function SearchBar({ search, categories }) {
 
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
-          <input className={styles.input} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+          <input className={styles.input} type="text" placeholder="Search ..." value={query} onChange={handleInputChange} />
         </div>
 
       </div>
