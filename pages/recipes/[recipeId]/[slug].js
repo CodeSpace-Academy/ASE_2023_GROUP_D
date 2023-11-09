@@ -5,7 +5,7 @@ import styles from '@/stylespages/RecipeDetails.module.css'
 // import styles from '@/components/recipes/UpdateDescription.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
 import ErrorComponent from '../../../components/Errors/errors'
-import Image from 'next/image';
+
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
