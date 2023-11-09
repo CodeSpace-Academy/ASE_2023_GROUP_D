@@ -1,37 +1,52 @@
 import React, { useState } from 'react';
-import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
-import { runFilter, run2, runFav } from '../../../fetching-data/data'
-import styles from '@/stylespages/RecipeDetails.module.css'
-// import styles from '@/components/recipes/UpdateDescription.module.css'
-import RecipesInstructions from '@/components/instructions/instructions'
-import ErrorComponent from '../../../components/Errors/errors'
+import UpdateDescription from '@/components/description/description';
+import SuccessNotification from '@/components/Errors/SuccessNotification';
+import ErrorNotification from '@/components/Errors/ErrorNotification';
+import { run2, runFilter, runFav } from '../../../fetching-data/data';
+import styles from '@/stylespages/RecipeDetails.module.css';
+import RecipesInstructions from '@/components/instructions/instructions';
+import ErrorComponent from '../../../components/Errors/errors';
+
 
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
-  const [hoverToggle, setHoverToggle] = useState(false)
-
   const recipes = data1[0];
-
   // Convert the ingredients object into an array of strings.
 
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
-  // Filter allergens based on ingredients
-  const allergensForRecipe = allergens.filter(allergen =>
+  const allergensForRecipe = allergens ? allergens.filter(allergen =>
     ingredientsArray.some(ingredient => ingredient.includes(allergen))
-  );
-  //calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
+  ) : [];
   const hours = Math.floor(recipes.cook / 60);
-  //calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
   const minutes = recipes.cook % 60;
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
-  const handleSaveDescription = (updatedDescription) => {
-    // Here, you should implement logic to save the updated description.
-    console.log("Updated Description:", updatedDescription);
-    setEditedDescription(updatedDescription);
-    setIsEditingDescription(false);
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [showErrorNotification, setShowErrorNotification] = useState(false);
+
+  const handleSaveDescription = async (updatedDescription) => {
+    try {
+      if (!updatedDescription.trim()) {
+        setEmptyDescriptionError(true);
+        return; // Do not proceed if the description is empty
+      }
+
+      // If the update is successful, show the success notification.
+      console.log("Updated Description:", updatedDescription);
+      setEditedDescription(updatedDescription);
+      setIsEditingDescription(false);
+      setShowSuccessNotification(true);
+
+      // Simulate closing the success notification after a few seconds (you can adjust the duration)
+      setTimeout(() => {
+        setShowSuccessNotification(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error updating description:", error);
+      setShowErrorNotification(true);
+    }
   };
 
   const tagsString = recipes.tags.join(', ');
@@ -88,32 +103,26 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   return (
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
-        <h1 className={styles.recipeTitle}>{recipes.title}</h1>
-        <br />
-        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={250} height={250} />
-        {favToggle ? (
-          <button onClick={() => removeFromFavourite({ _id: recipeId })}>Remove From Fav</button>
-        ) : (
-          <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>
-        )}
-
-        {isEditingDescription ? (
-          <UpdateDescription
-            initialDescription={editedDescription}
-            onSave={handleSaveDescription}
+        {showSuccessNotification && (
+          <SuccessNotification
+            message="Description updated successfully."
+            onClose={() => setShowSuccessNotification(false)}
           />
-        ) : null}
-        <br />
+        )}
+        {showErrorNotification && (
+          <ErrorNotification
+            message="Failed to update description. Please try again later."
+            onClose={() => setShowErrorNotification(false)}
+          />
+        )}
+        <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
-        <br />
+        <br/>
         <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+        
+        <UpdateDescription description={recipes.description} recipeId={recipeId}/>
 
-        <UpdateDescription description={recipes.description} recipeId={recipeId} />
-
-        <p>
-          Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''}{' '}
-          {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}
-        </p>
+        <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
         <h2 className={styles.allergens}>Allergens</h2>
         {allergensForRecipe.length > 0 ? (
           <ul>
@@ -134,8 +143,11 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         </div>
       </div>
 
+
       <div className={styles.rightColumn}>
         <div className={styles.rightContentContainer}>
+
+
           <h2 className={styles.ingredients}>Ingredients</h2>
           <ul>
             {ingredientsArray.map((ingredient, index) => (
@@ -144,13 +156,15 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
           </ul>
 
           <h2 className={styles.instructions}>Instructions</h2>
-          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId} />
+          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId}/>
+          
+
         </div>
       </div>
     </div>
+
   );
 };
-
 
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
