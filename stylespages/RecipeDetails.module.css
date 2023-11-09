@@ -1,4 +1,5 @@
 /* Recipe Details Container */
+
 .recipeDetails {
     display: flex;
     justify-content: space-between;
@@ -47,7 +48,7 @@
   
   /* Update Button */
   .updateButton {
-    background: red;
+    background: #972f2f;
     border-radius: 20px;
     color: white;
     border: none;

@@ -13,10 +13,12 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
+       <Link href="/recipes/1">
       <div className={styles.logo}>
-        <img src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
+        <img src="/images/BrandLogo.png" alt="Logo" width={200} height={50}/>
       </div>
-
+      </Link>
+     
       <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
         <div className={styles.bar}></div>
         <div className={styles.bar}></div>
@@ -24,11 +26,7 @@ const Navbar = () => {
       </button>
 
       <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ""}`}>
-        <div className={styles.hamburger} onClick={toggleMenu}>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        
         <li>
           <Link href="/">
             <h2 className={styles.link}>Home</h2>

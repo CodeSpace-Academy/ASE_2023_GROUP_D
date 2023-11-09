@@ -5,6 +5,7 @@ import SearchBar from "@/components/text-search/auto-submission";
 import styles from '@/components/header/summary.module.css'
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Footer from "@/components/footer/footer";
 
 
 function Search({ filteredCharacters, favRecipes, categories }) {
@@ -30,8 +31,7 @@ function Search({ filteredCharacters, favRecipes, categories }) {
                 >Load More {`(${loadmore})`}
                 </button>
             </div>
-
-
+         <Footer />
         </>
     )
 }

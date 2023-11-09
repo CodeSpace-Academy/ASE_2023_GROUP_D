@@ -29,6 +29,14 @@ function RecipesItems(props) {
         published: published
     }
 
+    const hours = Math.floor(cook / 60);
+    const minutes = cook % 60;
+  
+    const hour = Math.floor(prep / 60);
+    const minute = prep % 60;
+  
+
+
     async function addToFavourite(recipeData) {
         const response = await fetch('/api/favourites', {
             method: 'POST',
@@ -92,20 +100,16 @@ function RecipesItems(props) {
 
                     <div className={styles.cookingContainer}>
                         <div >
-                            <div className={styles.cookingTime}>
-                                <div className={styles.label}>Preparation:</div>
-                                <div className={styles.label}>Cooking time:</div>
-                            </div>
-                            <div className={styles.cookingTime}>
-                                <div className={styles.value}>{prep} mins</div>
-                                <div className={styles.value}>{cook} mins</div>
+                            <div>
+                                <div>Preparation: {hour > 0 ? `${hour} hr${hour > 1 ? 's' : ''} ` : ''} {minute > 0 ? `${minute} min${minute > 1 ? 's' : ''} ` : ''}</div>
+                                <div>{<>Cooking time: {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} min${minutes > 1 ? 's' : ''} ` : ''}</>}</div>
 
                             </div>
                         </div>
                     </div>
                     <div> {category} </div>
-                    <div> {servings} </div>
-                    <div className={styles.date}>{formattedPublishedDate} </div>
+                    <div> Servings: {servings} </div>
+                    <div className={styles.date}>Published: {formattedPublishedDate} </div>
                     <div className={styles.actions}>
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
