@@ -91,22 +91,29 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br />
         <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={250} height={250} />
-        {favToggle ? <button onClick={() => removeFromFavourite({ _id: recipeId })}>Rev From Fav</button> : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
+        {favToggle ? (
+          <button onClick={() => removeFromFavourite({ _id: recipeId })}>Remove From Fav</button>
+        ) : (
+          <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>
+        )}
 
         {isEditingDescription ? (
           <UpdateDescription
             initialDescription={editedDescription}
             onSave={handleSaveDescription}
           />
-        )}
-        <br/>
+        ) : null}
+        <br />
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
-        <br/>
+        <br />
         <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
-        
-        <UpdateDescription description={recipes.description} recipeId={recipeId}/>
 
-        <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
+        <UpdateDescription description={recipes.description} recipeId={recipeId} />
+
+        <p>
+          Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''}{' '}
+          {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}
+        </p>
         <h2 className={styles.allergens}>Allergens</h2>
         {allergensForRecipe.length > 0 ? (
           <ul>
@@ -127,11 +134,8 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         </div>
       </div>
 
-
       <div className={styles.rightColumn}>
         <div className={styles.rightContentContainer}>
-
-
           <h2 className={styles.ingredients}>Ingredients</h2>
           <ul>
             {ingredientsArray.map((ingredient, index) => (
@@ -140,15 +144,13 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
           </ul>
 
           <h2 className={styles.instructions}>Instructions</h2>
-          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId}/>
-          
-
+          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId} />
         </div>
       </div>
     </div>
-
   );
 };
+
 
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
