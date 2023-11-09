@@ -1,4 +1,5 @@
 import styles from './recipes-items.module.css';
+import style from './recipes-items.module.css'
 import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
@@ -120,6 +121,7 @@ function RecipesItems(props) {
                             </div>
                         </div>
                     </div>
+                    </div>
                     <div> {category} </div>
                     <div> Servings: {servings} </div>
                     <div className={styles.date}>Published: {formattedPublishedDate} </div>
@@ -130,6 +132,7 @@ function RecipesItems(props) {
                     </div>
 
                 </li>
+               
             </div>
         }</>
     )
