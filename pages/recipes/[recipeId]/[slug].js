@@ -2,26 +2,34 @@ import React, { useState } from 'react';
 import UpdateDescription from '@/components/recipes/UpdateDescription'; // Make sure to provide the correct path
 import { runFilter, run2, runFav } from '../../../fetching-data/data'
 import styles from '@/stylespages/RecipeDetails.module.css'
-// import styles from '@/components/recipes/UpdateDescription.module.css'
 import RecipesInstructions from '@/components/instructions/instructions'
 import ErrorComponent from '../../../components/Errors/errors'
-import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
+
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
+  const [hoverToggle, setHoverToggle] = useState(false)
+
   const recipes = data1[0];
+
   // Convert the ingredients object into an array of strings.
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
+
   // Filter allergens based on ingredients
   const allergensForRecipe = allergens.filter(allergen =>
     ingredientsArray.some(ingredient => ingredient.includes(allergen))
   );
+
   //calculate the number of hours by dividing recipes.cook by 60 and using Math.floor to get the whole number of hours.
   const hours = Math.floor(recipes.cook / 60);
+
   //calculate the number of remaining minutes by using the modulo operator (%) to get the remainder when dividing by 60.
   const minutes = recipes.cook % 60;
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
+
   const handleSaveDescription = (updatedDescription) => {
     // Here, you should implement logic to save the updated description.
     console.log("Updated Description:", updatedDescription);
@@ -84,10 +92,29 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
+        {/* {showSuccessNotification && (
+          <SuccessNotification
+            message="Description updated successfully."
+            onClose={() => setShowSuccessNotification(false)}
+          />
+        )}
+        {showErrorNotification && (
+          <ErrorNotification
+            message="Failed to update description. Please try again later."
+            onClose={() => setShowErrorNotification(false)}
+          />
+        )} */}
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br />
         <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={250} height={250} />
-        {favToggle ? <button onClick={() => removeFromFavourite({ _id: recipeId })}>Rev From Fav</button> : <button onClick={() => addToFavourite(recipeToBeInsertedToFav)}>Add To Fav</button>}
+        {favToggle ? (
+          <>
+            {!hoverToggle && <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />}
+            {hoverToggle && <FontAwesomeIcon onMouseLeave={() => setHoverToggle(!hoverToggle)} icon={brokenHeart} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} shake />}
+          </>
+        ) : (
+          <FontAwesomeIcon icon={regularHeart} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+        )}
 
         {isEditingDescription ? (
           <UpdateDescription
