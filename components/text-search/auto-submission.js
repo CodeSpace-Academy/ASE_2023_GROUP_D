@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/text-search/searchBar.module.css"
+import styles from "./seachBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
@@ -12,27 +12,21 @@ import SortPrep from '@/components/Sorting/sort-by-prep-time'
 
 
 function SearchBar({ search, categories }) {
-  const [query, setQuery] = useState("");
-  const [backUpQuery, setBackUpQuery] = useState(search);
-  const [prep, setPrep] = useState('')
-  const [tags, setTags] = useState([])
+  const [query, setQuery] = useState(""); //Storing the text entered in the search bar
+  const [backUpQuery, setBackUpQuery] = useState(search); // Storing a backup of the search term
+  const [prep, setHandlePrep] = useState('') // Storing sorting information
+  const [tags, setTags] = useState([]) 
   const [ingredients, setIngredients] = useState([])
   const [category, setCategory] = useState('')
+  const router = useRouter();// Using Next.js to manage routing
+  const delay = 2000;
 
-
-
-   const [sortCook,setSortCook] = useState('ascending') 
-
-
-
-  const router = useRouter();
-  const delay = 5000;
-
-
+  // When someone types in the search bar, this function updates the 'query' variable.
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
 
+    // When a search is performed, this function navigates to the search results page.
   useEffect(() => {
 
     if (query) {
@@ -48,6 +42,7 @@ function SearchBar({ search, categories }) {
     }
   }, [router, query, delay]);
 
+  // When the component is unmounted or the route changes, this function clears the search query.
   useEffect(() => {
     return () => {
       setQuery('');
@@ -89,17 +84,22 @@ function SearchBar({ search, categories }) {
     setTags([])
     setCategory('')
     setIngredients([])
-    setPrep('')
-    setSortCook('')
+    setHandlePrep('')
+  }
+
+  function handleCountMatchingRecipes() {
+
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }} className={styles.container}>
       <div className={styles.container}>
+
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
-          <input className={styles.input} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+          <input className={styles.input} type="text" placeholder="Search ..." value={query} onChange={handleInputChange} />
         </div>
+
       </div>
 
       {router.pathname.includes('/Search/') &&
@@ -118,6 +118,8 @@ function SearchBar({ search, categories }) {
               return (<button key={index} onClick={handleDeleteTag} value={tag}>{tag}</button>)
             })}
           </div>
+
+          
 
           <div style={{ display: 'flex' }}>
             <label><h5>SortByOrd : </h5></label>

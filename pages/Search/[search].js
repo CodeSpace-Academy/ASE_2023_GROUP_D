@@ -3,8 +3,10 @@ import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
 import SearchBar from "@/components/text-search/auto-submission";
 import styles from '@/components/header/summary.module.css'
+//import style from "@/components/text-search/searchBar.module.css"
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Footer from "@/components/footer/footer";
 
 
 function Search({ filteredCharacters, favRecipes, categories }) {
@@ -13,10 +15,29 @@ function Search({ filteredCharacters, favRecipes, categories }) {
     const [loadmore, setLoadMore] = useState(filteredCharacters.length)
     const [loadData, setLoadData] = useState(20)
 
+    function countMatchingRecipes(filteredCharacters, searchQuery) {
+        const matchingRecipes = filteredCharacters.filter(recipe =>
+            recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        return matchingRecipes.length;
+    }
+
+    const matchingRecipeCount = countMatchingRecipes(filteredCharacters, search);
+
     return (
         <>
             <Navbar />
             <SearchBar search={search} categories={categories} />
+            <div>
+                {matchingRecipeCount > 0 ? (
+                    <p>{`Found ${matchingRecipeCount} Matching Recipes`}</p>
+                ) : (
+                    <h2>No Matching Recipes Based On Search</h2>
+                )}
+            </div>
+
+            
+
             {/* Render the 'RecipeList' component, passing in the first 20 items of the 'filteredCharacters' array and 'patcheNo' as a prop. */}
             {filteredCharacters.length > 0 ? <RecipeList recipes={filteredCharacters.slice(0, loadData)} patcheNo={1} favRecipes={favRecipes} search={search} /> : <h2>No Matching Recipes Based On Search</h2>}
 
@@ -30,8 +51,7 @@ function Search({ filteredCharacters, favRecipes, categories }) {
                 >Load More {`(${loadmore})`}
                 </button>
             </div>
-
-
+         <Footer />
         </>
     )
 }
@@ -47,12 +67,12 @@ export async function getServerSideProps(context) {
     const Ingredients = context.query.Ingredients
     const tagsArray = Tags.split(',');
     const ingredientsArray = Ingredients.split(',');
-  
+
     const sortCharacter = Prep ? { prep: Prep } : {}
     searchChar ? finalSearchString.title = { $regex: searchChar, $options: 'i' } : undefined
     Tags ? finalSearchString.tags = { $all: tagsArray } : undefined
     Categories ? finalSearchString.category = Categories : undefined
-    Ingredients ? ingredientsArray.map((ingredient)=> finalSearchString[`ingredients.${ingredient}`] = {$exists: true}) : undefined
+    Ingredients ? ingredientsArray.map((ingredient) => finalSearchString[`ingredients.${ingredient}`] = { $exists: true }) : undefined
 
     const filteredCharacters = await runFilter2(1, finalSearchString, sortCharacter)
     const favRecipes = await runFav(1);
