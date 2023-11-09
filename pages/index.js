@@ -36,7 +36,7 @@ function Home(props) {
           zIndex: 2, // Ensure buttons are on top of the background
         }}
       >
-        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
+        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} /> 
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
           <button style={buttonStyles}>All Recipe</button>
         </Link>

@@ -10,7 +10,7 @@ function Footer() {
       <div className={styles.logo}>
       <Link href="/recipes/1">
       <div className={styles.logo}>
-        <img src="/images/BrandLogo.png" alt="Logo" width={200} height={50}/>
+        <img src="/images/BrandLogo.png" alt="Logo" width='100%'/>
       </div>
       </Link>
       </div>
@@ -31,7 +31,7 @@ function Footer() {
       <div className={styles.connectWithUs}>
         <input type="email" placeholder="Enter your email" />
         <button>Connect with Us</button>
-      </div>
+      </div> 
     </footer>
   );
 }
