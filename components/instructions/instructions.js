@@ -61,18 +61,20 @@ function RecipeInstructions({ instructions, recipeId }) {
           <ol>
             {editedInstructions.map((instruction, index) => (
               <li key={index}>
-                <input
+                <div className={styles.container1}>
+                <textarea
                   value={instruction}
                   onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  className={styles.insContainer}
-                  
+                  className={styles.container2}  
                 />
+                </div>
               </li>
+
             ))}
           </ol>
-          <div>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+          <div className={styles.btn}>
+            <button onClick={handleSave} className={styles.saveButton}>Save</button>
+            <button onClick={handleCancel} className={styles.cancelButton}>Cancel</button>
           </div>
         </div>
       ) : (
