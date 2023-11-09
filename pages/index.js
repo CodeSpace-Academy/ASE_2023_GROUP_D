@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../pages/index.module.css"
 
+//Landing Page
 function Home(props) {
   const buttonStyles = {
     backgroundColor: '#ff0000',
@@ -22,7 +23,9 @@ function Home(props) {
     >
       <div className={styles.view}>
 
+
         <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
+
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
           <button style={buttonStyles}>All Recipe</button>
         </Link>
@@ -49,7 +52,7 @@ function Home(props) {
           //backgroundColor: 'black',
         }}
       >
-        
+
       </div>
     </div>
   );
