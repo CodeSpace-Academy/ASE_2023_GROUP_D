@@ -5,15 +5,29 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 
+
+import SortCook from '@/components/Sorting/sort-by-cooking-time'
+import SortPrep from '@/components/Sorting/sort-by-prep-time'
+
+
+
 function SearchBar({ search, categories }) {
   const [query, setQuery] = useState("");
   const [backUpQuery, setBackUpQuery] = useState(search);
-  const [prep, setHandlePrep] = useState('')
+  const [prep, setPrep] = useState('')
   const [tags, setTags] = useState([])
   const [ingredients, setIngredients] = useState([])
   const [category, setCategory] = useState('')
+
+
+
+   const [sortCook,setSortCook] = useState('ascending') 
+
+
+
   const router = useRouter();
   const delay = 5000;
+
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -40,7 +54,14 @@ function SearchBar({ search, categories }) {
     };
   }, [router]);
 
-  function handelSortByPrep(event) {
+
+  function handleSortChange(selectedValue) {
+    setSortCook(selectedValue)
+  }
+
+
+
+  function handleSortByPrep(event) {
     setHandlePrep(event.target.value)
   }
 
@@ -68,7 +89,8 @@ function SearchBar({ search, categories }) {
     setTags([])
     setCategory('')
     setIngredients([])
-    setHandlePrep('')
+    setPrep('')
+    setSortCook('')
   }
 
   return (
@@ -99,7 +121,7 @@ function SearchBar({ search, categories }) {
 
           <div style={{ display: 'flex' }}>
             <label><h5>SortByOrd : </h5></label>
-            <select value={prep} onChange={handelSortByPrep}>
+            <select value={prep} onChange={handleSortByPrep}>
               <option value={1}>Ascending</option>
               <option value={-1}>Descending</option>
             </select>
@@ -136,6 +158,9 @@ function SearchBar({ search, categories }) {
           <Link href={`/Search/${search}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`}>
             <button onClick={handleDeleteAllFilters}>Clear All Filters</button>
           </Link>
+
+          <SortCook sortOrder={sortCook} onChange={handleSortChange} />
+          <SortPrep sortOrder={prep} onChange={handleSortByPrep} />
         </>
       }
 
