@@ -5,6 +5,7 @@ import styles from './instructions.module.css';
 function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
+  const [error, setError] = useState(null);
 
   const handleEditInstructions = () => {
     setIsEditingInstructions(true);
@@ -51,6 +52,8 @@ function RecipeInstructions({ instructions, recipeId }) {
       }
     } catch (error) {
       console.error('An error occurred while saving instructions:', error);
+      setError('Failed to save instructions. Please try again.');
+      
     }
   };
 
@@ -76,6 +79,7 @@ function RecipeInstructions({ instructions, recipeId }) {
             <button onClick={handleSave} className={styles.saveButton}>Save</button>
             <button onClick={handleCancel} className={styles.cancelButton}>Cancel</button>
           </div>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
       ) : (
         <div>

@@ -8,9 +8,11 @@ import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
+import FindInstructionsLength from '@/components/stepsFilter/stepsFilter';
+import SortPublished from '@/components/date/sortDate';
 //import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
-function Recipe({ recipes, favRecipes, categories }) {
+function Recipe({ recipes, favRecipes, categories, instructions, published }) {
 
   const router = useRouter();
   const { recipeId } = router.query
@@ -46,15 +48,24 @@ function Recipe({ recipes, favRecipes, categories }) {
 
       <div className="search-container">
         <SearchBar categories={categories} />
-      </div>
+        <SortPublished />
+        <FindInstructionsLength />
 
+      </div>
+     
       {/* <div>
         <FilterIngredients recipes={recipes} />
       </div> */}
       {/* <Link href={'/favourites/1'}>
         <button className="maroon-button">Favourites</button>
       </Link> */}
-      <RecipeList recipes={recipes.slice(0, loadData)} patcheNo={recipeId} favRecipes={favRecipes} />
+      <RecipeList 
+      recipes={recipes.slice(0, loadData)} 
+      patcheNo={recipeId} 
+      favRecipes={favRecipes}
+      instructions={instructions}
+      published={published}
+       />
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>

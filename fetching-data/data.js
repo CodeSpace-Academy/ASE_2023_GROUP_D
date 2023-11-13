@@ -134,30 +134,29 @@ export async function runFilter2(page, filter, sort) {
 	// }
 }
 
-export async function runSortDate(page) {
-	try {
-		// Connect the client to the server    (optional starting in v4.7)
-		// await client.connect();
-		// Send a ping to confirm a successful connection
-		const db = client.db("devdb");
-		await client.db("devdb").command({ ping: 1 });
-		const collection = db.collection("recipes");
+export async function runSortDate(sortPublished) {
+    try {
+        const db = client.db("devdb");
+        await client.db("devdb").command({ ping: 1 });
+        const collection = db.collection("recipes");
 
-		const skip = (page - 1) * 100
-		// Use the find() method to retrieve data
-		const data = await collection.find(sort).skip(skip).limit(100).toArray();
-		// return data.slice(0, limit);
-		return data
+        const data = await collection.find().skip(skip).limit(100).toArray();
 
-	} catch (error) {
-		console.error("Failed to connect to MongoDB:", error);
-	}
-	// finally {
-	// 	// Ensures that the client will close when you finish/error
-	// 	await client.close();
+        if (sortPublished === 'ascending') {
+            data.sort((a, b) => a.published - b.published);
+        } else if (sortPublished === 'descending') {
+            data.sort((a, b) => b.published - a.published);
+        } else {
+            throw new Error('Invalid sorting order. Use "ascending" or "descending".');
+        }
 
-	// }
+        return data;
+    } catch (error) {
+        console.error("Failed to connect to MongoDB:", error);
+        throw error;
+    }
 }
+
 
 export async function runFav(page) {
 	try {
@@ -250,3 +249,50 @@ export async function runUpdateDescription(recipeId, updatedDescription) {
 		throw error;
 	}
 }
+
+export async function runInstructionsSortByLength(order) {
+    const db = client.db('devdb');
+    const collection = db.collection('recipes');
+
+    try {
+        // Use the .toArray() method to retrieve the documents that match your query.
+        const filter = { instructions: { $exists: true, $ne: null } };
+        const documents = await collection.find(filter).limit(100).toArray();
+
+        // Assuming each document has an "instructions" field that is an array,
+        // use map to calculate both the maximum and minimum instructions length.
+        const lengths = documents
+            .filter(doc => doc.instructions)
+            .map(doc => doc.instructions.length);
+
+        if (order === 'ascending') {
+            // Sort the lengths array in ascending order (maximum length first).
+            lengths.sort((a, b) => a - b);
+        } else if (order === 'descending') {
+            // Sort the lengths array in descending order (minimum length first).
+            lengths.sort((a, b) => b - a);
+        } else {
+            throw new Error('Invalid sorting order. Use "ascending" or "descending".');
+        }
+
+        // Get the maximum and minimum lengths from the sorted array.
+        const maxInstructionsLength = lengths[lengths.length - 1];
+        const minInstructionsLength = lengths[0];
+
+        // Create an object to return both maximum and minimum lengths.
+        const result = {
+            maxInstructionsLength,
+            minInstructionsLength
+        };
+
+        console.log(result);
+        return result; // The object containing max and min instructions lengths
+
+    } catch (error) {
+        console.error('Database update error:', error);
+        throw error;
+    }
+}
+
+
+
