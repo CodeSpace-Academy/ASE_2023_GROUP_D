@@ -114,7 +114,7 @@ const totalMinutes = prepMinutes + minutes;
 
                             </div>
                         </div>
-                    </div>
+                    
                     </div>
                     <div> {category} </div>
                     <div> Servings: {servings} </div>
