@@ -5,6 +5,7 @@ import SearchBar from "@/components/text-search/auto-submission";
 import styles from '@/components/header/summary.module.css'
 //import style from "@/components/text-search/searchBar.module.css"
 import { useState } from "react";
+import SearchBar from "@/components/search/auto-submission";
 import { useRouter } from "next/router";
 import Footer from "@/components/footer/footer";
 
