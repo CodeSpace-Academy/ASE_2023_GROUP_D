@@ -13,35 +13,28 @@ function SearchBar({ search, categories }) {
   const [ingredients, setIngredients] = useState([])
   const [category, setCategory] = useState('')
   const router = useRouter();// Using Next.js to manage routing
-  const shortDelay = 2000;
-const longDelay = 4000;
+  const delay = 2000;
 
-// When someone types in the search bar, this function updates the 'query' variable.
-const handleInputChange = (event) => {
-  setQuery(event.target.value);
-};
+  // When someone types in the search bar, this function updates the 'query' variable.
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
 
-// When a search is performed, this function navigates to the search results page.
-useEffect(() => {
-  let timeoutId;
+    // When a search is performed, this function navigates to the search results page.
+  useEffect(() => {
 
-  if (query) {
-    const navigateToNewPage = () => {
-      router.push(`/Search/${query ? query : backUpQuery}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`);
-    };
+    if (query) {
+      const navigateToNewPage = () => {
+        router.push(`/Search/${query ? query : backUpQuery}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`); // Replace '/new-page' with the URL of the new page
+      };
 
-    if (query.length < 10) { // Adjust the length as needed
-      timeoutId = setTimeout(navigateToNewPage, shortDelay);
-    } else {
-      timeoutId = setTimeout(navigateToNewPage, longDelay);
+      const timeoutId = setTimeout(navigateToNewPage, delay);
+
+      return () => {
+        clearTimeout(timeoutId); // Clear the timeout if the component unmounts before the delay is reached
+      };
     }
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }
-}, [router, query, shortDelay, longDelay, backUpQuery, prep, tags, category, ingredients]);
-
+  }, [router, query, delay]);
 
   // When the component is unmounted or the route changes, this function clears the search query.
   useEffect(() => {
