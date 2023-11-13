@@ -44,14 +44,14 @@
 .actions {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+
 }
 
 .actions {
   flex-direction: row;
   justify-content: center;
   position: absolute;
-  bottom: -40px;
+  bottom: -30px;
   width: 100%;
 }
 
@@ -66,9 +66,10 @@
 .cookingTime {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
-  
-
+  margin: 1px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
 }
 
 .label {
@@ -76,7 +77,6 @@
   display: flex;
   margin-right: 15px;
   flex-grow: 1;
-
 }
 
 /* .value {
