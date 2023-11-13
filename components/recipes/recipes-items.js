@@ -34,9 +34,12 @@ function RecipesItems(props) {
     const hours = Math.floor(cook / 60);
     const minutes = cook % 60;
   
-    const hour = Math.floor(prep / 60);
-    const minute = prep % 60;
+    const prepHours = Math.floor(prep / 60);
+    const prepMinutes = prep % 60;
   
+   // Calculate total hours and total minutes
+const totalHours = prepHours + hours;
+const totalMinutes = prepMinutes + minutes;
 
 
     async function addToFavourite(recipeData) {
@@ -104,19 +107,10 @@ function RecipesItems(props) {
                         <div >
  
                             <div className={styles.cookingTime}>
-                                <div className={styles.label}>Preparation:</div>
-                                <div className={styles.label}>Cooking time:</div>
-                                <div className={styles.label}>Total time:</div>
-                            </div>
-                            <div className={styles.cookingTime}>
-                                <div className={styles.value}>{prep} mins</div>
-                                <div className={styles.value}>{cook} mins</div>
-                                <div className={styles.value}>{totalTime} mins</div>
-
                             <div>
-                                <div>Preparation: {hour > 0 ? `${hour} hr${hour > 1 ? 's' : ''} ` : ''} {minute > 0 ? `${minute} min${minute > 1 ? 's' : ''} ` : ''}</div>
-                                <div>{<>Cooking time: {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} min${minutes > 1 ? 's' : ''} ` : ''}</>}</div>
-
+                                <div>Preparation: {prepHours > 0 ? `${prepHours} hr${prepHours > 1 ? 's' : ''} ` : ''} {prepMinutes > 0 ? `${prepMinutes} min${prepMinutes > 1 ? 's' : ''} ` : '0'}</div>
+                                <div>{<>Cooking time: {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} min${minutes > 1 ? 's' : ''} ` : '0'}</>}</div>
+                                <div>{<>Total Time: {totalHours > 0 ? `${totalHours} hr${totalHours > 1 ? 's' : ''} ` : ''} {totalMinutes > 0 ? `${totalMinutes} min${totalMinutes > 1 ? 's' : ''} ` : '0'}</>}</div>
 
                             </div>
                         </div>
@@ -125,12 +119,11 @@ function RecipesItems(props) {
                     <div> {category} </div>
                     <div> Servings: {servings} </div>
                     <div className={styles.date}>Published: {formattedPublishedDate} </div>
-                    <div className={styles.actions}>
+                     <div className={styles.actions}>
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
                     </div>
-
                 </li>
                
             </div>
