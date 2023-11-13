@@ -6,6 +6,8 @@ import { run2, runFilter, runFav } from '../../../fetching-data/data';
 import styles from '@/stylespages/RecipeDetails.module.css';
 import RecipesInstructions from '@/components/instructions/instructions';
 import ErrorComponent from '../../../components/Errors/errors';
+import Navbar from '@/components/header/navbar';
+import Footer from '@/components/footer/footer';
 
 
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
@@ -101,6 +103,8 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
 
   return (
+    <>
+    <Navbar />
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
 
@@ -172,7 +176,8 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         </div>
       </div>
     </div>
-
+  <Footer />
+    </>
   );
 };
 
