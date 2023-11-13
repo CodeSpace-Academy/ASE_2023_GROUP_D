@@ -102,25 +102,15 @@ function RecipesItems(props) {
 
                     <div className={styles.cookingContainer}>
                         <div >
- 
-                            <div className={styles.cookingTime}>
-                                <div className={styles.label}>Preparation:</div>
-                                <div className={styles.label}>Cooking time:</div>
-                                <div className={styles.label}>Total time:</div>
-                            </div>
-                            <div className={styles.cookingTime}>
-                                <div className={styles.value}>{prep} mins</div>
-                                <div className={styles.value}>{cook} mins</div>
-                                <div className={styles.value}>{totalTime} mins</div>
 
                             <div>
                                 <div>Preparation: {hour > 0 ? `${hour} hr${hour > 1 ? 's' : ''} ` : ''} {minute > 0 ? `${minute} min${minute > 1 ? 's' : ''} ` : ''}</div>
                                 <div>{<>Cooking time: {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} min${minutes > 1 ? 's' : ''} ` : ''}</>}</div>
-
+                                
 
                             </div>
                         </div>
-                    </div>
+                    
                     </div>
                     <div> {category} </div>
                     <div> Servings: {servings} </div>
