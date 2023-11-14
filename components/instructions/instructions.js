@@ -32,7 +32,7 @@ function RecipeInstructions({ instructions, recipeId }) {
     try {
       // Check if any instruction is empty
       if (editedInstructions.some(instruction => !instruction.trim())) {
-        showNotification('Instruction cannot be empty.', 'error');
+        showNotification('Instructions cannot be empty.', 'error');
         return; // Do not proceed with saving
       }
   
@@ -50,13 +50,13 @@ function RecipeInstructions({ instructions, recipeId }) {
       });
   
       if (response.ok) {
-        showNotification('Instruction saved successfully.', 'success');
+        showNotification('Instructions saved successfully.', 'success');
         setIsEditingInstructions(false);
       } else {
-        showNotification('Failed to save instruction. ', 'error');
+        showNotification('Failed to save instructions. ', 'error');
       }
     } catch (error) {
-      showNotification('An error occurred while saving instruction.', 'error');
+      showNotification('An error occurred while saving instructions.', 'error');
     }
   };
   
