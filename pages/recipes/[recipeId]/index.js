@@ -1,4 +1,4 @@
-import { run, runFav, runCategories, runFilter2 } from '@/fetching-data/data';
+import { runFav, runCategories, runFilter2, runHistory } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -8,7 +8,7 @@ import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import { useEffect } from 'react';
 
-function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar }) {
+function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData }) {
 
   const router = useRouter();
   const { recipeId } = router.query
@@ -20,7 +20,7 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar }) {
 
   return (
     <>
-      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} />
+      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting}  history={historyData}/>
 
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
@@ -74,14 +74,16 @@ export async function getServerSideProps(context) {
   searchChar ? finalSearchString.title = { $regex: searchChar, $options: 'i' } : undefined
   Tags ? finalSearchString.tags = { $all: (Tags.split(',')) } : undefined
   Categories ? finalSearchString.category = Categories : undefined
-  Ingredients ? (Ingredients.split(',')).map((ingredient)=> finalSearchString[`ingredients.${ingredient}`] = {$exists: true}) : undefined
+  Ingredients ? (Ingredients.split(',')).map((ingredient) => finalSearchString[`ingredients.${ingredient}`] = { $exists: true }) : undefined
 
   const patcheNo = context.params.recipeId;
-  const data = await run(patcheNo);
   const favRecipes = await runFav(1);
   const categories = await runCategories();
-  const filteredCharacters = await runFilter2(1, finalSearchString, sortChar);
-
+  const history = await runHistory();
+  const filteredCharacters = await runFilter2(patcheNo, finalSearchString, sortChar);
+  const historyData = history.map((data) => {
+    return data.searchWord
+  })
 
   const recipes = filteredCharacters
 
@@ -92,6 +94,7 @@ export async function getServerSideProps(context) {
       categories,
       patcheNo,
       searchChar,
+      historyData,
     },
   };
 }
