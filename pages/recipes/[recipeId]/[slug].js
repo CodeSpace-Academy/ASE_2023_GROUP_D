@@ -22,8 +22,6 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
-  const [showErrorNotification, setShowErrorNotification] = useState(false);
 
   const handleSaveDescription = async (updatedDescription) => {
     try {
@@ -104,18 +102,6 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     <Navbar />
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
-        {showSuccessNotification && (
-          <SuccessNotification
-            message="Description updated successfully."
-            onClose={() => setShowSuccessNotification(false)}
-          />
-        )}
-        {showErrorNotification && (
-          <ErrorNotification
-            message="Failed to update description. Please try again later."
-            onClose={() => setShowErrorNotification(false)}
-          />
-        )}
         <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br/>
