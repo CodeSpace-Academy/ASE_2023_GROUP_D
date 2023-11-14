@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/description/description';
-import SuccessNotification from '@/components/Errors/SuccessNotification';
-import ErrorNotification from '@/components/Errors/ErrorNotification';
 import { run2, runFilter, runFav } from '../../../fetching-data/data';
 import styles from '@/stylespages/RecipeDetails.module.css';
 import RecipesInstructions from '@/components/instructions/instructions';
-import ErrorComponent from '../../../components/Errors/errors';
 import Navbar from '@/components/header/navbar';
 import Footer from '@/components/footer/footer';
 
