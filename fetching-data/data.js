@@ -135,26 +135,26 @@ export async function runFilter2(page, filter, sort) {
 }
 
 export async function runSortDate(sortPublished) {
-    try {
-        const db = client.db("devdb");
-        await client.db("devdb").command({ ping: 1 });
-        const collection = db.collection("recipes");
+	try {
+		const db = client.db("devdb");
+		await client.db("devdb").command({ ping: 1 });
+		const collection = db.collection("recipes");
 
-        const data = await collection.find().skip(skip).limit(100).toArray();
+		const data = await collection.find().skip(skip).limit(100).toArray();
 
-        if (sortPublished === 'ascending') {
-            data.sort((a, b) => a.published - b.published);
-        } else if (sortPublished === 'descending') {
-            data.sort((a, b) => b.published - a.published);
-        } else {
-            throw new Error('Invalid sorting order. Use "ascending" or "descending".');
-        }
+		if (sortPublished === 'ascending') {
+			data.sort((a, b) => a.published - b.published);
+		} else if (sortPublished === 'descending') {
+			data.sort((a, b) => b.published - a.published);
+		} else {
+			throw new Error('Invalid sorting order. Use "ascending" or "descending".');
+		}
 
-        return data;
-    } catch (error) {
-        console.error("Failed to connect to MongoDB:", error);
-        throw error;
-    }
+		return data;
+	} catch (error) {
+		console.error("Failed to connect to MongoDB:", error);
+		throw error;
+	}
 }
 
 
@@ -250,49 +250,97 @@ export async function runUpdateDescription(recipeId, updatedDescription) {
 	}
 }
 
-export async function runInstructionsSortByLength(order) {
-    const db = client.db('devdb');
-    const collection = db.collection('recipes');
+// export async function runInstructionsSortByLength() {
+// 	try {
 
-    try {
-        // Use the .toArray() method to retrieve the documents that match your query.
-        const filter = { instructions: { $exists: true, $ne: null } };
-        const documents = await collection.find(filter).limit(100).toArray();
+// 		const db = client.db('devdb');
+// 		const collection = db.collection('recipes');
 
-        // Assuming each document has an "instructions" field that is an array,
-        // use map to calculate both the maximum and minimum instructions length.
-        const lengths = documents
-            .filter(doc => doc.instructions)
-            .map(doc => doc.instructions.length);
+// 		const result = await collection.aggregate([
+// 			{
+// 				$unwind: "$instructions" // Deconstruct the instructions array into individual documents
+// 			},
+// 			{
+// 				$sort: {
+// 					"instructions.length": 1 // Sort by the length of the instructions array
+// 					// If you want to sort in descending order, use -1 instead of 1: "instructions.length": -1
+// 				}
+// 			},
+// 			{
+// 				$group: {
+// 					_id: "$_id",
+// 					title: { $first: "$title" },
+// 					description: { $first: "$description" },
+// 					prep: { $first: "$prep" },
+// 					cook: { $first: "$cook" },
+// 					category: { $first: "$category" },
+// 					servings: { $first: "$servings" },
+// 					published: { $first: "$published" },
+// 					tags: { $first: "$tags" },
+// 					ingredients: { $first: "$ingredients" },
+// 					images: { $first: "$images" },
+// 					instructions: { $push: "$instructions" },
+// 					nutrition: { $first: "$nutrition" }
+// 				}
+// 			},
+// 			{
+// 				$limit: 100 // Limit the result to 100 documents
+// 			}
+// 		]).toArray();
+// 		console.log(result)
+// 		return result;
+// 	} finally {
+// 		await client.close();
+// 	}
+// }
 
-        if (order === 'ascending') {
-            // Sort the lengths array in ascending order (maximum length first).
-            lengths.sort((a, b) => a - b);
-        } else if (order === 'descending') {
-            // Sort the lengths array in descending order (minimum length first).
-            lengths.sort((a, b) => b - a);
-        } else {
-            throw new Error('Invalid sorting order. Use "ascending" or "descending".');
-        }
+export async function runSortInstructionsByLength(page, sortOrder = 'asc') {
+	try {
+		await client.connect(); // Connect to the MongoDB server
 
-        // Get the maximum and minimum lengths from the sorted array.
-        const maxInstructionsLength = lengths[lengths.length - 1];
-        const minInstructionsLength = lengths[0];
+		const db = client.db('devdb');
+		const skip = (page - 1) * 100;
 
-        // Create an object to return both maximum and minimum lengths.
-        const result = {
-            maxInstructionsLength,
-            minInstructionsLength
-        };
+		// Ensure there's an index on the field used for sorting
+		await db.collection('recipes').createIndex({ "instructions.length": 1 });
+		const sortDirection = sortOrder.toLowerCase() === 'desc' ? -1 : 1;
 
-        console.log(result);
-        return result; // The object containing max and min instructions lengths
+		const cursor = db.collection('recipes').aggregate([
+			{
+				$project: {
+					"_id": 1,
+					"instructions": { "$ifNull": ["$instructions", [""]] }
+				}
+			},
+			{
+				$unwind: {
+					"path": "$instructions",
+					"includeArrayIndex": "string",  // This might not be explicitly supported in Compass
+					"preserveNullAndEmptyArrays": false  // This might not be explicitly supported in Compass
+				}
+			},
+			{
+				$sort: {
+					"instructions": sortDirection
+				}
+			},
+			{ $skip: skip },
+			{ $limit: 100 }
+		], { allowDiskUse: true });
 
-    } catch (error) {
-        console.error('Database update error:', error);
-        throw error;
-    }
+		const result = await cursor.toArray();
+		console.log(result)
+
+		return result
+
+	} finally {
+		await client.close();
+	}
 }
+
+
+
+
 
 
 

@@ -8,8 +8,7 @@ import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
-import FindInstructionsLength from '@/components/stepsFilter/stepsFilter';
-import SortPublished from '@/components/date/sortDate';
+import SortInstructionsByLength from '@/components/stepsSort/stepsSort';
 //import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
 function Recipe({ recipes, favRecipes, categories, instructions, published }) {
@@ -48,8 +47,8 @@ function Recipe({ recipes, favRecipes, categories, instructions, published }) {
 
       <div className="search-container">
         <SearchBar categories={categories} />
-        <SortPublished />
-        <FindInstructionsLength />
+        <SortInstructionsByLength  instructions={instructions} />
+        
 
       </div>
      
@@ -64,7 +63,7 @@ function Recipe({ recipes, favRecipes, categories, instructions, published }) {
       patcheNo={recipeId} 
       favRecipes={favRecipes}
       instructions={instructions}
-      published={published}
+      
        />
 
       <div>
