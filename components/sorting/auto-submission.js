@@ -4,12 +4,12 @@ import styles from "@/components/sorting/searchBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
-import SortByTag from "./sortByTag";
-import SortByIngrediets from "./sortByIngredients";
-import SortByCategory from "./sortByCategory";
+import FilterByTag from "./filterByTag";
+import FilterByIngrediets from "./filterByIngredients";
+import FilterByCategory from "./filterByCategory";
 
-function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting }) {
-  const [query, setQuery] = useState("");
+function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, history }) {
+  const [query, setQuery] = useState();
   const [backUpQuery, setBackUpQuery] = useState(searchChar)
   const [tags, setTags] = useState([])
   const [ingredients, setIngredients] = useState([])
@@ -53,18 +53,23 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting }) 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className={styles.searchBar}>
-        <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
+        <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
         <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+        <select>
+         {history.map((data, index)=> {
+            return <option key={index} value={data}>{data}</option>
+         })}
+        </select>
       </div>
 
       <>
-        <SortByTag setTags={setTags} tags={tags} />
-        <SortByIngrediets setIngredients={setIngredients} ingredients={ingredients} />
-        <SortByCategory categories={categories} category={category} setCategory={setCategory} />
+        <FilterByTag setTags={setTags} tags={tags} />
+        <FilterByIngrediets setIngredients={setIngredients} ingredients={ingredients} />
+        <FilterByCategory categories={categories} category={category} setCategory={setCategory} />
       </>
       <button onClick={()=> setIsSorting(!isSorting)}>Close</button>
                
-          <Link href={`/recipes/${pageNo}/?search=${query ? query : backUpQuery}&tags=${tags}&categories=${category}&ingredients=${ingredients}`}>
+          <Link href={`/recipes/${pageNo}/?${backUpQuery && 'search='}${query ? query : backUpQuery}&tags=${tags}&categories=${category}&ingredients=${ingredients}`}>
             <button>filter</button>
           </Link>
           {/* <Link href={`/recipes/${pageNo}/?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`}>
