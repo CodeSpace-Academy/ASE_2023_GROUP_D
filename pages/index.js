@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import LoadingState from "@/components/Loading/loading-state";
 
 function Home(props) {
+  const [loading, setLoading] = useState(false)
+  
   const buttonStyles = {
     backgroundColor: '#ff0000',
     color: 'white',
@@ -15,8 +19,7 @@ function Home(props) {
   return (
     <div
       style={{
-        position: 'relative', // Container for relative positioning
-        height: '100vh',
+        height: '100%',
       }}
     >
       <div
@@ -37,8 +40,9 @@ function Home(props) {
       >
         <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
-          <button style={buttonStyles}>All Recipe</button>
+          <button style={buttonStyles} onClick={() => setLoading(true)}>All Recipe</button>
         </Link>
+        {loading && <LoadingState />}
         {/* Login and Sign Up buttons with links */}
         <Link href="/login" style={{ textDecoration: 'none' }}>
           <button style={buttonStyles}>Login</button>
@@ -46,6 +50,7 @@ function Home(props) {
         <Link href="/signup" style={{ textDecoration: 'none' }}>
           <button style={buttonStyles}>Sign Up</button>
         </Link>
+       
       </div>
       <div
         style={{
@@ -62,7 +67,7 @@ function Home(props) {
           //backgroundColor: 'black',
         }}
       >
-        
+
       </div>
     </div>
   );
