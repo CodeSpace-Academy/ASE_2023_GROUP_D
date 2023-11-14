@@ -1,4 +1,4 @@
-import { runFilter2, runFav, runCategories } from "@/fetching-data/data";
+import { runFilter2, runFav, runCategories, getHistory } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
 import SearchBar from "@/components/text-search/auto-submission";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 
-function Search({ filteredCharacters, favRecipes, categories }) {
+function Search({ filteredCharacters, favRecipes, categories, history }) {
     const router = useRouter();
     const { search } = router.query
     const [loadmore, setLoadMore] = useState(filteredCharacters.length)
@@ -16,7 +16,7 @@ function Search({ filteredCharacters, favRecipes, categories }) {
     return (
         <>
             <Navbar />
-            <SearchBar search={search} categories={categories} />
+            <SearchBar search={search} categories={categories} history={history} />
             {/* Render the 'RecipeList' component, passing in the first 20 items of the 'filteredCharacters' array and 'patcheNo' as a prop. */}
             {filteredCharacters.length > 0 ? <RecipeList recipes={filteredCharacters.slice(0, loadData)} patcheNo={1} favRecipes={favRecipes} search={search} /> : <h2>No Matching Recipes Based On Search</h2>}
 
@@ -57,16 +57,70 @@ export async function getServerSideProps(context) {
     const filteredCharacters = await runFilter2(1, finalSearchString, sortCharacter)
     const favRecipes = await runFav(1);
     const categories = await runCategories();
+    const history = await getHistory();
+    console.log(history)
 
     return {
         props: {
             filteredCharacters,
             favRecipes,
             categories,
+            history,
         },
     };
 }
 
 export default Search;
+
+
+//CREATING A FEATURE TO STORE HISTORY SEARCHES
+// Models/HistorySearches.js
+// const mongoose = require('mongoose');
+
+
+// const searcheHistorySchema = new mongoose.Schema({
+//     query:String,
+//     prep:String,
+//     tags:[String],
+//     category:String,
+//     ingredients:[String],
+// });
+
+// const SearchHistory = mongoose.model('SearchHIstory',searchHistorySchema);
+
+// module.export = SearchHistory;
+
+//setting up express.js routes
+//routes/searchHistory.js
+
+// const express = ('express');
+// const router = express.Router();
+// const SearchHistory = require('../modelSearchHistory');
+
+//save search history to mongoDB
+
+// router.post('/search-history', async (req, res)=>{
+//     const {query, prep,tags,category,ingredients } = req.body
+//     const searchHistory = new SearchHistory ({query,prep,tags,category,ingredients});
+//     try {
+//         await searchHistory.save();
+//         res.status(201).json(searchHistory);
+//     } catch(error){
+//         res.status(500).json({error:'Internal Server Error'});
+//     }
+// });
+
+// Get search history from MongoDB
+// router.get('/search-history', async (req, res) => {
+//     try {
+//     const searchHistory = await SearchHistory.find();
+//     res.status(200).json(searchHistory);
+//     } catch (error) {
+//     res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
+// module.exports = router;
+
 
 

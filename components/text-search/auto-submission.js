@@ -5,13 +5,14 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ search, categories }) {
+function SearchBar({ search, categories, history }) {
   const [query, setQuery] = useState("");
   const [backUpQuery, setBackUpQuery] = useState(search);
   const [prep, setHandlePrep] = useState('')
   const [tags, setTags] = useState([])
   const [ingredients, setIngredients] = useState([])
   const [category, setCategory] = useState('')
+  const [removeFromFav, setRemoveFromFav] = useState(true)
   const router = useRouter();
   const delay = 5000;
 
@@ -19,11 +20,55 @@ function SearchBar({ search, categories }) {
     setQuery(event.target.value);
   };
 
+  const historySearch = {
+    searchWord: query
+  }
+
+  async function addToHistory(searchedWord) {
+    const response = await fetch('/api/history', {
+      method: 'POST',
+      body: JSON.stringify(searchedWord),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Something went wrong!");
+    }
+    else if (response.ok) {
+      setRemoveFromFav(true)
+    }
+  }
+
+
+  async function removeFromFavourite() {
+    const response = await fetch('/api/history', {
+      method: 'DELETE',
+      body: JSON.stringify('nothing to put here'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Recipe failed to delete");
+    }
+    else if (response.ok) {
+      setRemoveFromFav(false)
+    }
+  }
+
+
   useEffect(() => {
 
     if (query) {
       const navigateToNewPage = () => {
+        addToHistory(historySearch);
         router.push(`/Search/${query ? query : backUpQuery}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`); // Replace '/new-page' with the URL of the new page
+        // put api post request here
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);
@@ -64,7 +109,7 @@ function SearchBar({ search, categories }) {
     setCategory(event.target.value)
   }
 
-  function handleDeleteAllFilters(){
+  function handleDeleteAllFilters() {
     setTags([])
     setCategory('')
     setIngredients([])
@@ -77,6 +122,12 @@ function SearchBar({ search, categories }) {
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
           <input className={styles.input} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+          {removeFromFav && <><select value={query} onChange={(e) => setQuery(e.target.value)}>
+            {history.map((searchs, index) => {
+              return <option key={index}>{searchs}</option>
+            })}
+          </select>
+            <button onClick={removeFromFavourite}>clear history</button></>}
         </div>
       </div>
 
