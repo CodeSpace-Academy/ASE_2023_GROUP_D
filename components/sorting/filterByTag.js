@@ -1,4 +1,4 @@
-function SortByTag({setTags, tags}) {
+function FilterByTag({setTags, tags}) {
 
     function handleTag(event) {
         setTags((prev) => [...prev, event.target.value])
@@ -10,7 +10,7 @@ function SortByTag({setTags, tags}) {
 
     return (
         <div style={{ display: 'flex'}}>
-            <label><h5 style={{color: 'white'}}>SortByTag : </h5></label>
+            <label><h5 style={{color: 'white'}}>FilterByTag : </h5></label>
             <select value={tags[tags.length - 1]} onChange={handleTag}>
                 <option value={'Beans'}>Beans</option>
                 <option value={'Vegetable'}>Vegetable</option>
@@ -26,4 +26,4 @@ function SortByTag({setTags, tags}) {
     )
 }
 
-export default SortByTag;
+export default FilterByTag;
