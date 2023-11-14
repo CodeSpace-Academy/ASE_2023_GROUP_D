@@ -1,4 +1,4 @@
-import { run, runFav, runCategories } from '@/fetching-data/data';
+import { run, runFav, runCategories} from '@/fetching-data/data'
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

@@ -207,10 +207,11 @@ export async function DeleteFav(recipe) {
 		const result = await db.collection("favourites").deleteOne(recipe);
 		return console.log("deleted");
 	} catch (error) {
-		console.error("Failed to connect to MongoDB To save favourites", error);
+		// console.error("Failed to connect to MongoDB To save favourites", error);
+}
 }
 
-export async function runUpdateInstructions(recipeId, updatedInstruction) {
+export default async function runUpdateInstructions(recipeId, updatedInstruction) {
 	const db = client.db('devdb');
 	const collection = db.collection('recipes');
 
