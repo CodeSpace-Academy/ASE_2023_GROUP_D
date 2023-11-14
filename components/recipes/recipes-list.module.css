@@ -24,13 +24,12 @@
   margin: 50px;
 }
 
-/* .imageContainer {
 
-  } */
-
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
     .list {
       width: 100%;
-      display:list-item;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
