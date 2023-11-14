@@ -3,6 +3,8 @@ import RecipesItems from "./recipes-items";
 import RecipesFavItems from "./recipes-FavItems";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
+import SortByOrder from "../sorting/sortByOrder";
+import LoadingState from "../Loading/loading-state";
 
 
 function RecipeList({ recipes, patcheNo, favRecipes, search }) {
@@ -11,6 +13,8 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
   const [numSteps, setNumSteps] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // console.log(recipes)
 
   const handleFilterBySteps = async (numSteps) => {
     try {
@@ -39,11 +43,12 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
     <div className={styles.container}>
 
       <div className={styles.container}>
-        <br />
-
+        <br /> 
+        <SortByOrder/>
+       {/* <LoadingState /> */}
 
         <ul className={styles.list}>
-          {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
+          {(router.pathname.includes('/recipes/')) ?
             recipes.map((recipe) => (
               <RecipesItems
                 key={recipe._id}
