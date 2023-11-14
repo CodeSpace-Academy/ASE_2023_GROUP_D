@@ -1,131 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
 
 
 * {
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  padding: 0;
   margin: 0;
-  font-family: "Arial", "Lucida Console", "Courier New", monospace;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-}
- 
-.highlight{
-  background: yellow;
-}
+  font-family: 'Open Sans', 'Lato', sans-serif;
+  color: #414141;
+  background-color: #e4f1f1;
+  width: 100%;
+} 
 
 h1,
+h2,
 h3,
 h4,
 h5,
 h6 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #2b2b2b;
 }
 
-.button-container {
-  text-align: center; /* Align the buttons to the left */
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
-/* .recipeDetails{
-text-align: center;
-} */
 
-.theme-button {
-  background-color: #333; /* Black background color */
-  color: #fff; /* White text color */
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s; /* Add a smooth transition for hover effect */
+element.style {
+    text-align: center;
+}
 
-  /* Grey background on hover */
-  &:hover {
-    background-color: #7e7979;
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+    text-decoration: none;
   }
-}
-
 
 .center {
   margin: auto;
   text-align: center;
 }
 
-.hero-section {
-  background-color: rgb(160, 154, 154);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 50vh;
-  padding: 10px;
-  box-sizing: border-box;
-  }
-
-
-
-.show-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.show-info>div {
-  padding: 5px;
-  text-align: center;
-  background-color: #fff;
-  /* Background color for each slide */
-  margin: 0 6px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Add a subtle box shadow */
-}
-
-.show-info h1 {
-  font-size: 15px;
-  margin-top: 0px;
-}
-
-
-.arrow-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #fff;
-  /* Background color for arrow buttons */
-  border-radius: 50%;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.arrow-icon:hover {
-  background-color: #ccc;
-  /* Background color on hover */
-}
-
-.arrow-icon.backward {
-  left: 10px;
-}
-
-.arrow-icon.forward {
-  right: 10px;
-}
-
-/* Add this CSS to your stylesheet */
-/* .search-container {
-  display: flex;
-  justify-content: center; /* Center horizontally *
-  align-items: center; /* Center vertically 
-  height: 20vh; /* Set a specific height or adjust as needed *
-  background-color: #8e8989;
-} */
+button { 
+  color:#050; 
+  font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+  background-color:#fed; 
+  border:1px solid; 
+  border-color: #696 #363 #363 #696; 
+} 
