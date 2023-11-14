@@ -1,5 +1,4 @@
 import styles from './recipes-items.module.css';
-import style from './recipes-items.module.css'
 import React from 'react';
 import Button from '../ui/button/button';
 import { useState } from 'react';
@@ -113,11 +112,11 @@ function RecipesItems(props) {
                                 </div>
                                 <div>
                                     Cooking time: {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''}
-                                    {minutes > 0 ? `${minutes > 59 ? `${Math.floor(minutes / 60)} hr${Math.floor(minutes % 60)} min` : `${minutes} min`}` : (hours === 0 ? '0 min' : '0 min')}
+                                    {minutes > 0 ? `${minutes > 59 ? `${Math.floor(minutes / 60)} hr${minutes % 60 !== 0 ? ' ' : ''}${minutes % 60 !== 0 ? `${minutes % 60} min` : ''}` : `${minutes} min`}` : (hours === 0 ? '0 min' : '0 min')}
                                 </div>
                                 <div>
-                                    Total Time:  {totalHours > 0 ? `${totalHours} hr${totalHours > 1 ? 's' : ''} ` : ''}
-                                    {minutes > 0 ? `${totalMinutes > 59 ? `${Math.floor(totalMinutes / 60)} hr${Math.floor(totalMinutes % 60)} min` : `${totalMinutes} min`}` : (totalHours === 0 ? '0 min' : '0 min')}
+                                    Total Time: {totalHours + Math.floor(totalMinutes / 60)} hr{totalHours + Math.floor(totalMinutes / 60) > 1 ? 's' : ''}
+                                    {totalMinutes % 60 !== 0 ? ` ${totalMinutes % 60} min` : ''}
                                 </div>
                             </div>
 
