@@ -14,12 +14,15 @@ const UpdateDescription = ({ initialDescription, onSave }) => {
   };
 
   return (
-    <div>
-      <textarea
+    <div className={styles.descriptionContainer}>
+      <textarea className={styles.textarea}
         value={description}
         onChange={handleDescriptionChange}
       />
-      <button className={styles.instructionsButton} onClick={handleSave}>Save Description</button>
+      <button className={styles.saveButton} onClick={handleSave}>
+        Save Description
+      </button>
+      <br/>
     </div>
   );
 };

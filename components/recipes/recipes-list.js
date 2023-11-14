@@ -72,7 +72,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 id={recipe._id}
                 patcheNo={patcheNo}
                 title={recipe.title}
-                image={recipe.images[0]}
+                image={recipe.images}
                 description={recipe.description}
                 prep={recipe.prep}
                 cook={recipe.cook}
