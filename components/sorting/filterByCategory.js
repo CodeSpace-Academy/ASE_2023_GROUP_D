@@ -1,4 +1,4 @@
-function SortByCategory({ categories, setCategory, category }) {
+function FilterByCategory({ categories, setCategory, category }) {
 
 
     function handleCategory(event) {
@@ -7,7 +7,7 @@ function SortByCategory({ categories, setCategory, category }) {
 
     return (
         <div style={{ display: 'flex' }}>
-            <label><h5 style={{color: 'white'}}>SortByCat : </h5></label>
+            <label><h5 style={{color: 'white'}}>FilterByCat : </h5></label>
             <select value={category} onChange={handleCategory}>
                 {categories[0].map((category, index) => <option key={index} value={category}>{category}</option>)}
             </select>
@@ -15,4 +15,4 @@ function SortByCategory({ categories, setCategory, category }) {
     )
 }
 
-export default SortByCategory;
+export default FilterByCategory;
