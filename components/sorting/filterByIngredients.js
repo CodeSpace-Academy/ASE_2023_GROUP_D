@@ -1,4 +1,4 @@
-function SortByIngrediets({ setIngredients, ingredients }) {
+function FilterByIngrediets({ setIngredients, ingredients }) {
 
     function handleIngredients(event) {
         setIngredients((prev) => [...prev, event.target.value])
@@ -10,7 +10,7 @@ function SortByIngrediets({ setIngredients, ingredients }) {
 
     return (
         <div style={{ display: 'flex' }}>
-            <label><h5 style={{color: 'white'}}>SortByIng : </h5></label>
+            <label><h5 style={{color: 'white'}}>FilterByIng : </h5></label>
             <select value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
                 <option value={'onion'}>onion</option>
                 <option value={'garlic'}>garlic</option>
@@ -30,4 +30,4 @@ function SortByIngrediets({ setIngredients, ingredients }) {
     )
 }
 
-export default SortByIngrediets;
+export default FilterByIngrediets;
