@@ -1,36 +1,29 @@
-import { run, runFav, runCategories } from '@/fetching-data/data';
+import { run, runFav, runCategories, runFilter2 } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Link from 'next/link';
-import SearchBar from '@/components/text-search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
-import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
-//import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
+import { useEffect } from 'react';
 
-function Recipe({ recipes, favRecipes, categories }) {
+function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar }) {
 
   const router = useRouter();
   const { recipeId } = router.query
+  const [isSorting, setIsSorting] = useState(false);
 
-  const [loadmore, setLoadMore] = useState(80)
-  const [loadData, setLoadData] = useState(20)
+  useEffect(() => {
+    setIsSorting(false)
+  }, [router])
 
   return (
     <>
-      <Navbar />
+      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} />
+
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
-        {/* {recipeId > 1 &&
-          <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
-            <button onClick={() => {
-              setLoadData(20)
-              setLoadMore(80)
-            }} className="maroon-button" >Previous
-            </button>
-          </Link>} */}
 
       </div>
       <div className={styles.footer}>
@@ -44,55 +37,21 @@ function Recipe({ recipes, favRecipes, categories }) {
         </p>
       </div>
 
-      <div className="search-container">
-        <SearchBar categories={categories} />
-      </div>
-
-      {/* <div>
-        <FilterIngredients recipes={recipes} />
-      </div> */}
-      {/* <Link href={'/favourites/1'}>
-        <button className="maroon-button">Favourites</button>
-      </Link> */}
-      <RecipeList recipes={recipes.slice(0, loadData)} patcheNo={recipeId} favRecipes={favRecipes} />
+      <RecipeList recipes={recipes} patcheNo={recipeId} favRecipes={favRecipes} search={searchChar} />
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-          
-          <button onClick={() => {
-            setLoadMore((prev)=> prev - 20)
-            setLoadData((prev)=> prev + 20)
-          }}
-            disabled={loadmore == 0 ? true : false}
-            className={`${styles.button} `}
-          >Load More {`(${loadmore})`}
-          </button>
+
 
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
           {recipeId > 1 && (
             <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
-              <button
-                onClick={() => {
-                  setLoadData(20);
-                  setLoadMore(80);
-                }}
-                className={styles.button}
-              >
-                Previous
-              </button>
+              <button className={styles.button}> Previous </button>
             </Link>
           )}
           <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
-            <button
-              onClick={() => {
-                setLoadData(20);
-                setLoadMore(80);
-              }}
-              className={styles.button}
-            >
-              Next
-            </button>
+            <button className={styles.button}> Next </button>
           </Link>
         </div>
 
@@ -104,15 +63,35 @@ function Recipe({ recipes, favRecipes, categories }) {
 }
 
 export async function getServerSideProps(context) {
+  const finalSearchString = {}
+  const sort1 = context.query.sort
+  const Tags = context.query.tags
+  const Categories = context.query.categories
+  const Ingredients = context.query.ingredients
+
+  const searchChar = context.query.search === undefined ? null : context.query.search
+  const sortChar = sort1 === undefined ? {} : { [sort1.slice(0, sort1.indexOf('_'))]: sort1.slice(sort1.indexOf('_') + 1, sort1.length) }
+  searchChar ? finalSearchString.title = { $regex: searchChar, $options: 'i' } : undefined
+  Tags ? finalSearchString.tags = { $all: (Tags.split(',')) } : undefined
+  Categories ? finalSearchString.category = Categories : undefined
+  Ingredients ? (Ingredients.split(',')).map((ingredient)=> finalSearchString[`ingredients.${ingredient}`] = {$exists: true}) : undefined
+
   const patcheNo = context.params.recipeId;
-  const recipes = await run(patcheNo);
+  const data = await run(patcheNo);
   const favRecipes = await runFav(1);
   const categories = await runCategories();
+  const filteredCharacters = await runFilter2(1, finalSearchString, sortChar);
+
+
+  const recipes = filteredCharacters
+
   return {
     props: {
       recipes,
       favRecipes,
       categories,
+      patcheNo,
+      searchChar,
     },
   };
 }
