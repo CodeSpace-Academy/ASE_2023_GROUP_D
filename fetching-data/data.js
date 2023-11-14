@@ -210,3 +210,17 @@ export async function insertFavOrHistory(collection, document) {
 		console.error("Failed to connect to MongoDB To save favourites", error);
 	}
  }
+
+ export async function runHistory() {
+	try {
+		const db = client.db("devdb");
+		await client.db("devdb").command({ ping: 1 });
+		const collection = db.collection("history");
+		const data = await collection.find({}).toArray();
+
+		return data;
+
+	} catch (error) {
+		console.error("Failed to connect to MongoDB:", error);
+	}
+}
