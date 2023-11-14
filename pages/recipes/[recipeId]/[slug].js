@@ -103,7 +103,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     <Navbar />
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
-        {showSuccessNotification && (
+        {/* {showSuccessNotification && (
           <SuccessNotification
             message="Description updated successfully."
             onClose={() => setShowSuccessNotification(false)}
@@ -114,7 +114,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
             message="Failed to update description. Please try again later."
             onClose={() => setShowErrorNotification(false)}
           />
-        )}
+        )} */}
 
         <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
