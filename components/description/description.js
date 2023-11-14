@@ -35,7 +35,7 @@ const UpdateDescription = ({ description, recipeId }) => {
         showNotification('Description saved successfully.', 'success');
         setIsEditingDescription(false);
       } else {
-        showNotification('Failed to save description! Instruction cannot be empty.', 'error');
+        showNotification('Failed to save description! Description cannot be empty.', 'error');
       }
     } catch (error) {
       showNotification('An error occurred while saving description.', 'error');
