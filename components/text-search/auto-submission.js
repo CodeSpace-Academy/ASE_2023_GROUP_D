@@ -180,3 +180,4 @@ useEffect(() => {
 }
 
 export default SearchBar;
+

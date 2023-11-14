@@ -1,15 +1,15 @@
 import { runFilter2, runFav, runCategories, getHistory } from "@/fetching-data/data";
 import RecipeList from "@/components/recipes/recipes-list";
 import Navbar from "@/components/header/navbar";
-import SearchBar from "@/components/text-search/auto-submission";
+import SearchBar from "@/components/search/auto-submission";
 import styles from '@/components/header/summary.module.css'
-//import style from "@/components/text-search/searchBar.module.css"
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Footer from "@/components/footer/footer";
 
 
-function Search({ filteredCharacters, favRecipes, categories, history }) {
+
+function Search({ filteredCharacters, favRecipes, categories }) {
     const router = useRouter();
     const { search } = router.query
     const [loadmore, setLoadMore] = useState(filteredCharacters.length)

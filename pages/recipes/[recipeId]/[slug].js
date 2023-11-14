@@ -1,12 +1,10 @@
 
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/description/description';
-import SuccessNotification from '@/components/Errors/SuccessNotification';
-import ErrorNotification from '@/components/Errors/ErrorNotification';
 import { run2, runFilter, runFav } from '../../../fetching-data/data';
 import styles from '@/stylespages/RecipeDetails.module.css';
 import RecipesInstructions from '@/components/instructions/instructions';
-import ErrorComponent from '../../../components/Errors/errors';
+import ErrorComponent from '@/components/Errors/errors';
 import Navbar from '@/components/header/navbar';
 import Footer from '@/components/footer/footer';
 
@@ -26,8 +24,6 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
-  const [showErrorNotification, setShowErrorNotification] = useState(false);
 
   const handleSaveDescription = async (updatedDescription) => {
     try {
@@ -108,18 +104,6 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     <Navbar />
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
-        {showSuccessNotification && (
-          <SuccessNotification
-            message="Description updated successfully."
-            onClose={() => setShowSuccessNotification(false)}
-          />
-        )}
-        {showErrorNotification && (
-          <ErrorNotification
-            message="Failed to update description. Please try again later."
-            onClose={() => setShowErrorNotification(false)}
-          />
-        )}
         <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br/>
@@ -127,7 +111,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         
         <UpdateDescription description={recipes.description} recipeId={recipeId}/>
 
-        <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
+        {/* <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p> */}
         <h2 className={styles.allergens}>Allergens</h2>
         {allergensForRecipe.length > 0 ? (
           <ul>

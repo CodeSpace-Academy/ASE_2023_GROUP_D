@@ -1,58 +1,98 @@
-
 import React, { useState } from 'react';
 import styles from './instructions.module.css';
 
 function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
+  const [notification, setNotification] = useState(null);
 
   const handleEditInstructions = () => {
     setIsEditingInstructions(true);
   };
 
-  const handleSave = () => {
-    setIsEditingInstructions(false);
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000); // Set the timeout to hide the notification after 3 seconds
+  };
 
-    // Save the instructions using an API request here
-    saveInstructions(editedInstructions);
-    
+  // const handleSave = async () => {
+  //   try {
+  //     // Save the instructions using an API request here
+  //     await saveInstructions(editedInstructions);
+  //     showNotification('Instructions saved successfully.', 'success');
+  //     setIsEditingInstructions(false);
+  //   } catch (error) {
+  //     showNotification('Failed to save instructions.', 'error');
+  //   }
+  // };
+
+  const handleSave = async () => {
+    try {
+      // Check if any instruction is empty
+      if (editedInstructions.some(instruction => !instruction.trim())) {
+        showNotification('Instructions cannot be empty.', 'error');
+        return; // Do not proceed with saving
+      }
+  
+      const requestBody = JSON.stringify({
+        recipeId: recipeId,
+        instructions: editedInstructions,
+      });
+  
+      const response = await fetch('/api/updateInstructions/updateInstructions', {
+        method: 'POST',
+        body: requestBody,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        showNotification('Instructions saved successfully.', 'success');
+        setIsEditingInstructions(false);
+      } else {
+        showNotification('Failed to save instructions. ', 'error');
+      }
+    } catch (error) {
+      showNotification('An error occurred while saving instructions.', 'error');
+    }
   };
   
-  const handleCancel = () => {
-    setEditedInstructions([...instructions]);
-    setIsEditingInstructions(false);
-  };
 
   const handleInstructionChange = (index, newValue) => {
     const updatedInstructions = [...editedInstructions];
     updatedInstructions[index] = newValue;
     setEditedInstructions(updatedInstructions);
   };
-  
 
-  const saveInstructions = async (updatedInstructions) => {
-    try {
-      const requestBody = JSON.stringify({
-        recipeId: recipeId, // Include the recipeId in the request body
-        instructions: updatedInstructions,
-      });
-      const response = await fetch('/api/updateInstructions/updateInstructions', {
-        method: 'POST',
-        body: requestBody,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      console.log(recipeId)
-      if (response.ok) {
-        console.log('Instructions saved successfully.');
-      } else {
-        console.error('Failed to save instructions.');
-      }
-    } catch (error) {
-      console.error('An error occurred while saving instructions:', error);
-    }
+  const handleCancel = () => {
+    setEditedInstructions([...instructions]);
+    setIsEditingInstructions(false);
   };
+
+  // const saveInstructions = async (updatedInstructions) => {
+  //   try {
+  //     const requestBody = JSON.stringify({
+  //       recipeId: recipeId,
+  //       instructions: updatedInstructions,
+  //     });
+  //     const response = await fetch('/api/updateInstructions/updateInstructions', {
+  //       method: 'POST',
+  //       body: requestBody,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to save instructions.');
+  //     }
+  //   } catch (error) {
+  //     throw new Error('An error occurred while saving instructions.');
+  //   }
+  // };
 
   return (
     <div>
@@ -62,19 +102,21 @@ function RecipeInstructions({ instructions, recipeId }) {
             {editedInstructions.map((instruction, index) => (
               <li key={index}>
                 <div className={styles.container1}>
-                <textarea
-                  value={instruction}
-                  onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  className={styles.container2}  
-                />
+                  <textarea className={styles.inputField}
+                    value={instruction}
+                    onChange={(e) => handleInstructionChange(index, e.target.value)}
+                  />
                 </div>
               </li>
-
             ))}
           </ol>
           <div className={styles.btn}>
-            <button onClick={handleSave} className={styles.saveButton}>Save</button>
-            <button onClick={handleCancel} className={styles.cancelButton}>Cancel</button>
+            <button onClick={handleSave} className={styles.saveButton}>
+              Save
+            </button>
+            <button onClick={handleCancel} className={styles.cancelButton}>
+              Cancel
+            </button>
           </div>
         </div>
       ) : (
@@ -100,6 +142,17 @@ function RecipeInstructions({ instructions, recipeId }) {
           >
             Edit Instructions
           </button>
+        </div>
+      )}
+      {notification && (
+        <div
+          className={
+            notification.type === 'success'
+              ? styles.successMessage
+              : styles.errorMessage
+          }
+        >
+          {notification.message}
         </div>
       )}
     </div>
