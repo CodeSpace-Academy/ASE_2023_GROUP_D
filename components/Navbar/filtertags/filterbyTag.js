@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '@/components/Navbar/filtertags/filterByTags.module.css';
 
-
-function FilterAndSortTags({ recipes }) {
+function FilterAndSortTags({recipes }) {
     const [tag, setTag] = useState('');
     const [filteredRecipes, setFilteredRecipes] = useState([]);
 

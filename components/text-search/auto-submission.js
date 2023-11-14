@@ -1,46 +1,69 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/text-search/searchBar.module.css"
+import styles from "./seachBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 
+
+import SortCook from '@/components/Sorting/sort-by-cooking-time'
+import SortPrep from '@/components/Sorting/sort-by-prep-time'
+
+
+
 function SearchBar({ search, categories }) {
-  const [query, setQuery] = useState("");
-  const [backUpQuery, setBackUpQuery] = useState(search);
-  const [prep, setHandlePrep] = useState('')
-  const [tags, setTags] = useState([])
+  const [query, setQuery] = useState(""); //Storing the text entered in the search bar
+  const [backUpQuery, setBackUpQuery] = useState(search); // Storing a backup of the search term
+  const [prep, setHandlePrep] = useState('') // Storing sorting information
+  const [tags, setTags] = useState([]) 
   const [ingredients, setIngredients] = useState([])
   const [category, setCategory] = useState('')
-  const router = useRouter();
-  const delay = 5000;
+  const router = useRouter();// Using Next.js to manage routing
+  const shortDelay = 2000;
+const longDelay = 4000;
 
-  const handleInputChange = (event) => {
-    setQuery(event.target.value);
-  };
+// When someone types in the search bar, this function updates the 'query' variable.
+const handleInputChange = (event) => {
+  setQuery(event.target.value);
+};
 
-  useEffect(() => {
+// When a search is performed, this function navigates to the search results page.
+useEffect(() => {
+  let timeoutId;
 
-    if (query) {
-      const navigateToNewPage = () => {
-        router.push(`/Search/${query ? query : backUpQuery}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`); // Replace '/new-page' with the URL of the new page
-      };
+  if (query) {
+    const navigateToNewPage = () => {
+      router.push(`/Search/${query ? query : backUpQuery}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`);
+    };
 
-      const timeoutId = setTimeout(navigateToNewPage, delay);
-
-      return () => {
-        clearTimeout(timeoutId); // Clear the timeout if the component unmounts before the delay is reached
-      };
+    if (query.length < 10) { // Adjust the length as needed
+      timeoutId = setTimeout(navigateToNewPage, shortDelay);
+    } else {
+      timeoutId = setTimeout(navigateToNewPage, longDelay);
     }
-  }, [router, query, delay]);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }
+}, [router, query, shortDelay, longDelay, backUpQuery, prep, tags, category, ingredients]);
+
+
+  // When the component is unmounted or the route changes, this function clears the search query.
   useEffect(() => {
     return () => {
       setQuery('');
     };
   }, [router]);
 
-  function handelSortByPrep(event) {
+
+  function handleSortChange(selectedValue) {
+    setSortCook(selectedValue)
+  }
+
+
+
+  function handleSortByPrep(event) {
     setHandlePrep(event.target.value)
   }
 
@@ -71,13 +94,19 @@ function SearchBar({ search, categories }) {
     setHandlePrep('')
   }
 
+  function handleCountMatchingRecipes() {
+
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }} className={styles.container}>
       <div className={styles.container}>
+
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
-          <input className={styles.input} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+          <input className={styles.input} type="text" placeholder="Search ..." value={query} onChange={handleInputChange} />
         </div>
+
       </div>
 
       {router.pathname.includes('/Search/') &&
@@ -97,9 +126,11 @@ function SearchBar({ search, categories }) {
             })}
           </div>
 
+          
+
           <div style={{ display: 'flex' }}>
             <label><h5>SortByOrd : </h5></label>
-            <select value={prep} onChange={handelSortByPrep}>
+            <select value={prep} onChange={handleSortByPrep}>
               <option value={1}>Ascending</option>
               <option value={-1}>Descending</option>
             </select>
@@ -136,6 +167,9 @@ function SearchBar({ search, categories }) {
           <Link href={`/Search/${search}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`}>
             <button onClick={handleDeleteAllFilters}>Clear All Filters</button>
           </Link>
+
+          <SortCook sortOrder={sortCook} onChange={handleSortChange} />
+          <SortPrep sortOrder={prep} onChange={handleSortByPrep} />
         </>
       }
 
