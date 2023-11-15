@@ -10,9 +10,10 @@ import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
+import SortInstructionsByLength from '@/components/stepsSort/stepsSort';
 //import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
-function Recipe({ recipes, favRecipes, categories }) {
+function Recipe({ recipes, favRecipes, categories, instructions, published }) {
 
   const router = useRouter();
   const { recipeId } = router.query
@@ -24,7 +25,9 @@ function Recipe({ recipes, favRecipes, categories }) {
     <>
       <Navbar />
       <div >
-        <img src="/images/food-image - Copy.jpg" alt="logo" width='100%' />
+
+        <img className={styles.image} src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
+
         {/* {recipeId > 1 &&
           <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
             <button onClick={() => {
@@ -48,15 +51,24 @@ function Recipe({ recipes, favRecipes, categories }) {
 
       <div className="search-container">
         <SearchBar categories={categories} />
-      </div>
+        <SortInstructionsByLength  instructions={instructions} />
+        
 
+      </div>
+     
       {/* <div>
         <FilterIngredients recipes={recipes} />
       </div> */}
       {/* <Link href={'/favourites/1'}>
         <button className="maroon-button">Favourites</button>
       </Link> */}
-      <RecipeList recipes={recipes.slice(0, loadData)} patcheNo={recipeId} favRecipes={favRecipes} />
+      <RecipeList 
+      recipes={recipes.slice(0, loadData)} 
+      patcheNo={recipeId} 
+      favRecipes={favRecipes}
+      instructions={instructions}
+      
+       />
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
