@@ -11,8 +11,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
   const [numSteps, setNumSteps] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState(null);
-  const [notification, setNotification] = useState(null);
+
 
 
   const handleFilterBySteps = async (numSteps) => {
