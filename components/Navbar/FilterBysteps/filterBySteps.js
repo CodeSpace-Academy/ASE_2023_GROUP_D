@@ -9,7 +9,7 @@ function FilterSteps({ onFilter, isLoading }) {
       onFilter(parseInt(numSteps));
     }
   };
-
+ 
   return (
     <div className={styles.filterContainer}>
       <label htmlFor="numSteps">Filter by Steps: </label>
