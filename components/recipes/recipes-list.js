@@ -3,7 +3,7 @@ import RecipesItems from "./recipes-items";
 import RecipesFavItems from "./recipes-FavItems";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
-
+import FilterSteps from "../Navbar/FilterBySteps/filterBySteps";
 
 function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const router = useRouter();
@@ -15,10 +15,10 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const handleFilterBySteps = async (numSteps) => {
     try {
       setIsLoading(true);
-
+  
       const res = await fetch(`/api/filterBySteps?numSteps=${numSteps}`);
       const filteredData = await res.json();
-
+  
       if (filteredData.length > 0) {
         setSortedRecipes(filteredData);
         setNoRecipesMessage(null);
@@ -34,17 +34,16 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className={styles.container}>
-
+      <FilterSteps onFilter={handleFilterBySteps} isLoading={isLoading} />
       <div className={styles.container}>
         <br />
-
-
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
-            recipes.map((recipe) => (
+            sortedRecipes.map((recipe) => (
               <RecipesItems
                 key={recipe._id}
                 id={recipe._id}
@@ -61,7 +60,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 search={search}
               />
             )) :
-            recipes.map((recipe) => (
+            sortedRecipes.map((recipe) => (
               <RecipesFavItems
                 key={recipe._id}
                 id={recipe._id}
@@ -75,11 +74,13 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 servings={recipe.servings}
                 published={recipe.published}
                 favRecipes={favRecipes}
-              />))}
+              />
+            ))}
         </ul>
       </div>
     </div>
   );
+  
 }
 
 export default RecipeList;
