@@ -7,6 +7,11 @@
 }
 
 body {
+
+  width: 100%;
+  height: 100%;
+  padding: 0;
+
   margin: 0;
   font-family: 'Open Sans', 'Lato', sans-serif;
   color: #414141;
@@ -50,6 +55,68 @@ a {
 .center {
   margin: auto;
   text-align: center;
+}
+
+.hero-section {
+  background-color: rgb(160, 154, 154);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  padding: 10px;
+  box-sizing: border-box;
+  }
+
+
+
+.show-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.show-info > div {
+  padding: 5px;
+  text-align: center;
+  background-color: #fff;
+  /* Background color for each slide */
+  margin: 0 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Add a subtle box shadow */
+}
+
+.show-info h1 {
+  font-size: 15px;
+  margin-top: 0px;
+}
+
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  /* Background color for arrow buttons */
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.arrow-icon:hover {
+  background-color: #ccc;
+  /* Background color on hover */
+}
+
+.arrow-icon.backward {
+  left: 10px;
+}
+
+.arrow-icon.forward {
+  right: 10px;
 }
 
 button { 
