@@ -11,6 +11,9 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
   const [numSteps, setNumSteps] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(null);
+  const [notification, setNotification] = useState(null);
+
 
   const handleFilterBySteps = async (numSteps) => {
     try {
@@ -19,21 +22,30 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
       const res = await fetch(`/api/filterBySteps?numSteps=${numSteps}`);
       const filteredData = await res.json();
   
-      if (filteredData.length > 0) {
-        setSortedRecipes(filteredData);
-        setNoRecipesMessage(null);
+      if (res.ok) {
+        if (filteredData.length > 0) {
+          setSortedRecipes(filteredData);
+          setNoRecipesMessage(null);
+        } else {
+          setSortedRecipes([]);
+          setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
+        }
       } else {
+        console.error('Error filtering by steps:', filteredData.message);
         setSortedRecipes([]);
-        setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
+        setNoRecipesMessage(`Error: ${filteredData.message}`);
       }
     } catch (error) {
       console.error('Error filtering by steps:', error);
       setSortedRecipes([]);
-      setNoRecipesMessage('An error occurred while filtering recipes.');
+      setNoRecipesMessage('An error occurred while filtering recipes. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
+  
+  
+  
   
 
   return (
@@ -41,6 +53,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
       <FilterSteps onFilter={handleFilterBySteps} isLoading={isLoading} />
       <div className={styles.container}>
         <br />
+        {noRecipesMessage && <div className={styles.loadingMessage}>{noRecipesMessage}</div>}
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
             sortedRecipes.map((recipe) => (
