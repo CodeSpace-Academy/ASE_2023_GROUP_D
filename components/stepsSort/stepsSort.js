@@ -16,7 +16,7 @@ function SortInstructionsByLength() {
 
         if (result.success) {
           setSortedRecipes(result.recipes);
-          setSortingStatus('Instructions sorted successfully.');
+          setSortingStatus(console.log('Instructions sorted successfully.'));
         } else {
           setSortingStatus('An error occurred while sorting instructions.');
         }
@@ -30,42 +30,21 @@ function SortInstructionsByLength() {
     fetchData();
   }, [order]);
 
+
   const handleChangeOrder = (event) => {
     setOrder(event.target.value);
   };
-
-  // Conditionally render based on whether sortedRecipes is an array
-  const renderContent = () => {
-    if (sortedRecipes && sortedRecipes.length > 0) {
-      return sortedRecipes.map((recipe, index) => (
-        <div key={index}>
-          <p>{recipe.title}</p>
-          {/* Display other recipe properties as needed */}
-        </div>
-      ));
-    } else {
-      return <p>No instructions to display.</p>;
-    }
-  };
-
+  
   return (
     <div>
-      <label htmlFor="sortOrder">Sort Order:</label>
+      <label htmlFor="sortOrder">Sort by steps:</label>
       <select id="sortOrder" value={order} onChange={handleChangeOrder}>
         <option value="ascending">Ascending</option>
         <option value="descending">Descending</option>
       </select>
       {sortingStatus && <p>{sortingStatus}</p>}
-
-      {/* Conditionally render content based on the state */}
-      {renderContent()}
     </div>
   );
 }
 
 export default SortInstructionsByLength;
-
-
-
-
-

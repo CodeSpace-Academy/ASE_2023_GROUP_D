@@ -9,7 +9,6 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const router = useRouter();
   const [sortedRecipes, setSortedRecipes] = useState(recipes);
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
-  const [numSteps, setNumSteps] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFilterBySteps = async (numSteps) => {

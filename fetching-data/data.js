@@ -250,49 +250,6 @@ export async function runUpdateDescription(recipeId, updatedDescription) {
 	}
 }
 
-// export async function runInstructionsSortByLength() {
-// 	try {
-
-// 		const db = client.db('devdb');
-// 		const collection = db.collection('recipes');
-
-// 		const result = await collection.aggregate([
-// 			{
-// 				$unwind: "$instructions" // Deconstruct the instructions array into individual documents
-// 			},
-// 			{
-// 				$sort: {
-// 					"instructions.length": 1 // Sort by the length of the instructions array
-// 					// If you want to sort in descending order, use -1 instead of 1: "instructions.length": -1
-// 				}
-// 			},
-// 			{
-// 				$group: {
-// 					_id: "$_id",
-// 					title: { $first: "$title" },
-// 					description: { $first: "$description" },
-// 					prep: { $first: "$prep" },
-// 					cook: { $first: "$cook" },
-// 					category: { $first: "$category" },
-// 					servings: { $first: "$servings" },
-// 					published: { $first: "$published" },
-// 					tags: { $first: "$tags" },
-// 					ingredients: { $first: "$ingredients" },
-// 					images: { $first: "$images" },
-// 					instructions: { $push: "$instructions" },
-// 					nutrition: { $first: "$nutrition" }
-// 				}
-// 			},
-// 			{
-// 				$limit: 100 // Limit the result to 100 documents
-// 			}
-// 		]).toArray();
-// 		console.log(result)
-// 		return result;
-// 	} finally {
-// 		await client.close();
-// 	}
-// }
 
 export async function runSortInstructionsByLength(page, sortOrder = 'asc') {
 	try {
@@ -301,9 +258,8 @@ export async function runSortInstructionsByLength(page, sortOrder = 'asc') {
 		const db = client.db('devdb');
 		const skip = (page - 1) * 100;
 
-		// Ensure there's an index on the field used for sorting
-		await db.collection('recipes').createIndex({ "instructions.length": 1 });
 		const sortDirection = sortOrder.toLowerCase() === 'desc' ? -1 : 1;
+
 
 		const cursor = db.collection('recipes').aggregate([
 			{
@@ -317,7 +273,7 @@ export async function runSortInstructionsByLength(page, sortOrder = 'asc') {
 					"path": "$instructions",
 					"includeArrayIndex": "string",  // This might not be explicitly supported in Compass
 					"preserveNullAndEmptyArrays": false  // This might not be explicitly supported in Compass
-				}
+				  }
 			},
 			{
 				$sort: {
@@ -329,18 +285,14 @@ export async function runSortInstructionsByLength(page, sortOrder = 'asc') {
 		], { allowDiskUse: true });
 
 		const result = await cursor.toArray();
-		console.log(result)
+		//console.log(result);
 
-		return result
+		return result;
 
 	} finally {
 		await client.close();
 	}
 }
-
-
-
-
 
 
 

@@ -26,15 +26,7 @@ function Recipe({ recipes, favRecipes, categories, instructions, published }) {
       <Navbar />
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width='100%' />
-        {/* {recipeId > 1 &&
-          <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
-            <button onClick={() => {
-              setLoadData(20)
-              setLoadMore(80)
-            }} className="maroon-button" >Previous
-            </button>
-          </Link>} */}
-
+        
       </div>
       <div className={styles.footer}>
         <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
@@ -50,16 +42,10 @@ function Recipe({ recipes, favRecipes, categories, instructions, published }) {
       <div className="search-container">
         <SearchBar categories={categories} />
         <SortInstructionsByLength  instructions={instructions} />
-        
 
       </div>
      
-      {/* <div>
-        <FilterIngredients recipes={recipes} />
-      </div> */}
-      {/* <Link href={'/favourites/1'}>
-        <button className="maroon-button">Favourites</button>
-      </Link> */}
+      
       <RecipeList 
       recipes={recipes.slice(0, loadData)} 
       patcheNo={recipeId} 
