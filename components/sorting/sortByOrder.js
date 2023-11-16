@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 
 function SortByOrder() {
     const { query, pathname, push } = useRouter();
-    const [orderValue, setOrderValue] = useState();
     const backUpValue = query.sort
+    const [orderValue, setOrderValue] = useState(backUpValue);
  
 
     function handleSortByOrder(event) {
@@ -20,14 +20,14 @@ function SortByOrder() {
     return (
         <div style={{ display: 'flex' }}>
             <label id="sortSection"><p style={{ paddingRight: '10px' }}><b>SortBy</b></p></label>
-            <select placeholder={'Choose Sort'} value={orderValue ? orderValue : backUpValue} onChange={handleSortByOrder}>
-                <option>Choose Sort</option>
+            <select placeholder={'Choose Sort'} value={orderValue} onChange={handleSortByOrder}>
+                <option value={'undefined'}>Default</option>
                 <option value={'prep_1'}>Preptime: Ascending</option>
                 <option value={'prep_-1'}>Preptime: Descending</option>
                 <option value={'cook_1'}>Cooktime: Ascending</option>
                 <option value={'cook_-1'}>Cooktime: Descending</option>
-                <option value={'steps_1'}>Steps: Ascending</option>
-                <option value={'steps_-1'}>Steps: Descending</option>
+                <option value={'instructions_1'}>Steps: Ascending</option>
+                <option value={'instructions_-1'}>Steps: Descending</option>
                 <option value={'published_1'}>Date: Ascending</option>
                 <option value={'published_-1'}>Date: Descending</option>
             </select>
