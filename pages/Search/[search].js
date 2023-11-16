@@ -39,7 +39,7 @@ function Search({ filteredCharacters, favRecipes, categories }) {
             
 
             {/* Render the 'RecipeList' component, passing in the first 20 items of the 'filteredCharacters' array and 'patcheNo' as a prop. */}
-            {filteredCharacters.length > 0 ? <RecipeList recipes={filteredCharacters.slice(0, loadData)} patcheNo={1} favRecipes={favRecipes} search={search} /> : <h2>No Matching Recipes Based On Search</h2>}
+            {filteredCharacters.length > 0 && <RecipeList recipes={filteredCharacters.slice(0, loadData)} patcheNo={1} favRecipes={favRecipes} search={search} />}
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button onClick={() => {
