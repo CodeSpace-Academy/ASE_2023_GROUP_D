@@ -34,6 +34,7 @@
     background: #ccc; /* Grey background color */
     padding: 10px;
     border-radius: 30px;
+    z-index: -1;
   }
   
 
@@ -56,8 +57,8 @@
     justify-content: center;
     position: fixed;
     background-color: black;
-    opacity: 70%;
+    opacity: 84%;
     height: 100%;
     width: 100%;
-    padding-top: 20%;
+    padding-top: 15%;
 }
