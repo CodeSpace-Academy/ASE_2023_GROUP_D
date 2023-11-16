@@ -4,7 +4,6 @@ async function handler(req, res) {
 const FavRecipe = req.body
 // const recipeID = req.query.filterByid;
 
-console.log(FavRecipe)
 
     if (req.method === 'POST') {
         try {

@@ -1,27 +1,86 @@
-.container3 {
-    background-color: aliceblue;
+/* styles.module.css */
+
+
+.instructionsList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .instructionsListItem {
+    margin-bottom: 10px;
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 25px;
+    border: 2px solid #8e8e8e;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .buttonContainer {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .saveButton {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .saveButton:hover {
+    background-color: #444;
+  }
+
+  
+  
+  .cancelButton {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 10px;
+  }
+  
+  .cancelButton:hover {
+    background-color: #999;
+  }
+
+  .successMessage {
+    background-color: #4caf4fd5; /* Green background color */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .errorMessage {
+    background-color: #871e16cb; /* Red background color */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .container1 {
     padding: 5px;
-    border: 1px solid black;
-    width: 800px;
-}
-
-.insContainer {
-    width: 500px;
-    height: 60px;
-}
-
-.orderedList {
-    margin: 10px;
-}
-
-
-
-.container4 {
-    margin-left: auto;
-}
-
-.container5 {
-    width: 700px;
-}
+  }
+  

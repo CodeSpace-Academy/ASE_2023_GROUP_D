@@ -1,43 +1,65 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from './instructions.module.css';
 
-function RecipeInstructions({ instructions, onSave }) {
+function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
-  const instructionRefs = useRef([]);
-
-  async function saveInstructions() {
-    //event.preventDefault();
-
-    const enteredInstruction = instructionRefs.current.value;
-
-    fetch('/api/updateInstructions', {
-      method: 'POST',
-      body: JSON.stringify({ instructions: enteredInstruction }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(response => response.json())
-      .then(data => console.log(data));
-
-  }
+  const [notification, setNotification] = useState(null);
 
   const handleEditInstructions = () => {
-
     setIsEditingInstructions(true);
   };
 
-  const handleSave = () => {
-    //onSave(editedInstructions);
-    setIsEditingInstructions(false);
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000); // Set the timeout to hide the notification after 3 seconds
   };
 
-  const handleCancel = () => {
-    setEditedInstructions([...instructions]);
-    setIsEditingInstructions(false);
+  // const handleSave = async () => {
+  //   try {
+  //     // Save the instructions using an API request here
+  //     await saveInstructions(editedInstructions);
+  //     showNotification('Instructions saved successfully.', 'success');
+  //     setIsEditingInstructions(false);
+  //   } catch (error) {
+  //     showNotification('Failed to save instructions.', 'error');
+  //   }
+  // };
+
+  const handleSave = async () => {
+    try {
+      // Check if any instruction is empty
+      if (editedInstructions.some(instruction => !instruction.trim())) {
+        showNotification('Instructions cannot be empty.', 'error');
+        return; // Do not proceed with saving
+      }
+  
+      const requestBody = JSON.stringify({
+        recipeId: recipeId,
+        instructions: editedInstructions,
+      });
+  
+      const response = await fetch('/api/updateInstructions/updateInstructions', {
+        method: 'POST',
+        body: requestBody,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        showNotification('Instructions saved successfully.', 'success');
+        setIsEditingInstructions(false);
+      } else {
+        showNotification('Failed to save instructions. ', 'error');
+      }
+    } catch (error) {
+      showNotification('An error occurred while saving instructions.', 'error');
+    }
   };
+  
 
   const handleInstructionChange = (index, newValue) => {
     const updatedInstructions = [...editedInstructions];
@@ -45,10 +67,32 @@ function RecipeInstructions({ instructions, onSave }) {
     setEditedInstructions(updatedInstructions);
   };
 
-  function handlerTrigger() {
-    handleSave();
-    saveInstructions();
-  }
+  const handleCancel = () => {
+    setEditedInstructions([...instructions]);
+    setIsEditingInstructions(false);
+  };
+
+  // const saveInstructions = async (updatedInstructions) => {
+  //   try {
+  //     const requestBody = JSON.stringify({
+  //       recipeId: recipeId,
+  //       instructions: updatedInstructions,
+  //     });
+  //     const response = await fetch('/api/updateInstructions/updateInstructions', {
+  //       method: 'POST',
+  //       body: requestBody,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to save instructions.');
+  //     }
+  //   } catch (error) {
+  //     throw new Error('An error occurred while saving instructions.');
+  //   }
+  // };
 
   return (
     <div>
@@ -57,21 +101,24 @@ function RecipeInstructions({ instructions, onSave }) {
           <ol>
             {editedInstructions.map((instruction, index) => (
               <li key={index}>
-                <input
-                  value={instruction}
-                  onChange={(e) => handleInstructionChange(index, e.target.value)}
-                  //onSave={'tshepo'}
-                  className={styles.insContainer}
-                  ref={instructionRefs}
-
-                />
+                <div className={styles.container1}>
+                  <textarea className={styles.inputField}
+                    value={instruction}
+                    onChange={(e) => handleInstructionChange(index, e.target.value)}
+                  />
+                </div>
               </li>
             ))}
           </ol>
-          <div>
-            <button onClick={handlerTrigger}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+          <div className={styles.btn}>
+            <button onClick={handleSave} className={styles.saveButton}>
+              Save
+            </button>
+            <button onClick={handleCancel} className={styles.cancelButton}>
+              Cancel
+            </button>
           </div>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
       ) : (
         <div>
@@ -80,18 +127,33 @@ function RecipeInstructions({ instructions, onSave }) {
               <li key={index}>{instruction}</li>
             ))}
           </ol>
-          <button style={{
-            background: 'red',
-            borderRadius: '20px',
-            color: 'white',
-            border: 'none',
-            padding: '10px 20px',
-            cursor: 'pointer',
-            transition: 'background-color 0.3s',
-          }}
+          <button
+            style={{
+              background: 'red',
+              borderRadius: '20px',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s',
+            }}
             onMouseEnter={(e) => (e.target.style.background = '#972f2f')}
             onMouseLeave={(e) => (e.target.style.background = 'red')}
-            onClick={handleEditInstructions}>Edit Instructions</button>
+            onClick={handleEditInstructions}
+          >
+            Edit Instructions
+          </button>
+        </div>
+      )}
+      {notification && (
+        <div
+          className={
+            notification.type === 'success'
+              ? styles.successMessage
+              : styles.errorMessage
+          }
+        >
+          {notification.message}
         </div>
       )}
     </div>
@@ -99,4 +161,3 @@ function RecipeInstructions({ instructions, onSave }) {
 }
 
 export default RecipeInstructions;
-

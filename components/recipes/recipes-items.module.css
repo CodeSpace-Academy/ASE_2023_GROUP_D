@@ -1,21 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
-
 .item {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
   background-color: #FDF7FF;
-  height: 500px;
+  height: 550px;
   width: 300px;
   text-align: center;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
 
+.item:hover {
+  transform: scale(1.09);
 }
 
 .title1 {
   height: 57px;
   margin-bottom: 26px;
   color: rgb(0, 0, 0);
-  font-family: "Arial", "Lucida Console", "Courier New", monospace;
 
 }
 
@@ -27,34 +29,23 @@
 /* Styles for the View Recipe button */
 
 .viewRecipeButtonText {
-  font-family: "Arial", "Lucida Console", "Courier New", monospace;
-  font-weight: bold;
   color: white;
   font-size: 14px;
   /* Adjust the font size */
 }
 
-/*
-  .content time {
-    color: #666666;
-    font-weight: bold;
-  }
-  
-  .content address {
-    margin: 0.5rem 0;
-    color: #666666;
-    white-space: pre;
-  } */
-
 .actions {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+
 }
 
 .actions {
   flex-direction: row;
   justify-content: center;
+  position: absolute;
+  bottom: -30px;
+  width: 100%;
 }
 
 
@@ -63,13 +54,6 @@
 .cookingContainer {
   display: flex;
   justify-content: center;
-}
-
-.cookingTime {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
-  font-family: "Arial", "Lucida Console", "Courier New", monospace;
 
 }
 
@@ -78,24 +62,82 @@
   display: flex;
   margin-right: 15px;
   flex-grow: 1;
-  font-family: "Arial", "Lucida Console", "Courier New", monospace;
-
-
 }
 
-.value {
-  font-size: smaller;
-  display: flex;
-  text-align: center;
-  flex-grow: 1;
-  font-weight: normal;
-  font-weight: bold;
-  font-family: "Arial", "Lucida Console", "Courier New", monospace;
-
-}
 
 @media (max-width: 480px) {
   .item {
     margin-bottom: 40px;
   }
 }
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 50px;
+}
+
+.favoriteButton {
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 8px; /* Adjust padding as needed */
+}
+
+.button-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* styles.module.css */
+
+.cookingTime {
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.cookingTime div {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.cookingTime div div {
+  flex: 1;
+}
+
+.cookingTimeLabel {
+  font-size: 14px
+}
+
+.category {
+  color: #5c5c5d; /* Choose your desired color */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.servings {
+  color: #333; /* Choose your desired color */
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.date {
+  margin-top: 10px;
+  color: #888;
+}
+
+/* Add these styles to your existing CSS module */
+.heartIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  border-radius: 50%;
+  padding-top: 5px;
+  width: 45px;
+  height: 40px;
+}
+
+/* Adjust the values of top and right based on your desired position */

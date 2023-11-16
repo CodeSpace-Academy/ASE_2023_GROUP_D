@@ -4,8 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
-  background: white; /* Background color */
+  /* height: 20vh; */
+  background-color: #ededed; /* Background color */
 
   /* Create space around the search bar */
   padding: 20px; /* Adjust the padding as needed */
@@ -48,4 +48,19 @@
 
 .button:hover {
   background: #972f2f; /* Darker red color on hover */
+}
+
+/* searchBar.module.css */
+.loader {
+  border: 4px solid rgba(0, 0, 0, 0.3);
+  border-top: 4px solid #972f2f;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  1% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
