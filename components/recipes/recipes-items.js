@@ -85,6 +85,27 @@ function RecipesItems(props) {
             <div className={styles.link}>
 
                 <li className={styles.item}>
+                    <div className={styles.heartIcon}>
+                        {favToggle ? (
+                            <>
+                                {!hoverToggle && (
+                                    <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red"  />
+                                )}
+                                {hoverToggle && (
+                                    <FontAwesomeIcon
+                                        onMouseLeave={() => setHoverToggle(!hoverToggle)}
+                                        icon={brokenHeart}
+                                        size="2x"
+                                        color="red"
+                                        onClick={() => removeFromFavourite({ _id: id })}
+                                        shake
+                                    />
+                                )}
+                            </>
+                        ) : (
+                            <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                        )}
+                    </div>
                     <img src={image} alt={id} width={400} height={200} className={styles.imageContainer} />
                     {search ? <h2><Highlighter
                         highlightClassName="YourHighlightClass"
@@ -93,37 +114,33 @@ function RecipesItems(props) {
                         textToHighlight={title}
                     /></h2> : <h2>{title}</h2>}
 
-                    {favToggle ? (
-                        <>
-                            {!hoverToggle && <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />}
-                            {hoverToggle && <FontAwesomeIcon onMouseLeave={() => setHoverToggle(!hoverToggle)} icon={brokenHeart} size="2x" color="red" onClick={() => removeFromFavourite({ _id: id })} shake />}
-                        </>
-                    ) : (
-                        <FontAwesomeIcon icon={regularHeart} size="2x" color='grey' onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
-                    )}
-
                     <div >
 
                         <div className={styles.cookingTime}>
                             <div>
-                                <div>
-                                    Preparation: {prepHours > 0 ? `${prepHours} hr${prepHours > 1 ? 's' : ''} ` : ''}
+                                <div className={styles.cookingTimeLabel}>
+                                    Preparation: 
+                                    <br/>
+                                    {prepHours > 0 ? `${prepHours} hr${prepHours > 1 ? 's' : ''} ` : ''}
                                     {prepMinutes > 0 ? `${prepMinutes} min${prepMinutes > 1 ? 's' : ''}` : (prepHours === 0 ? '0 min' : '')}
                                 </div>
-                                <div>
-                                    Cooking time: {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''}
+                                <div className={styles.cookingTimeLabel}>
+                                    Cooking time: 
+                                    <br/>
+                                    {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''}
                                     {minutes > 0 ? `${minutes > 59 ? `${Math.floor(minutes / 60)} hr${minutes % 60 !== 0 ? ' ' : ''}${minutes % 60 !== 0 ? `${minutes % 60} min` : ''}` : `${minutes} min`}` : (hours === 0 ? '0 min' : '0 min')}
                                 </div>
-                                <div>
-                                    Total Time: {totalHours + Math.floor(totalMinutes / 60)} hr{totalHours + Math.floor(totalMinutes / 60) > 1 ? 's' : ''}
+                                <div className={styles.cookingTimeLabel}>
+                                    Total Time: 
+                                    <br/>{totalHours + Math.floor(totalMinutes / 60)} hr{totalHours + Math.floor(totalMinutes / 60) > 1 ? 's' : ''}
                                     {totalMinutes % 60 !== 0 ? ` ${totalMinutes % 60} min` : ''}
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <div> {category} </div>
-                    <div> Servings: {servings} </div>
+                    <div className={styles.category}> {category} </div>
+                    <div className={styles.servings}> Servings: {servings} </div>
                     <div className={styles.date}>Published: {formattedPublishedDate} </div>
                     <div className={styles.actions}>
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
