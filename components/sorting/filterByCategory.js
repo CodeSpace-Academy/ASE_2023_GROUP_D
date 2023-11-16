@@ -12,7 +12,7 @@ function FilterByCategory({ categories, setCategory, category }) {
         <div style={{ display: 'flex' }}>
             <label><h5 style={{ color: 'white' }}>FilterByCat : </h5></label>
             <select value={chosenValue} onChange={handleCategory}>
-                <option value={undefined}>Choose...</option>
+                <option value={''}>Choose...</option>
                 {categories[0].map((category, index) => {
                     return <option key={index} value={category}>{category}</option>
                 })
