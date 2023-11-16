@@ -7,7 +7,7 @@ import style from '@/components/sorting/searchBar.module.css'
 import SearchBar from "../sorting/auto-submission";
 
 
-const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history }) => {
+const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -18,7 +18,7 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
     <>
       {isSorting &&
         <div className={style.sortSection}>
-          <SearchBar categories={categories} pageNo={pageNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={history}/>
+          <SearchBar categories={categories} pageNo={pageNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={history} filterByTags={filterByTags} filterByIngredients={filterByIngredients} categoryfilter={categoryfilter} filterBySteps={filterBySteps}/>
         </div>}
       <nav className={styles.navbar}>
         <div className={styles.logo}>
@@ -38,8 +38,8 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
             <div></div>
           </div>
 
-          <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
-          <input className={style.input} size={20} onClick={() => setIsSorting(!isSorting)} type="text" placeholder="Search ..." />
+          <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '18px' }} />
+          <input className={style.input} size={20} value={''} onClick={() => setIsSorting(!isSorting)}  placeholder={"Search ..."}  readOnly/>
 
           <li>
             <Link href="/">
