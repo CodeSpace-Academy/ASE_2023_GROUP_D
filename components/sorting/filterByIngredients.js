@@ -12,6 +12,7 @@ function FilterByIngrediets({ setIngredients, ingredients }) {
         <div style={{ display: 'flex' }}>
             <label><h5 style={{color: 'white'}}>FilterByIng : </h5></label>
             <select value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
+                <option value={''}>Choose...</option>
                 <option value={'onion'}>onion</option>
                 <option value={'garlic'}>garlic</option>
                 <option value={'potatoes'}>potatoes</option>
