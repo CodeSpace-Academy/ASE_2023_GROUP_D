@@ -12,6 +12,7 @@ function FilterByTag({setTags, tags}) {
         <div style={{ display: 'flex'}}>
             <label><h5 style={{color: 'white'}}>FilterByTag : </h5></label>
             <select value={tags[tags.length - 1]} onChange={handleTag}>
+                <option value={''}>Choose...</option>
                 <option value={'Beans'}>Beans</option>
                 <option value={'Vegetable'}>Vegetable</option>
                 <option value={'Oven'}>Oven</option>
