@@ -8,11 +8,21 @@ import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import { useEffect } from 'react';
 
-function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData }) {
+function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData, tags, ingredients, categoryfilter, steps }) {
 
   const router = useRouter();
   const { recipeId } = router.query
   const [isSorting, setIsSorting] = useState(false);
+
+  const changePathname = (pageNumber) => {
+    const { query } = router
+    const newUrl = {
+      pathname: `/recipes/${pageNumber}`,
+      query: { ...query },
+    };
+    router.push(newUrl)
+  };
+
 
   useEffect(() => {
     setIsSorting(false)
@@ -20,7 +30,7 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
 
   return (
     <>
-      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting}  history={historyData}/>
+      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={historyData} filterByTags={tags}  filterByIngredients={ingredients} categoryfilter={categoryfilter} filterBySteps={steps}/>
 
       <div >
         <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
@@ -46,13 +56,11 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
           {recipeId > 1 && (
-            <Link href={`/recipes/${parseInt(recipeId) - 1}`}>
-              <button className={styles.button}> Previous </button>
-            </Link>
+            <button onClick={() => changePathname(parseInt(recipeId) - 1)} className={styles.button}> Previous </button>
           )}
-          <Link href={`/recipes/${parseInt(recipeId) + 1}`}>
-            <button className={styles.button}> Next </button>
-          </Link>
+          {recipes.length === 100 && (
+            <button onClick={() => changePathname(parseInt(recipeId) + 1)} className={styles.button}> Next </button>
+          )}
         </div>
 
       </div>
@@ -65,16 +73,18 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
 export async function getServerSideProps(context) {
   const finalSearchString = {}
   const sort1 = context.query.sort
-  const Tags = context.query.tags
-  const Categories = context.query.categories
-  const Ingredients = context.query.ingredients
+  const filterByTags = context.query.tags
+  const filterByCategories = context.query.categories
+  const filterByIngredients = context.query.ingredients
+  const filterBySteps = context.query.steps
 
   const searchChar = context.query.search === undefined ? null : context.query.search
-  const sortChar = sort1 === undefined ? {} : { [sort1.slice(0, sort1.indexOf('_'))]: sort1.slice(sort1.indexOf('_') + 1, sort1.length) }
+  const sortChar = (sort1 === 'undefined' || sort1 === undefined) ? {} : { [sort1.slice(0, sort1.indexOf('_'))]: sort1.slice(sort1.indexOf('_') + 1, sort1.length) }
   searchChar ? finalSearchString.title = { $regex: searchChar, $options: 'i' } : undefined
-  Tags ? finalSearchString.tags = { $all: (Tags.split(',')) } : undefined
-  Categories ? finalSearchString.category = Categories : undefined
-  Ingredients ? (Ingredients.split(',')).map((ingredient) => finalSearchString[`ingredients.${ingredient}`] = { $exists: true }) : undefined
+  filterByTags ? finalSearchString.tags = { $all: (filterByTags.split(',')) } : undefined
+  filterByCategories ? finalSearchString.category = filterByCategories : undefined
+  filterByIngredients ? (filterByIngredients.split(',')).map((ingredient) => finalSearchString[`ingredients.${ingredient}`] = { $exists: true }) : undefined
+  filterBySteps ? finalSearchString.instructions =  { $size:  parseInt(filterBySteps) } : undefined
 
   const patcheNo = context.params.recipeId;
   const favRecipes = await runFav(1);
@@ -86,9 +96,17 @@ export async function getServerSideProps(context) {
   })
 
   const recipes = filteredCharacters
+  const tags = filterByTags ? filterByTags.split(',') : []
+  const ingredients = filterByIngredients ? filterByIngredients.split(',') : []
+  const categoryfilter = filterByCategories ? filterByCategories : 'undefined'
+  const steps = filterBySteps ? filterBySteps : ''
 
   return {
     props: {
+      steps,
+      categoryfilter,
+      ingredients,
+      tags,
       recipes,
       favRecipes,
       categories,
