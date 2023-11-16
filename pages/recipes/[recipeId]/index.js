@@ -4,12 +4,12 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Link from 'next/link';
 //import FilterAndSortSteps from '@/components/Navbar/filtertags/filterbyTag';
-import FindTags from '@/components/Navbar/filtertags/filterbyTag';
+//import FindTags from '@/components/Navbar/filtertags/filterbyTag';
 import SearchBar from '@/components/search/auto-submission';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
-import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
+//import FilterIngredients from '@/components/Navbar/filterByIngredients/filterByIngredients';
 import SortInstructionsByLength from '@/components/stepsSort/stepsSort';
 //import MatchCategoryToIngredients from '@/components/Navbar/filterCategoriesToMatch/categoryToMatchIngredients';
 
@@ -52,10 +52,16 @@ function Recipe({ recipes, favRecipes, categories, instructions, published }) {
       <div className="search-container">
         <SearchBar categories={categories} />
         <SortInstructionsByLength  instructions={instructions} />
+        
 
       </div>
      
-      
+      {/* <div>
+        <FilterIngredients recipes={recipes} />
+      </div> */}
+      {/* <Link href={'/favourites/1'}>
+        <button className="maroon-button">Favourites</button>
+      </Link> */}
       <RecipeList 
       recipes={recipes.slice(0, loadData)} 
       patcheNo={recipeId} 
