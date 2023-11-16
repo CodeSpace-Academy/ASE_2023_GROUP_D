@@ -344,3 +344,28 @@ export async function runSortInstructionsByLength(page, sortOrder = 'asc') {
 
 
 
+export async function runFilterBySteps(page, filter) {
+    try {
+      await client.connect();
+      const db = client.db("devdb");
+      await client.db("devdb").command({ ping: 1 });
+      const collection = db.collection("recipes");
+  
+      const skip = (page - 1) * 100;
+  
+      let query = {};
+  
+      if (filter.steps) {
+        query = { "instructions": { $size: filter.steps } };
+      }
+    
+  
+      const data = await collection.find(query).skip(skip).limit(100).toArray();
+  
+      return data;
+    } catch (error) {
+      console.error("Failed to connect to MongoDB:", error);
+    } finally {
+      await client.close();
+    }
+  }
