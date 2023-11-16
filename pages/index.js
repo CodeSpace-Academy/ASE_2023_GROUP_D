@@ -1,8 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import styles from "../pages/index.module.css"
+import { useState } from "react";
+import LoadingState from "@/components/Loading/loading-state";
 
 //Landing Page
 function Home(props) {
+  const [loading, setLoading] = useState(false)
+  
   const buttonStyles = {
     backgroundColor: '#ff0000',
     color: 'white',
@@ -16,30 +21,19 @@ function Home(props) {
   return (
     <div
       style={{
-        position: 'relative', // Container for relative positioning
-        height: '100vh',
+        // width: '100%', // Container for relative positioning
+        // height: '100%',
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '50%', // Take up 50% of the width on the left
-          height: '100%',
-          background: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+      <div className={styles.view}>
 
-          zIndex: 2, // Ensure buttons are on top of the background
-        }}
-      >
-        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} /> 
+
+        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
+
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
-          <button style={buttonStyles}>All Recipe</button>
+          <button style={buttonStyles} onClick={() => setLoading(true)}>All Recipe</button>
         </Link>
+        {loading && <LoadingState />}
         {/* Login and Sign Up buttons with links */}
         <Link href="/login" style={{ textDecoration: 'none' }}>
           <button style={buttonStyles}>Login</button>
@@ -47,8 +41,9 @@ function Home(props) {
         <Link href="/signup" style={{ textDecoration: 'none' }}>
           <button style={buttonStyles}>Sign Up</button>
         </Link>
+       
       </div>
-      <div
+      <div className={styles.background}
         style={{
           position: 'absolute',
           top: 0,

@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 
 
-import SortCook from '@/components/Sorting/sort-by-cooking-time'
-import SortPrep from '@/components/Sorting/sort-by-prep-time'
 
 
 
@@ -87,7 +85,7 @@ useEffect(() => {
     setCategory(event.target.value)
   }
 
-  function handleDeleteAllFilters() {
+  function handleDeleteAllFilters(){
     setTags([])
     setCategory('')
     setIngredients([])
@@ -168,8 +166,7 @@ useEffect(() => {
             <button onClick={handleDeleteAllFilters}>Clear All Filters</button>
           </Link>
 
-          <SortCook sortOrder={sortCook} onChange={handleSortChange} />
-          <SortPrep sortOrder={prep} onChange={handleSortByPrep} />
+          
         </>
       }
 
@@ -180,4 +177,3 @@ useEffect(() => {
 }
 
 export default SearchBar;
-
