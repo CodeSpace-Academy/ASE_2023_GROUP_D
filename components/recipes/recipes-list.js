@@ -3,6 +3,8 @@ import RecipesItems from "./recipes-items";
 import RecipesFavItems from "./recipes-FavItems";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
+import SortByOrder from "../sorting/sortByOrder";
+import LoadingState from "../Loading/loading-state";
 
 
 function RecipeList({ recipes, patcheNo, favRecipes, search }) {
@@ -11,38 +13,16 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const [noRecipesMessage, setNoRecipesMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleFilterBySteps = async (numSteps) => {
-    try {
-      setIsLoading(true);
-
-      const res = await fetch(`/api/filterBySteps?numSteps=${numSteps}`);
-      const filteredData = await res.json();
-
-      if (filteredData.length > 0) {
-        setSortedRecipes(filteredData);
-        setNoRecipesMessage(null);
-      } else {
-        setSortedRecipes([]);
-        setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
-      }
-    } catch (error) {
-      console.error('Error filtering by steps:', error);
-      setSortedRecipes([]);
-      setNoRecipesMessage('An error occurred while filtering recipes.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className={styles.container}>
 
       <div className={styles.container}>
-        <br />
-
-
+        <br /> 
+        <SortByOrder/>
+       {/* <LoadingState /> */}
+       {recipes.length === 0 && <h5>No Filter Recipes Matching</h5>}
         <ul className={styles.list}>
-          {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
+          {(router.pathname.includes('/recipes/')) ?
             recipes.map((recipe) => (
               <RecipesItems
                 key={recipe._id}
@@ -59,7 +39,8 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 favRecipes={favRecipes}
                 search={search}
               />
-            )) :
+            )) 
+            :
             recipes.map((recipe) => (
               <RecipesFavItems
                 key={recipe._id}

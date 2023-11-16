@@ -1,0 +1,45 @@
+.layout{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    /* top: 45%; */
+    /* left: 50%;  */
+    background-color: black;
+    opacity: 70%;
+    /* z-index: 9999; */
+    height: 100%;
+    width: 150%;
+    /* position: relative;
+    left: 500px; */  
+}
+
+.ul {
+    display: flex;
+    gap: 1 rem;
+    list-style: none;
+    padding-top: 14%;
+    padding-left: 34%;
+    /* z-index: 9999; */
+}
+
+.li {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    animation: grow 1.8s ease-in-out infinite;
+    box-shadow: 0 0 50px var(--color);
+}
+
+@keyframes grow {
+
+    0%,
+    40%,
+    100% {
+        transform: scale(0.2);
+    }
+
+    20% {
+        transform: scale(1);
+    }
+
+}
