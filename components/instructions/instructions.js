@@ -118,7 +118,6 @@ function RecipeInstructions({ instructions, recipeId }) {
               Cancel
             </button>
           </div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
       ) : (
         <div>
