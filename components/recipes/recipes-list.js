@@ -15,36 +15,40 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const handleFilterBySteps = async (numSteps) => {
     try {
       setIsLoading(true);
-
+  
       const res = await fetch(`/api/filterBySteps?numSteps=${numSteps}`);
       const filteredData = await res.json();
-
-      if (filteredData.length > 0) {
-        setSortedRecipes(filteredData);
-        setNoRecipesMessage(null);
+  
+      if (res.ok) {
+        if (filteredData.length > 0) {
+          setSortedRecipes(filteredData);
+          setNoRecipesMessage(null);
+        } else {
+          setSortedRecipes([]);
+          setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
+        }
       } else {
+        console.error('Error filtering by steps:', filteredData.message);
         setSortedRecipes([]);
-        setNoRecipesMessage(`No recipes with ${numSteps} steps found.`);
+        setNoRecipesMessage(`Error: ${filteredData.message}`);
       }
     } catch (error) {
       console.error('Error filtering by steps:', error);
       setSortedRecipes([]);
-      setNoRecipesMessage('An error occurred while filtering recipes.');
+      setNoRecipesMessage('An error occurred while filtering recipes. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div className={styles.container}>
-
+      <FilterSteps onFilter={handleFilterBySteps} isLoading={isLoading} />
       <div className={styles.container}>
         <br />
-
-
+        {noRecipesMessage && <div className={styles.loadingMessage}>{noRecipesMessage}</div>}
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
-            recipes.map((recipe) => (
+            sortedRecipes.map((recipe) => (
               <RecipesItems
                 key={recipe._id}
                 id={recipe._id}
@@ -61,7 +65,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 search={search}
               />
             )) :
-            recipes.map((recipe) => (
+            sortedRecipes.map((recipe) => (
               <RecipesFavItems
                 key={recipe._id}
                 id={recipe._id}
@@ -75,12 +79,13 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 servings={recipe.servings}
                 published={recipe.published}
                 favRecipes={favRecipes}
-              />))}
+              />
+            ))}
         </ul>
       </div>
     </div>
   );
-}
+            }
 
 export default RecipeList;
 
