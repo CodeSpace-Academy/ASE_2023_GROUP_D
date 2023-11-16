@@ -34,7 +34,6 @@
     background: #ccc; /* Grey background color */
     padding: 10px;
     border-radius: 30px;
-    z-index: -1;
   }
   
 
@@ -61,4 +60,5 @@
     height: 100%;
     width: 100%;
     padding-top: 15%;
+    z-index: 1;
 }
