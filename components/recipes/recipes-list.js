@@ -46,6 +46,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
       <FilterSteps onFilter={handleFilterBySteps} isLoading={isLoading} />
       <div className={styles.container}>
         <br />
+        {noRecipesMessage && <div className={styles.loadingMessage}>{noRecipesMessage}</div>}
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/') || router.pathname.includes('/Search/')) ?
             sortedRecipes.map((recipe) => (
