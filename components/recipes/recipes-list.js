@@ -3,7 +3,7 @@ import RecipesItems from "./recipes-items";
 import RecipesFavItems from "./recipes-FavItems";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
-
+import FilterSteps from "../Navbar/FilterBySteps/filterBySteps";
 
 function RecipeList({ recipes, patcheNo, favRecipes, search }) {
   const router = useRouter();
