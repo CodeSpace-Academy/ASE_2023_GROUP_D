@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
   }
   
   .logo img {
@@ -36,7 +37,7 @@
   
   .connectWithUs button {
     background: white;
-    color: rgb(97, 33, 33);
+    color: #E12626;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
