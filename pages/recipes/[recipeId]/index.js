@@ -98,7 +98,7 @@ export async function getServerSideProps(context) {
   const recipes = filteredCharacters
   const tags = filterByTags ? filterByTags.split(',') : []
   const ingredients = filterByIngredients ? filterByIngredients.split(',') : []
-  const categoryfilter = filterByCategories ? filterByCategories : 'undefined'
+  const categoryfilter = filterByCategories ? filterByCategories : ''
   const steps = filterBySteps ? filterBySteps : ''
 
   return {
