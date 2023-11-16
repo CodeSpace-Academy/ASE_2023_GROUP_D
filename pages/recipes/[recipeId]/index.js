@@ -8,7 +8,7 @@ import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
 import { useEffect } from 'react';
 
-function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData, tags, ingredients, categoryfilter, steps }) {
+function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData, tags, ingredients, categoryfilter, steps, instructions, published }) {
 
   const router = useRouter();
   const { recipeId } = router.query
@@ -33,7 +33,7 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
       <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={historyData} filterByTags={tags}  filterByIngredients={ingredients} categoryfilter={categoryfilter} filterBySteps={steps}/>
 
       <div >
-        <img src="/images/food-image - Copy.jpg" alt="logo" width={1471} height={253} />
+        <img className={styles.image} src="/images/food-image - Copy.jpg" alt="logo" width='100%' />
 
       </div>
       <div className={styles.footer}>

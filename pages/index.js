@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import styles from "../pages/index.module.css"
 import { useState } from "react";
 import LoadingState from "@/components/Loading/loading-state";
 
@@ -20,26 +21,15 @@ function Home(props) {
   return (
     <div
       style={{
-        height: '100%',
+        // width: '100%', // Container for relative positioning
+        // height: '100%',
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '50%', // Take up 50% of the width on the left
-          height: '100%',
-          background: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+      <div className={styles.view}>
 
-          zIndex: 2, // Ensure buttons are on top of the background
-        }}
-      >
-        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} /> 
+
+        <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
+
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
           <button style={buttonStyles} onClick={() => setLoading(true)}>All Recipe</button>
         </Link>
@@ -53,7 +43,7 @@ function Home(props) {
         </Link>
        
       </div>
-      <div
+      <div className={styles.background}
         style={{
           position: 'absolute',
           top: 0,
