@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "./searchBar.module.css"
+import styles from "./seachBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
+
+
+
+
 
 function SearchBar({ search, categories }) {
   const [query, setQuery] = useState(""); //Storing the text entered in the search bar
@@ -50,7 +54,14 @@ useEffect(() => {
     };
   }, [router]);
 
-  function handelSortByPrep(event) {
+
+  function handleSortChange(selectedValue) {
+    setSortCook(selectedValue)
+  }
+
+
+
+  function handleSortByPrep(event) {
     setHandlePrep(event.target.value)
   }
 
@@ -81,13 +92,19 @@ useEffect(() => {
     setHandlePrep('')
   }
 
+  function handleCountMatchingRecipes() {
+
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }} className={styles.container}>
       <div className={styles.container}>
+
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
           <input className={styles.input} type="text" placeholder="Search ..." value={query} onChange={handleInputChange} />
         </div>
+
       </div>
 
       {router.pathname.includes('/Search/') &&
@@ -107,9 +124,11 @@ useEffect(() => {
             })}
           </div>
 
+          
+
           <div style={{ display: 'flex' }}>
             <label><h5>SortByOrd : </h5></label>
-            <select value={prep} onChange={handelSortByPrep}>
+            <select value={prep} onChange={handleSortByPrep}>
               <option value={1}>Ascending</option>
               <option value={-1}>Descending</option>
             </select>
@@ -146,6 +165,8 @@ useEffect(() => {
           <Link href={`/Search/${search}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`}>
             <button onClick={handleDeleteAllFilters}>Clear All Filters</button>
           </Link>
+
+          
         </>
       }
 
