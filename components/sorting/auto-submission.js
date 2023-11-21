@@ -27,8 +27,8 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     setQuery(event.target.value);
   };
 
-  useEffect(() => {
-    if (query && query.length > 10) {
+   useEffect(() => {
+    if (query && query.length < 10) {
       setShowSubmitButton(true);
 
       const navigateToNewPage = () => {
@@ -40,28 +40,8 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
       return () => {
         clearTimeout(timeoutId);
       };
-    } else if (query && query.length <= 10) {
-      setShowSubmitButton(false);
-
-      const navigateToNewPage = () => {
-        router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
-      };
-
-      navigateToNewPage(); // Auto submit for queries shorter than or equal to 10 characters
     }
   }, [router, query, delay]);
-
-
-  useEffect(() => {
-    return () => {
-      setQuery('');
-    };
-  }, [router]);
-
-  const handleButtonClick = () => {
-    router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
-  };
-
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -73,11 +53,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
             return <option key={index} value={data}>{data}</option>
           })}
         </select>
-        {showSubmitButton && (
-        <button onClick={handleButtonClick}>
-          Submit
-        </button>
-      )}
+        {(query && query.length >= 10) && 
+        <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
+        <button>Submit </button>
+        </Link>
+      }
       </div>
 
       <>
