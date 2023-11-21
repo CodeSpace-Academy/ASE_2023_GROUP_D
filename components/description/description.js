@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import styles from '@/stylespages/RecipeDetails.module.css';
 
+/**
+ * Component for updating and displaying recipe descriptions.
+ * @param {Object} props - Properties passed to the component.
+ * @param {string} props.description - The current recipe description.
+ * @param {string} props.recipeId - The ID of the recipe associated with the description.
+ * @returns {JSX.Element} - Rendered React component.
+ */
+
 const UpdateDescription = ({ description, recipeId }) => {
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(description);

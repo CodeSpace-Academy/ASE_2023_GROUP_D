@@ -5,60 +5,104 @@
   justify-content: center;
   align-items: center;
   /* height: 20vh; */
-  background-color: #ededed; /* Background color */
+  background-color: #ededed;
+  /* Background color */
 
   /* Create space around the search bar */
-  padding: 20px; /* Adjust the padding as needed */
+  padding: 20px;
+  /* Adjust the padding as needed */
   padding-bottom: 30px;
+
 }
 
 
 .search-bar {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 30px; /* Rounded edges */
+  
+  border-radius: 30px;
+  /* Rounded edges */
   padding: 30px;
   background: rgb(61, 52, 52);
   width: 400px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Shadow effect */
 }
 
 /* searchBar.module.css */
 
 .input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: #ccc; /* Grey background color */
-    padding: 10px;
-    border-radius: 30px;
-  }
-  
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: #ccc;
+  /* Grey background color */
+  padding: 10px;
+  border-radius: 30px;
+}
+
 
 .button {
-  background: #ff0000; /* Red button color */
+  background: #ff0000;
+  /* Red button color */
   color: white;
   border: none;
   border-radius: 30px;
   padding: 10px 20px;
   cursor: pointer;
   margin-left: 10px;
+  
 }
 
 .button:hover {
-  background: #972f2f; /* Darker red color on hover */
+  background: #972f2f;
+  /* Darker red color on hover */
 }
 
-.sortSection{
+.sortSection {
   display: flex;
-    justify-content: center;
-    position: fixed;
-    background-color: black;
-    opacity: 84%;
-    height: 100%;
-    width: 100%;
-    padding-top: 15%;
-    z-index: 1;
+  justify-content: center;
+  position: fixed;
+  background-color: black;
+  
+  opacity: 84%;
+  height: 100%;
+  width: 100%;
+  padding-top: 15%;
+  z-index: 1;
+}
+
+.filterRecipes {
+  
+  padding: 5px;
+}
+
+.sortAndFilter {
+  text-align: center;
+  border: 2px solid red;
+  background: red;
+  border-radius: 3em;
+  width: 400px;
+}
+
+.compoTags {
+  text-align: center;
+  width: 100px;
+  border-radius: 5em;
+
+}
+
+.tagsDiv {
+  display: flex;
+  align-items: center;
+}
+
+.filters {
+  border-radius: 4em;
+  width: 150px;
+  height: 40px;
+  padding: 4px;
+  text-align: center;
+  background-color: #ccc;
 }

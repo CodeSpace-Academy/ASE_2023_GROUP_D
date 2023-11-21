@@ -1,3 +1,4 @@
+import styles from "@/components/sorting/searchBar.module.css"
 function FilterBySteps({ setNumSteps, numSteps }) {
 
 
@@ -6,9 +7,9 @@ function FilterBySteps({ setNumSteps, numSteps }) {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={styles.tagsDiv}>
             <label htmlFor="numSteps"><h5 style={{ color: 'white' }}>FilterByStep : </h5></label>
-            <input type="number" id="numSteps" value={numSteps} onChange={handleSteps}></input>
+            <input type="number" id="numSteps" value={numSteps} onChange={handleSteps} className={styles.filters} ></input>
         </div>
     )
 }

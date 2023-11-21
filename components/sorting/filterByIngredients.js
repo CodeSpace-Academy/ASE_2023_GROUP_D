@@ -1,3 +1,12 @@
+import styles from "@/components/sorting/searchBar.module.css"
+
+/**
+ * 
+ * @param {function} setIngredients is state function that enables recipes to filtered by ingredients
+ * @param {Object} ingredients is a property object within recipe array.
+ * @returns selection element to filter recipes by selected ingredient
+ */
+
 function FilterByIngrediets({ setIngredients, ingredients }) {
 
     function handleIngredients(event) {
@@ -11,7 +20,7 @@ function FilterByIngrediets({ setIngredients, ingredients }) {
     return (
         <div style={{ display: 'flex' }}>
             <label><h5 style={{color: 'white'}}>FilterByIng : </h5></label>
-            <select value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
+            <select value={ingredients[ingredients.length - 1]} onChange={handleIngredients} className={styles.filters}>
                 <option value={''}>Choose...</option>
                 <option value={'onion'}>onion</option>
                 <option value={'garlic'}>garlic</option>

@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import styles from './instructions.module.css';
 
+/**
+ * Component for updating and displaying recipe instructions.
+ * @param {Object} props - Properties passed to the component.
+ * @param {Array} props.instructions - The current list of recipe instructions.
+ * @param {string} props.recipeId - The ID of the recipe associated with the instructions.
+ * @returns {JSX.Element} - Rendered React component.
+ */
+
 function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
@@ -16,17 +24,6 @@ function RecipeInstructions({ instructions, recipeId }) {
       setNotification(null);
     }, 3000); // Set the timeout to hide the notification after 3 seconds
   };
-
-  // const handleSave = async () => {
-  //   try {
-  //     // Save the instructions using an API request here
-  //     await saveInstructions(editedInstructions);
-  //     showNotification('Instructions saved successfully.', 'success');
-  //     setIsEditingInstructions(false);
-  //   } catch (error) {
-  //     showNotification('Failed to save instructions.', 'error');
-  //   }
-  // };
 
   const handleSave = async () => {
     try {
@@ -71,28 +68,6 @@ function RecipeInstructions({ instructions, recipeId }) {
     setEditedInstructions([...instructions]);
     setIsEditingInstructions(false);
   };
-
-  // const saveInstructions = async (updatedInstructions) => {
-  //   try {
-  //     const requestBody = JSON.stringify({
-  //       recipeId: recipeId,
-  //       instructions: updatedInstructions,
-  //     });
-  //     const response = await fetch('/api/updateInstructions/updateInstructions', {
-  //       method: 'POST',
-  //       body: requestBody,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to save instructions.');
-  //     }
-  //   } catch (error) {
-  //     throw new Error('An error occurred while saving instructions.');
-  //   }
-  // };
 
   return (
     <div>

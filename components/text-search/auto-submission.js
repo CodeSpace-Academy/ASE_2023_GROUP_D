@@ -5,9 +5,16 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 
-
-
-
+/**
+ * SearchBar Component
+ * This component represents a search bar with various filtering options for recipes.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.search - The current search query.
+ * @param {Array} props.categories - An array of recipe categories.
+ * @returns {JSX.Element} - The rendered SearchBar component.
+ */
 
 function SearchBar({ search, categories }) {
   const [query, setQuery] = useState(""); //Storing the text entered in the search bar
