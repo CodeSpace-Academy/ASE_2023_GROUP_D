@@ -12,7 +12,7 @@ function FilterByIngrediets({ setIngredients, ingredients }) {
 
     return (
         <div style={{ display: 'flex' }}>
-            <label><h5 style={{color: 'white'}}>FilterByIng:</h5></label>
+            <label><h5 style={{color: 'white'}}>Filter By ingredients:</h5></label>
                 <div className={styles.containerdropdown}>
                     <select className={styles.dropdown} value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
                     <option value={''}>Choose...</option>

@@ -59,12 +59,13 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
         </select>
       </div>
 
-      <>
-        <FilterByTag setTags={setTags} tags={tags} />
-        <FilterByIngrediets setIngredients={setIngredients} ingredients={ingredients} />
-        <FilterByCategory categories={categories} category={category} setCategory={setCategory} />
+      <div className={styles.filters}>
         <FilterBySteps setNumSteps={setNumSteps} numSteps={numSteps} />
-      </>
+        <FilterByTag setTags={setTags} tags={tags} />
+        <FilterByCategory categories={categories} category={category} setCategory={setCategory} />
+        <FilterByIngrediets setIngredients={setIngredients} ingredients={ingredients} />
+      </div>
+      
       <div style={{display: 'flex', width: 'fit-content'}}>
       <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&`: ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
         <button>filter</button>

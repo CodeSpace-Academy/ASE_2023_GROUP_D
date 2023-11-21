@@ -12,7 +12,7 @@ function FilterByTag({setTags, tags}) {
 
     return (
         <div style={{ display: 'flex'}}>
-            <label><h5 style={{color: 'white'}}>FilterByTagg : </h5></label>
+            <label><h5 style={{color: 'white'}}>Filter By Tags: </h5></label>
             <div className={styles.containerdropdown}>
                 <select className={styles.dropdown} value={tags[tags.length - 1]} onChange={handleTag}>
                     <option value={''}>Choose...</option>
