@@ -9,7 +9,7 @@ import Highlighter from 'react-highlight-words';
 
 function RecipesItems(props) {
     const router = useRouter();
-    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search } = props
+    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search, setLoading } = props
     const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
     const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
     const [hoverToggle, setHoverToggle] = useState(false)
@@ -143,9 +143,11 @@ function RecipesItems(props) {
                     <div className={styles.servings}> Servings: {servings} </div>
                     <div className={styles.date}>Published: {formattedPublishedDate} </div>
                     <div className={styles.actions}>
+                        <div onClick={()=> setLoading(true)} >
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
+                        </div>
                     </div>
                 </li>
 
