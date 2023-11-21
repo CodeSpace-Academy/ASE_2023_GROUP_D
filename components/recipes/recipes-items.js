@@ -57,9 +57,7 @@ function RecipesItems(props) {
         else {
             setFavToggle(!favToggle)
         }
-
     }
-
     async function removeFromFavourite(recipeId) {
         const response = await fetch('/api/favourites', {
             method: 'DELETE',
@@ -77,8 +75,6 @@ function RecipesItems(props) {
             setFavToggle(!favToggle)
         }
     }
-
-
 
     return (
         <>{
@@ -115,7 +111,6 @@ function RecipesItems(props) {
                     /></h2> : <h2>{title}</h2>}
 
                     <div >
-
                         <div className={styles.cookingTime}>
                             <div>
                                 <div className={styles.cookingTimeLabel}>
@@ -136,7 +131,6 @@ function RecipesItems(props) {
                                     {totalMinutes % 60 !== 0 ? ` ${totalMinutes % 60} min` : ''}
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div className={styles.category}> {category} </div>

@@ -2,18 +2,15 @@
 
 .recipeDetails {
     width: 100%;
-    display: flex;
     justify-content: space-between;
-    background: rgb(211, 203, 203);
+    background: white;
     padding: 20px;
-    font-family: "Arial", "Lucida Console", "Courier New", monospace;
   }
   
   /* Left Column */
   .leftColumn {
     flex: 1;
     color: black;
-    background: rgb(211, 203, 203); /* White background for the left column */
     padding: 20px;
   }
   
@@ -37,8 +34,7 @@
   
   /* Recipe Image */
   .recipeImage {
-    border: 3px solid grey;
-    border-radius: 30px;
+    border: 1px solid grey;
     max-width: 100%;
   }
   
