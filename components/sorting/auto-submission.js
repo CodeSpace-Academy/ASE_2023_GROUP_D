@@ -17,6 +17,8 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [category, setCategory] = useState(categoryfilter)
   const [filterToggle, setFilterToggle] = useState(false)
   const [numSteps, setNumSteps] = useState(filterBySteps)
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
+
   const router = useRouter();
   const {asPath} = router
   const delay = 5000;
@@ -25,27 +27,21 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     setQuery(event.target.value);
   };
 
-  useEffect(() => {
+   useEffect(() => {
+    if (query && query.length < 10) {
+      setShowSubmitButton(true);
 
-    if (query) {
       const navigateToNewPage = () => {
-        router.push(`/recipes/1/?search=${query ? query : backUpQuery}`); // Replace '/new-page' with the URL of the new page
+        router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);
 
       return () => {
-        clearTimeout(timeoutId); // Clear the timeout if the component unmounts before the delay is reached
+        clearTimeout(timeoutId);
       };
     }
   }, [router, query, delay]);
-
-  useEffect(() => {
-    return () => {
-      setQuery('');
-    };
-  }, [router]);
-
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -57,6 +53,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
             return <option key={index} value={data}>{data}</option>
           })}
         </select>
+        {(query && query.length >= 10) && 
+        <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
+        <button>Submit </button>
+        </Link>
+      }
       </div>
 
       <div className={styles.filters}>
