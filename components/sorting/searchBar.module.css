@@ -62,3 +62,21 @@
     padding-top: 15%;
     z-index: 1;
 }
+
+.containerdropdown {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  min-width: 150px;
+  height: 50px;
+}
+
+.dropdown {
+  border: none;
+  appearance: none;
+  padding: 0 30px 0 15px;
+  width: 100%;
+  color: #df1616;
+  background-color: #ffffff;
+  font-size: 20px;
+}
