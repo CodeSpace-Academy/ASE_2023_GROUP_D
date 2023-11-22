@@ -61,7 +61,7 @@ const UpdateDescription = ({ description, recipeId }) => {
           />
           <div>
             <button onClick={handleSave} className={styles.saveButton}>Save</button>
-            <button onClick={handleCancel}className={styles.cancelButton}>Cancel</button>
+            <button onClick={handleCancel} className={styles.cancelButton}>Cancel</button>
           </div>
         </div>
       ) : (
