@@ -19,17 +19,17 @@ function FilterByCategory({ categories, setCategory, category }) {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
-            <label><h5 style={{ color: 'white' }}>Filter By Category: </h5></label>
-            <div className={styles.catdropdown}>
-                <select className={styles.dropdown} value={chosenValue} onChange={handleCategory} className={styles.filters}>
+        <div className={styles.recipefilters}>
+            <label style={{ padding: '25px', color: 'black' }}>Filter By Category: </label>
+            
+                <select className={styles.dropdown} value={chosenValue} onChange={handleCategory} >
                     <option value={''}>Choose...</option>
                     {categories[0].map((category, index) => {
                         return <option key={index} value={category}>{category}</option>
                     })
                     }
                 </select>
-            </div>
+
         </div>
     )
 }
