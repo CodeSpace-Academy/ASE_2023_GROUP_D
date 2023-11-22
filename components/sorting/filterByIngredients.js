@@ -7,7 +7,7 @@ import styles from "@/components/sorting/searchBar.module.css"
  * @returns selection element to filter recipes by selected ingredient
  */
 
-import styles from "./searchBar.module.css"
+
 
 function FilterByIngrediets({ setIngredients, ingredients }) {
 

@@ -1,7 +1,7 @@
 import { runFav, runCategories, runFilter2, runHistory } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoadingState from '@/components/Loading/loading-state';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'

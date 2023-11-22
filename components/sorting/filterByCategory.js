@@ -1,7 +1,7 @@
 import styles from "./searchBar.module.css"
 
 import { useState } from "react";
-import styles from "@/components/sorting/searchBar.module.css"
+
 
 /**
  * 

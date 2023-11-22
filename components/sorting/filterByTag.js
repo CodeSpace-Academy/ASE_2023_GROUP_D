@@ -7,7 +7,7 @@ import styles from "@/components/sorting/searchBar.module.css"
  * @returns selection element to filter recipes by tags
  */
 
-import styles from "./searchBar.module.css"
+//import styles from "./searchBar.module.css"
 
 function FilterByTag({setTags, tags}) {
 

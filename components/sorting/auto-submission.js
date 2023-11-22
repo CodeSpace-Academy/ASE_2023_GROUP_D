@@ -40,7 +40,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     setQuery(event.target.value);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (query && query.length < 10) {
       setShowSubmitButton(true);
 
@@ -66,11 +66,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
             return <option key={index} value={data}>{data}</option>
           })}
         </select>
-        {(query && query.length >= 10) && 
-        <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
-        <button>Submit </button>
-        </Link>
-      }
+        {(query && query.length >= 10) &&
+          <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
+            <button>Submit </button>
+          </Link>
+        }
       </div>
 
       <div className={styles.filters}>
@@ -79,19 +79,19 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
         <FilterByCategory categories={categories} category={category} setCategory={setCategory} />
         <FilterByIngrediets setIngredients={setIngredients} ingredients={ingredients} />
       </div>
-      
-      <div style={{display: 'flex', width: 'fit-content'}}>
-      <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&`: ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
-        <button>filter</button>
-      </Link>
-      <Link href={`/recipes/1${asPath.includes('?search=')  ? `/?search=${backUpQuery}`: '' }`}>
-        <button >Clear All Filters</button>
-      </Link>
+
+      <div style={{ display: 'flex', width: 'fit-content' }}>
+        <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
+          <button>filter</button>
+        </Link>
+        <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
+          <button >Clear All Filters</button>
+        </Link>
       </div>
       <button onClick={() => setIsSorting(!isSorting)}>Close</button>
-      </div>
-
     </div>
+
+    
 
 
   );

@@ -1,6 +1,6 @@
 import styles from "./searchBar.module.css"
 
-import styles from "@/components/sorting/searchBar.module.css"
+//import styles from "@/components/sorting/searchBar.module.css"
 function FilterBySteps({ setNumSteps, numSteps }) {
 
 
