@@ -119,8 +119,8 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br/>
-        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={800} height={500}  layout="responsive"/>
-        
+        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+
         <UpdateDescription  description={recipes.description} recipeId={recipeId}/>
 
         <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
@@ -142,8 +142,8 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
             <ErrorComponent message="Failed to load tags" />
           )}
         </div>
-      </div>
-
+  
+        </div>
 
       <div className={styles.rightColumn}>
         <div className={styles.rightContentContainer}>
@@ -158,10 +158,9 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
           <h2 className={styles.instructions}>Instructions</h2>
           <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId}/>
-          
+          </div>
 
         </div>
-      </div>
     </div>
   <Footer />
     </>
