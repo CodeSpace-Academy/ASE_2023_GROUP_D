@@ -1,5 +1,6 @@
 import styles from "./searchBar.module.css"
 
+//import styles from "@/components/sorting/searchBar.module.css"
 function FilterBySteps({ setNumSteps, numSteps }) {
 
 
@@ -8,11 +9,9 @@ function FilterBySteps({ setNumSteps, numSteps }) {
     }
 
     return (
-        <div className={styles.steps}>
-            <label htmlFor="numSteps">
-                <h5 style={{ color: 'white' }}>Filter By Steps: </h5>
-            </label>
-                <input className={styles.fill} type="number" id="numSteps" value={numSteps} onChange={handleSteps}></input>
+        <div className={styles.recipefilters}>
+            <label htmlFor="numSteps" style={{ padding: '37px',  }}>Filter By Steps: </label>
+                <input className={styles.fillSteps} type="number" id="numSteps" value={numSteps} onChange={handleSteps}></input>
         </div>
     )
 }

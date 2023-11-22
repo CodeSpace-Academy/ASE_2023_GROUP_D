@@ -1,4 +1,13 @@
-import styles from "./searchBar.module.css"
+import styles from "@/components/sorting/searchBar.module.css"
+
+/**
+ * 
+ * @param {function} setIngredients is state function that enables recipes to filtered by ingredients
+ * @param {Object} ingredients is a property object within recipe array.
+ * @returns selection element to filter recipes by selected ingredient
+ */
+
+
 
 function FilterByIngrediets({ setIngredients, ingredients }) {
 
@@ -11,10 +20,15 @@ function FilterByIngrediets({ setIngredients, ingredients }) {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
-            <label><h5 style={{color: 'white'}}>Filter By ingredients:</h5></label>
-                <div className={styles.containerdropdown}>
-                    <select className={styles.dropdown} value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
+        <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            paddingBottom: '20px', 
+            color: 'black',
+
+            }}>
+            <label style={{ padding: '17px' }}>Filter By ingredients: </label>
+                    <select className={styles.dropdown2} value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
                     <option value={''}>Choose...</option>
                     <option value={'onion'}>onion</option>
                     <option value={'garlic'}>garlic</option>
@@ -26,7 +40,7 @@ function FilterByIngrediets({ setIngredients, ingredients }) {
                     <option value={'salt'}>salt</option>
                     <option value={'ricotta cheese'}>ricotta cheese</option>
             </select>
-                </div>
+            
 
             {ingredients.map((ingredient, index) => {
                 return (<button key={index} onClick={handleDeleteIngredients} value={ingredient}>{ingredient}</button>)
