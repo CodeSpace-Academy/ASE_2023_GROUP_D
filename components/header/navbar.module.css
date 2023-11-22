@@ -68,4 +68,7 @@
       display: flex;
     }
   }
-  
+  .loading {
+    color: #555; /* Adjust the color as needed */
+    font-style: italic;
+  }
