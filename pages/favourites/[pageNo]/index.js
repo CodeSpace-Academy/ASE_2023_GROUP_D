@@ -1,12 +1,10 @@
-import { runFav, runHistory, runCategories } from '@/fetching-data/data';
+import { runFav, runCategories } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/header/navbar';
-import Footer from '@/components/footer/footer';
 
-
-function Recipe({ favRecipes, patcheNo, historyData, categories }) {
+function Recipe({ favRecipes, patcheNo, categories }) {
 
   const [noFavorites, setNoFavorites] = useState(favRecipes.length === 0);
   const [isSorting, setIsSorting] = useState(false);
@@ -19,7 +17,7 @@ function Recipe({ favRecipes, patcheNo, historyData, categories }) {
 
   return (
     <>
-      <Navbar categories={categories} setIsSorting={setIsSorting} isSorting={isSorting} history={historyData}/>
+      <Navbar categories={categories} setIsSorting={setIsSorting} isSorting={isSorting} />
       <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0', fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
         FAVOURITES
       </h1>
@@ -53,15 +51,10 @@ export async function getServerSideProps(context) {
   const patcheNo = context.params.pageNo;
   const favRecipes = await runFav(parseInt(patcheNo));
   const categories = await runCategories();
-  const history = await runHistory();
-  const historyData = history.map((data) => {
-    return data.searchWord
-  })
 
   return {
     props: {
       categories,
-      historyData,
       patcheNo,
       favRecipes,
     },

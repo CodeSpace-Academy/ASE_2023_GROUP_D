@@ -78,7 +78,7 @@ export async function getServerSideProps(context) {
     const favRecipes = await runFav(1);
     const categories = await runCategories();
     const history = await getHistory();
-    console.log(history)
+
 
     return {
         props: {
