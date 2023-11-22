@@ -11,6 +11,7 @@ import FilterBySteps from "./filterBySteps";
 
 function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) {
   const [query, setQuery] = useState();
+  const [searchHistory, setSearchHistory] = useState();
   const [backUpQuery, setBackUpQuery] = useState(searchChar)
   const [tags, setTags] = useState(filterByTags)
   const [ingredients, setIngredients] = useState(filterByIngredients)
@@ -52,7 +53,8 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
       <div className={styles.searchBar}>
         <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
         <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
-        <select>
+        <select value={searchHistory} onChange={(e)=> setQuery(e.target.value)}>
+        <option value={'pie'}>pie</option>
           {history.map((data, index) => {
             return <option key={index} value={data}>{data}</option>
           })}
