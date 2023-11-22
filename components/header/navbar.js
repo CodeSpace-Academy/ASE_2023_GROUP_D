@@ -1,50 +1,85 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./navbar.module.css"; // Import the CSS module
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
+import style from '@/components/sorting/searchBar.module.css'
+import SearchBar from "../sorting/auto-submission";
+import { useRouter } from "next/router";
+import LoadingState from "../Loading/loading-state";
 
 
-const Navbar = () => {
+const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps ,isHomeLoading,isFavouritesLoading,isAllRecipesLoading }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState (false);
+  const router = useRouter().asPath;
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+  // useEffect (()=>{
+  //   setIsLoading(isAllRecipesLoading);
+  //   const timeoutId =setTimeout(()=>{
+  //     setIsLoading(false);
+  //   },3000);
+  //   return ()=>clearTimeout(timeoutId)
+  // },[isAllRecipesLoading]);
+ 
 
+  
   return (
-    <nav className={styles.navbar}>
-       <Link href="/recipes/1">
-      <div className={styles.logo}>
-        <img src="/images/BrandLogo.png" alt="Logo" width={200} height={50}/>
-      </div>
-      </Link>
-     
-      <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
-        <div className={styles.bar}></div>
-        <div className={styles.bar}></div>
-        <div className={styles.bar}></div>
-      </button>
+    <>
+    {isLoading && <LoadingState />}
+      {isSorting && 
+        <div className={style.sortSection}>
+          <SearchBar categories={categories} pageNo={pageNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={history} filterByTags={filterByTags} filterByIngredients={filterByIngredients} categoryfilter={categoryfilter} filterBySteps={filterBySteps} />
+        </div>}
+      <nav className={styles.navbar}>
+        <div className={styles.logo}>
+          <img src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
+        </div>
 
-      <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ""}`}>
-        
-        <li>
-          <Link href="/">
-            <h2 className={styles.link}>Home</h2>
-          </Link>
-        </li>
-        <li>
-          <Link href={'/favourites/1'}>
-            <h2 className={styles.link}>Favourites</h2>
-          </Link>
-        </li>
-        <li>
+        <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
+          <div className={styles.bar}></div>
+          <div className={styles.bar}></div>
+          <div className={styles.bar}></div>
+        </button>
+
+        <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ""}`}>
+          <div className={styles.hamburger} onClick={toggleMenu}>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
+          {router.includes(`/recipes/${pageNo}`) && <>
+            <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '18px' }} />
+            <div onClick={() => setIsSorting(!isSorting)} style={{ paddingTop: '9px' }}>
+              <input className={style.input} size={20} placeholder={"Search ..."} readOnly />
+            </div>
+          </>}
+
+          <li>
+            <Link href="/">
+              <h2 className={styles.link}>Home</h2>
+            </Link>
+          </li>
+          <li>
+            <Link href={'/favourites/1'}>
+              <h2 className={styles.link}  onClick={()=>setIsLoading(true)}>{ "Favourites" }</h2>
+            </Link>
+          </li>
+          <li>
           <Link href="/recipes/1">
-            <h2 className={styles.link}>All Recipes</h2>
+            <h2 className={styles.link} onClick={()=>setIsLoading(true)}>
+              All Recipes
+            </h2>
           </Link>
-        </li>
-      </ul>
+          </li>
+        </ul>
 
-    </nav>
+      </nav>
+    </>
   );
 };
 

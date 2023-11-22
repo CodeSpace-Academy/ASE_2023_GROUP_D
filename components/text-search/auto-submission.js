@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "./searchBar.module.css"
+import styles from "./seachBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
+
+
+
+
 
 function SearchBar({ search, categories }) {
   const [query, setQuery] = useState(""); //Storing the text entered in the search bar
@@ -36,33 +40,19 @@ function SearchBar({ search, categories }) {
   
   // When a search is performed, this function navigates to the search results page.
   useEffect(() => {
-    if (query && query.length < minLengthToShowButton && !buttonClicked) {
-      const navigateToNewPage = () => {
-        router.push(`/Search/${query ? query : backUpQuery}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`);
-      };
-  
-      const timeoutId = setTimeout(navigateToNewPage, delay);
-  
-      return () => {
-        clearTimeout(timeoutId); // Clear the timeout if the component unmounts before the delay is reached
-      };
-    }
-  }, [router, query, delay, backUpQuery, prep, tags, category, ingredients, buttonClicked, minLengthToShowButton]);
-  
-  return (
-    <div>
-      <input type="text" value={query} onChange={handleInputChange} />
-  
-      {/* Render the search button conditionally */}
-      {showSearchButton && (
-        <button onClick={performSearch}>
-          Search
-        </button>
-      )}
-    </div>
-  );
-  
-  function handelSortByPrep(event) {
+    return () => {
+      setQuery('');
+    };
+  }, [router]);
+
+
+  function handleSortChange(selectedValue) {
+    setSortCook(selectedValue)
+  }
+
+
+
+  function handleSortByPrep(event) {
     setHandlePrep(event.target.value)
   }
 
@@ -93,13 +83,19 @@ function SearchBar({ search, categories }) {
     setHandlePrep('')
   }
 
+  function handleCountMatchingRecipes() {
+
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }} className={styles.container}>
       <div className={styles.container}>
+
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px' }} />
           <input className={styles.input} type="text" placeholder="Search ..." value={query} onChange={handleInputChange} />
         </div>
+
       </div>
 
       {router.pathname.includes('/Search/') &&
@@ -119,9 +115,11 @@ function SearchBar({ search, categories }) {
             })}
           </div>
 
+          
+
           <div style={{ display: 'flex' }}>
             <label><h5>SortByOrd : </h5></label>
-            <select value={prep} onChange={handelSortByPrep}>
+            <select value={prep} onChange={handleSortByPrep}>
               <option value={1}>Ascending</option>
               <option value={-1}>Descending</option>
             </select>
@@ -158,6 +156,8 @@ function SearchBar({ search, categories }) {
           <Link href={`/Search/${search}?Prep=${prep}&Tags=${tags}&Categories=${category}&Ingredients=${ingredients}`}>
             <button onClick={handleDeleteAllFilters}>Clear All Filters</button>
           </Link>
+
+          
         </>
       }
 
