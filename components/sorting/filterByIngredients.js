@@ -7,6 +7,8 @@ import styles from "@/components/sorting/searchBar.module.css"
  * @returns selection element to filter recipes by selected ingredient
  */
 
+import styles from "./searchBar.module.css"
+
 function FilterByIngrediets({ setIngredients, ingredients }) {
 
     function handleIngredients(event) {
@@ -19,19 +21,21 @@ function FilterByIngrediets({ setIngredients, ingredients }) {
 
     return (
         <div style={{ display: 'flex' }}>
-            <label><h5 style={{color: 'white'}}>FilterByIng : </h5></label>
-            <select value={ingredients[ingredients.length - 1]} onChange={handleIngredients} className={styles.filters}>
-                <option value={''}>Choose...</option>
-                <option value={'onion'}>onion</option>
-                <option value={'garlic'}>garlic</option>
-                <option value={'potatoes'}>potatoes</option>
-                <option value={'butter'}>butter</option>
-                <option value={'milk'}>milk</option>
-                <option value={'egg'}>egg</option>
-                <option value={'mushrooms'}>mushrooms</option>
-                <option value={'salt'}>salt</option>
-                <option value={'ricotta cheese'}>ricotta cheese</option>
+            <label><h5 style={{color: 'white'}}>Filter By ingredients:</h5></label>
+                <div className={styles.containerdropdown}>
+                    <select className={styles.dropdown} value={ingredients[ingredients.length - 1]} onChange={handleIngredients}>
+                    <option value={''}>Choose...</option>
+                    <option value={'onion'}>onion</option>
+                    <option value={'garlic'}>garlic</option>
+                    <option value={'potatoes'}>potatoes</option>
+                    <option value={'butter'}>butter</option>
+                    <option value={'milk'}>milk</option>
+                    <option value={'egg'}>egg</option>
+                    <option value={'mushrooms'}>mushrooms</option>
+                    <option value={'salt'}>salt</option>
+                    <option value={'ricotta cheese'}>ricotta cheese</option>
             </select>
+                </div>
 
             {ingredients.map((ingredient, index) => {
                 return (<button key={index} onClick={handleDeleteIngredients} value={ingredient}>{ingredient}</button>)

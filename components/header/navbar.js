@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./navbar.module.css"; // Import the CSS module
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
 import style from '@/components/sorting/searchBar.module.css'
 import SearchBar from "../sorting/auto-submission";
 import { useRouter } from "next/router";
+import LoadingState from "../Loading/loading-state";
+
 
 /**
  * Component for updating and displaying recipe descriptions.
@@ -15,17 +17,28 @@ import { useRouter } from "next/router";
  * @returns {JSX.Element} - Rendered React component.
  */
 
-const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) => {
+const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps ,isHomeLoading,isFavouritesLoading,isAllRecipesLoading }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState (false);
   const router = useRouter().asPath;
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+  // useEffect (()=>{
+  //   setIsLoading(isAllRecipesLoading);
+  //   const timeoutId =setTimeout(()=>{
+  //     setIsLoading(false);
+  //   },3000);
+  //   return ()=>clearTimeout(timeoutId)
+  // },[isAllRecipesLoading]);
+ 
 
+  
   return (
     <>
-      {isSorting &&
+    {isLoading && <LoadingState />}
+      {isSorting && 
         <div className={style.sortSection}>
           <SearchBar categories={categories} pageNo={pageNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={history} filterByTags={filterByTags} filterByIngredients={filterByIngredients} categoryfilter={categoryfilter} filterBySteps={filterBySteps} />
         </div>}
@@ -61,13 +74,15 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
           </li>
           <li>
             <Link href={'/favourites/1'}>
-              <h2 className={styles.link}>Favourites</h2>
+              <h2 className={styles.link}  onClick={()=>setIsLoading(true)}>{ "Favourites" }</h2>
             </Link>
           </li>
           <li>
-            <Link href="/recipes/1">
-              <h2 className={styles.link}>All Recipes</h2>
-            </Link>
+          <Link href="/recipes/1">
+            <h2 className={styles.link} onClick={()=>setIsLoading(true)}>
+              All Recipes
+            </h2>
+          </Link>
           </li>
         </ul>
 

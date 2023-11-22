@@ -4,7 +4,6 @@ import RecipesFavItems from "./recipes-FavItems";
 import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
 import SortByOrder from "../sorting/sortByOrder";
-import LoadingState from "../Loading/loading-state";
 
 /**
  * 
@@ -17,11 +16,8 @@ import LoadingState from "../Loading/loading-state";
  * display recipe details by description, ingredients, instructons, allergens and tags
  */
 
-function RecipeList({ recipes, patcheNo, favRecipes, search }) {
+function RecipeList({ recipes, patcheNo, favRecipes, search, setLoading }) {
   const router = useRouter();
-  // const [sortedRecipes, setSortedRecipes] = useState(recipes);
-  // const [noRecipesMessage, setNoRecipesMessage] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -29,7 +25,6 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
       <div className={styles.container}>
         <br /> 
         <SortByOrder/>
-       {/* <LoadingState /> */}
        {recipes.length === 0 && <h5>No Filter Recipes Matching</h5>}
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/')) ?
@@ -48,6 +43,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search }) {
                 published={recipe.published}
                 favRecipes={favRecipes}
                 search={search}
+                setLoading={setLoading}
               />
             )) 
             :

@@ -1,8 +1,8 @@
 import { runFav, runCategories, runFilter2, runHistory } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
+import LoadingState from '@/components/Loading/loading-state';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
@@ -19,6 +19,7 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
   const router = useRouter();
   const { recipeId } = router.query
   const [isSorting, setIsSorting] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const changePathname = (pageNumber) => {
     const { query } = router
@@ -36,7 +37,11 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
 
   return (
     <>
-      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={historyData} filterByTags={tags}  filterByIngredients={ingredients} categoryfilter={categoryfilter} filterBySteps={steps}/>
+      {
+        isLoading && <LoadingState />
+      }
+
+      <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={historyData} filterByTags={tags} filterByIngredients={ingredients} categoryfilter={categoryfilter} filterBySteps={steps} />
 
       <div >
         <img className={styles.image} src="/images/food-image - Copy.jpg" alt="logo" width='100%' />
@@ -53,7 +58,7 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
         </p>
       </div>
 
-      <RecipeList recipes={recipes} patcheNo={recipeId} favRecipes={favRecipes} search={searchChar} />
+      <RecipeList recipes={recipes} patcheNo={recipeId} favRecipes={favRecipes} search={searchChar} setLoading={setLoading}/>
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
@@ -96,7 +101,7 @@ export async function getServerSideProps(context) {
   filterByTags ? finalSearchString.tags = { $all: (filterByTags.split(',')) } : undefined
   filterByCategories ? finalSearchString.category = filterByCategories : undefined
   filterByIngredients ? (filterByIngredients.split(',')).map((ingredient) => finalSearchString[`ingredients.${ingredient}`] = { $exists: true }) : undefined
-  filterBySteps ? finalSearchString.instructions =  { $size:  parseInt(filterBySteps) } : undefined
+  filterBySteps ? finalSearchString.instructions = { $size: parseInt(filterBySteps) } : undefined
 
   const patcheNo = context.params.recipeId;
   const favRecipes = await runFav(1);

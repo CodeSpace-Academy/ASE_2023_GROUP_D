@@ -13,6 +13,7 @@ const UpdateDescription = ({ description, recipeId }) => {
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(description);
   const [notification, setNotification] = useState(null);
+  const [isLoading, setIsLoading] = useState (false) // state for loading
 
   const handleEditDescription = () => {
     setIsEditingDescription(true);
@@ -27,6 +28,8 @@ const UpdateDescription = ({ description, recipeId }) => {
 
   const handleSave = async () => {
     try {
+      setIsLoading(true); //switch loading state
+
       const requestBody = JSON.stringify({
         recipeId: recipeId,
         description: editedDescription,
@@ -47,6 +50,8 @@ const UpdateDescription = ({ description, recipeId }) => {
       }
     } catch (error) {
       showNotification('An error occurred while saving description.', 'error');
+    } finally {
+      setIsLoading(false); //switch loading state back to false
     }
   };
 
@@ -61,6 +66,8 @@ const UpdateDescription = ({ description, recipeId }) => {
 
   return (
     <div>
+
+      
       {isEditingDescription ? (
         <div>
           <textarea className={styles.inputField}
@@ -68,8 +75,12 @@ const UpdateDescription = ({ description, recipeId }) => {
             onChange={handleDescriptionChange}
           />
           <div>
-            <button onClick={handleSave} className={styles.saveButton}>Save</button>
-            <button onClick={handleCancel}className={styles.cancelButton}>Cancel</button>
+            <button onClick={handleSave} className={styles.saveButton} disabled={isLoading}>
+              {isLoading ? 'Loading...' :'Save'}
+              </button>
+            <button onClick={handleCancel}className={styles.cancelButton}>
+              Cancel
+              </button>
           </div>
         </div>
       ) : (
@@ -77,7 +88,7 @@ const UpdateDescription = ({ description, recipeId }) => {
           <p>{editedDescription}</p>
           <button
             style={{
-              background: 'red',
+              background:'red',
               borderRadius: '20px',
               color: 'white',
               border: 'none',

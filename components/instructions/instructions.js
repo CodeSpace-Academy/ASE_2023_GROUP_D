@@ -12,6 +12,7 @@ import styles from './instructions.module.css';
 function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
+  const [loading, setLoading] = useState(false)
   const [notification, setNotification] = useState(null);
 
   const handleEditInstructions = () => {
@@ -27,6 +28,7 @@ function RecipeInstructions({ instructions, recipeId }) {
 
   const handleSave = async () => {
     try {
+      setLoading(true)
       // Check if any instruction is empty
       if (editedInstructions.some(instruction => !instruction.trim())) {
         showNotification('Instructions cannot be empty.', 'error');
@@ -87,7 +89,7 @@ function RecipeInstructions({ instructions, recipeId }) {
           </ol>
           <div className={styles.btn}>
             <button onClick={handleSave} className={styles.saveButton}>
-              Save
+              {loading ? 'Loading...' : 'Save'}
             </button>
             <button onClick={handleCancel} className={styles.cancelButton}>
               Cancel

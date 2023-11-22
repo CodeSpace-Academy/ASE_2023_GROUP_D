@@ -73,36 +73,48 @@
   z-index: 1;
 }
 
-.filterRecipes {
-  
-  padding: 5px;
-}
-
-.sortAndFilter {
-  text-align: center;
-  border: 2px solid red;
-  background: red;
-  border-radius: 3em;
-  width: 400px;
-}
-
-.compoTags {
-  text-align: center;
-  width: 100px;
-  border-radius: 5em;
-
-}
-
-.tagsDiv {
+.containerdropdown {
   display: flex;
-  align-items: center;
+  padding-top: 15px;
+  justify-content: center;
+  position: relative;
+  min-width: 150px;
+  height: 45px;
+}
+
+.dropdown {
+  border: none;
+  border-radius: 30px;
+  appearance: none;
+  padding: 0 30px 0 15px;
+  width: 100%;
+  color: #a72828;
+  background-color: #ffffff;
+  font-size: 20px;
+}
+
+.catdropdown {
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  max-width: 170px;
+  height: 45px;
+  border-radius: 15px;
+}
+
+.steps {
+  display: flex;
+}
+
+.fill {
+  border-radius: 40px;
+  height: 25px;
+  padding-top: 30px;
+  margin-top: 10px;
 }
 
 .filters {
-  border-radius: 4em;
-  width: 150px;
-  height: 40px;
-  padding: 4px;
-  text-align: center;
-  background-color: #ccc;
+  border: #ccc;
+  background-color: black;
 }

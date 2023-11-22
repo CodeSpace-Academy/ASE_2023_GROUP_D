@@ -27,7 +27,7 @@ import Highlighter from 'react-highlight-words';
 
 function RecipesItems(props) {
     const router = useRouter();
-    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search } = props
+    const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search, setLoading } = props
     const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
     const [favToggle, setFavToggle] = useState(favRecipeIds.includes(id) ? true : false)
     const [hoverToggle, setHoverToggle] = useState(false)
@@ -75,9 +75,7 @@ function RecipesItems(props) {
         else {
             setFavToggle(!favToggle)
         }
-
     }
-
     async function removeFromFavourite(recipeId) {
         const response = await fetch('/api/favourites', {
             method: 'DELETE',
@@ -95,8 +93,6 @@ function RecipesItems(props) {
             setFavToggle(!favToggle)
         }
     }
-
-
 
     return (
         <>{
@@ -133,7 +129,6 @@ function RecipesItems(props) {
                     /></h2> : <h2>{title}</h2>}
 
                     <div >
-
                         <div className={styles.cookingTime}>
                             <div>
                                 <div className={styles.cookingTimeLabel}>
@@ -154,16 +149,17 @@ function RecipesItems(props) {
                                     {totalMinutes % 60 !== 0 ? ` ${totalMinutes % 60} min` : ''}
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div className={styles.category}> {category} </div>
                     <div className={styles.servings}> Servings: {servings} </div>
                     <div className={styles.date}>Published: {formattedPublishedDate} </div>
                     <div className={styles.actions}>
+                        <div onClick={()=> setLoading(true)} >
                         <Button link={`/recipes/${patcheNo}/${id}`} className={styles.viewRecipeButton}>
                             <span className={styles.viewRecipeButtonText}>View Recipe</span>
                         </Button>
+                        </div>
                     </div>
                 </li>
 
