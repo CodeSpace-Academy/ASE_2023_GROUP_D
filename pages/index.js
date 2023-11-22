@@ -27,13 +27,12 @@ function Home(props) {
     >
       <div className={styles.view}>
 
-
         <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
 
         <Link href={`/recipes/1`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px' }}>
           <button style={buttonStyles} onClick={() => setLoading(true)}>All Recipe</button>
         </Link>
-        {loading && <LoadingState />}
+     
         {/* Login and Sign Up buttons with links */}
         <Link href="/login" style={{ textDecoration: 'none' }}>
           <button style={buttonStyles}>Login</button>
@@ -60,6 +59,7 @@ function Home(props) {
       >
 
       </div>
+      {loading && <LoadingState />}
     </div>
   );
 
