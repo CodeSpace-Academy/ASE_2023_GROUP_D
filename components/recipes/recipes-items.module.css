@@ -112,13 +112,13 @@
 }
 
 .category {
-  color: #5c5c5d; /* Choose your desired color */
+  color: #5c5c5d; 
   font-weight: bold;
   margin-bottom: 10px;
 }
 
 .servings {
-  color: #333; /* Choose your desired color */
+  color: #333;
   font-style: italic;
   margin-bottom: 10px;
 }
@@ -128,7 +128,6 @@
   color: #888;
 }
 
-/* Add these styles to your existing CSS module */
 .heartIcon {
   position: absolute;
   top: 10px;
@@ -140,4 +139,24 @@
   height: 40px;
 }
 
-/* Adjust the values of top and right based on your desired position */
+.addNotification,
+.removeNotification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  z-index: 999;
+  text-align: center;
+}
+
+.addNotification {
+  background-color: #4caf4fe4; /* Green background color */
+  color: white; /* White text color */
+}
+
+.removeNotification {
+  background-color: #f44336e1; /* Red background color */
+  color: white; /* White text color */
+}
+
