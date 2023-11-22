@@ -1,15 +1,20 @@
 import { runFav, runCategories, runFilter2, runHistory } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoadingState from '@/components/Loading/loading-state';
 import Navbar from '@/components/header/navbar';
 import styles from '@/components/header/summary.module.css'
 import Footer from '@/components/footer/footer';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
+
+/**
+ * Recipe Component
+ * @param {Object} props - Properties passed to the component
+ * @returns {JSX.Element} - Rendered React component
+ */
 
 function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData, tags, ingredients, categoryfilter, steps, instructions, published }) {
-
   const router = useRouter();
   const { recipeId } = router.query
   const [isSorting, setIsSorting] = useState(false);
@@ -74,6 +79,12 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
     </>
   )
 }
+
+/**
+ * Server-side function to fetch data for the component
+ * @param {Object} context - Context object from Next.js
+ * @returns {Object} - Props to be passed to the component
+ */
 
 export async function getServerSideProps(context) {
   const finalSearchString = {}

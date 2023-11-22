@@ -12,12 +12,12 @@
     background-color: #b55144dd;
   }
   
-  .container3{
-    background-color: #C34A36;
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    border: 1px solid black;
-    width: 800px;
+  .recipePreview {
+    padding: 10px;
+  }
+
+  .imageDiv {
+    align-self: center;
+    
   }
 

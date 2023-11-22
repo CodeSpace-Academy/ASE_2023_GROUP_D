@@ -7,6 +7,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
 import Highlighter from 'react-highlight-words';
 
+/**
+ * Component for displaying individual recipe items.
+ * @param {Object} props - Properties passed to the component.
+ * @param {string} props.id - The unique identifier of the recipe.
+ * @param {string} props.title - The title of the recipe.
+ * @param {number} props.prep - The preparation time of the recipe in minutes.
+ * @param {number} props.cook - The cooking time of the recipe in minutes.
+ * @param {string} props.category - The category of the recipe.
+ * @param {number} props.servings - The number of servings the recipe yields.
+ * @param {string} props.published - The publication date of the recipe.
+ * @param {string} props.image - The URL of the recipe image.
+ * @param {string} props.patcheNo - The patch number of the recipe.
+ * @param {string} props.description - The description of the recipe.
+ * @param {Array} props.favRecipes - The list of favorite recipes.
+ * @param {string} props.search - The search string for highlighting.
+ * @returns {JSX.Element} - Rendered React component.
+ */
+
 function RecipesItems(props) {
     const router = useRouter();
     const { id, title, prep, cook, category, servings, published, image, patcheNo, description, favRecipes, search, setLoading } = props
@@ -172,11 +190,3 @@ function RecipesItems(props) {
 }
 
 export default RecipesItems;
-
-
-
-
-
-
-
-

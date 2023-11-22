@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/description/description';
 import { run2, runFilter, runFav } from '../../../fetching-data/data';
@@ -7,6 +8,20 @@ import ErrorComponent from '@/components/Errors/errors';
 import Navbar from '@/components/header/navbar';
 import Footer from '@/components/footer/footer';
 
+/**
+ * Recipe Component
+ * ----------------
+ * This component displays details of a specific recipe, including title, image, description,
+ * allergens, tags, ingredients, and instructions.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.recipeId - The unique identifier of the recipe.
+ * @param {Array} props.favRecipes - An array of favorite recipes.
+ * @param {Array} props.data1 - An array containing recipe data.
+ * @param {Array} props.allergens - An array containing allergen data.
+ * @returns {JSX.Element} - The rendered Recipe component.
+ */
 
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
@@ -23,6 +38,13 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
+
+  /**
+   * Handles the save action for updating the recipe description.
+   *
+   * @param {string} updatedDescription - The updated description.
+   * @returns {void}
+   */
 
   const handleSaveDescription = async (updatedDescription) => {
     try {
@@ -47,6 +69,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     }
   };
 
+  /**
+   * Converts tags array to a comma-separated string.
+   */
+
   const tagsString = recipes.tags.join(', ');
   const recipeToBeInsertedToFav = {
     _id: recipeId,
@@ -59,6 +85,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     servings: recipes.servings,
     published: recipes.published
   }
+
+  /**
+   * Adds the recipe to favorites.
+   */
 
   async function addToFavourite(recipeData) {
     const response = await fetch('/api/favourites', {
@@ -79,6 +109,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   }
 
+  /**
+   * Removes the recipe from favorites.
+   */
+
   async function removeFromFavourite(recipeId) {
     const response = await fetch('/api/favourites', {
       method: 'DELETE',
@@ -97,25 +131,17 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     }
   }
 
+  /**
+   * Renders the Recipe component.
+   *
+   * @returns {JSX.Element} - The rendered JSX element.
+   */
 
   return (
     <>
     <Navbar />
     <div className={styles.recipeDetails}>
       <div className={styles.leftColumn}>
-        {/* {showSuccessNotification && (
-          <SuccessNotification
-            message="Description updated successfully."
-            onClose={() => setShowSuccessNotification(false)}
-          />
-        )}
-        {showErrorNotification && (
-          <ErrorNotification
-            message="Failed to update description. Please try again later."
-            onClose={() => setShowErrorNotification(false)}
-          />
-        )} */}
-
         <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br/>

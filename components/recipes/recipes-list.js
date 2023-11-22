@@ -5,6 +5,16 @@ import styles from "./recipes-list.module.css";
 import { useRouter } from "next/router";
 import SortByOrder from "../sorting/sortByOrder";
 
+/**
+ * 
+ * @param {Array } recipes  collection from MongoDB compass.
+ * @param {Number } patchNo page number to control numbe rof loading recipes
+ * @param {Array } favRecipes array that stores favorite recipes
+ * @param {string} search input string used to search for specific recipes
+ * @returns RecipeList component and RecipeFavItems components
+ * This component displays preview of 100 recipes per page, and when each recipe is clicked it suppose to
+ * display recipe details by description, ingredients, instructons, allergens and tags
+ */
 
 function RecipeList({ recipes, patcheNo, favRecipes, search, setLoading }) {
   const router = useRouter();
