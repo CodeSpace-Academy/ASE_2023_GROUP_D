@@ -4,12 +4,30 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/header/navbar';
 
-function Recipe({ favRecipes, patcheNo, categories }) {
+
+/**
+ * Recipe Component
+ * ----------------
+ * This component displays a list of favorite recipes, along with navigation buttons for pagination.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array} props.favRecipes - An array of favorite recipes.
+ * @param {number} props.patcheNo - The current page number for pagination.
+ * @param {Array} props.historyData - An array of search history data.
+ * @param {Array} props.categories - An array of recipe categories.
+ * @returns {JSX.Element} - The rendered Recipe component.
+ */
+
+function Recipe({ favRecipes, patcheNo, historyData, categories }) {
 
   const [noFavorites, setNoFavorites] = useState(favRecipes.length === 0);
   const [isSorting, setIsSorting] = useState(false);
 
-  // Use useEffect to update noFavorites state when favRecipes change
+   /**
+   * useEffect to update noFavorites state when favRecipes change.
+   */
+  
   useEffect(() => {
     setNoFavorites(favRecipes.length === 0);
   }, [favRecipes]);

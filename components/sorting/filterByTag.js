@@ -1,4 +1,13 @@
-import styles from "./searchBar.module.css"
+import styles from "@/components/sorting/searchBar.module.css"
+
+/**
+ * 
+ * @param {function} setTags is a state function that enables tags to be filtered and stored in an array.
+ * @param {Array} tags recipes property from recipes collection.
+ * @returns selection element to filter recipes by tags
+ */
+
+//import styles from "./searchBar.module.css"
 
 function FilterByTag({setTags, tags}) {
 
@@ -11,10 +20,10 @@ function FilterByTag({setTags, tags}) {
       }
 
     return (
-        <div style={{ display: 'flex'}}>
-            <label><h5 style={{color: 'white'}}>Filter By Tags: </h5></label>
-            <div className={styles.containerdropdown}>
-                <select className={styles.dropdown} value={tags[tags.length - 1]} onChange={handleTag}>
+        <div className={styles.recipefilters}>
+            <label style={{padding: '42px'}}>Filter By Tags: </label>
+            
+                <select className={styles.tags} value={tags[tags.length - 1]} onChange={handleTag}>
                     <option value={''}>Choose...</option>
                     <option value={'Beans'}>Beans</option>
                     <option value={'Vegetable'}>Vegetable</option>
@@ -23,7 +32,7 @@ function FilterByTag({setTags, tags}) {
                     <option value={'Healthy'}>Healthy</option>
                     <option value={'Fruit'}>Fruit</option>
                 </select>
-            </div>
+            
             {tags.map((tag, index) => {
                 return (<button key={index} onClick={handleDeleteTag} value={tag}>{tag}</button>)
             })}

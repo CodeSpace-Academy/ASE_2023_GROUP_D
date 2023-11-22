@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./navbar.module.css"; // Import the CSS module
@@ -7,6 +8,14 @@ import style from '@/components/sorting/searchBar.module.css'
 import SearchBar from "../sorting/auto-submission";
 import { useRouter } from "next/router";
 import LoadingState from "../Loading/loading-state";
+
+/**
+ * Component for updating and displaying recipe descriptions.
+ * @param {Object} props - Properties passed to the component.
+ * @param {string} props.description - The current recipe description.
+ * @param {string} props.recipeId - The ID of the recipe associated with the description.
+ * @returns {JSX.Element} - Rendered React component.
+ */
 
 
 const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) => {
