@@ -123,7 +123,10 @@
     }
 
     .recipeImage {
-      margin-left: 25%;
+      height: 100%;
+      border: solid red;
+      border-radius: 20px;
+
     }
   }
 
