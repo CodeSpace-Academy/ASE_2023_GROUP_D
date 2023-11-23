@@ -18,7 +18,7 @@ import LoadingState from "../Loading/loading-state";
  */
 
 
-const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps ,isHomeLoading,isFavouritesLoading,isAllRecipesLoading }) => {
+const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState (false);
   const router = useRouter().asPath;
@@ -26,15 +26,6 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-  // useEffect (()=>{
-  //   setIsLoading(isAllRecipesLoading);
-  //   const timeoutId =setTimeout(()=>{
-  //     setIsLoading(false);
-  //   },3000);
-  //   return ()=>clearTimeout(timeoutId)
-  // },[isAllRecipesLoading]);
- 
-
   
   return (
     <>

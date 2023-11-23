@@ -25,6 +25,7 @@ import { Input } from "postcss";
 function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) {
   const [query, setQuery] = useState();
   const [backUpQuery, setBackUpQuery] = useState(searchChar)
+  const [searchHistory, setSearchHistory] = useState(query ? query : backUpQuery);
   const [tags, setTags] = useState(filterByTags)
   const [ingredients, setIngredients] = useState(filterByIngredients)
   const [category, setCategory] = useState(categoryfilter)
@@ -40,12 +41,28 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     setQuery(event.target.value);
   };
 
+  async function addToHistory(searchWord) {
+    const response = await fetch('/api/history', {
+        method: 'POST',
+        body: JSON.stringify({searchWord}),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || "Something went wrong!");
+    }
+}
+
   useEffect(() => {
     if (query && query.length < 10) {
       setShowSubmitButton(true);
 
       const navigateToNewPage = () => {
         router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
+        !history.includes(query ? query : backUpQuery) && addToHistory(query ? query : backUpQuery)
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);

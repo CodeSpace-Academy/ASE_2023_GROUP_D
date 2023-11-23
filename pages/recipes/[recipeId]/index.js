@@ -15,7 +15,6 @@ import Footer from '@/components/footer/footer';
  */
 
 function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData, tags, ingredients, categoryfilter, steps, instructions, published }) {
-
   const router = useRouter();
   const { recipeId } = router.query
   const [isSorting, setIsSorting] = useState(false);
