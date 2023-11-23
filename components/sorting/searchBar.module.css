@@ -161,10 +161,20 @@
   width: 100px;
   border-radius: 30px;
   margin-left: 20px;
+  
 }
 
 .filtersDiv {
   margin-top: 20px;
   color: black;
   font-weight: bold;
+}
+
+.nofilter {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px; /* Adjust padding as needed */
+  margin: 0; 
+
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/sorting/searchBar.module.css"
+import styles from "@/components/Sorting/searchBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";
@@ -32,6 +32,9 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [filterToggle, setFilterToggle] = useState(false)
   const [numSteps, setNumSteps] = useState(filterBySteps)
   const [showSubmitButton, setShowSubmitButton] = useState(false);
+  const [areFiltersSelected,setAreFiltersSelected] = useState(false)
+  // const areFiltersSelected = tags.length > 0 || ingredients.length > 0 || category !== '' || numSteps > 0;
+
 
   const router = useRouter();
   const { asPath } = router
@@ -40,6 +43,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
+
+  useEffect(() => {
+    // Update the state when filters change
+    setAreFiltersSelected(tags.length > 0 || ingredients.length > 0 || category !== '' || numSteps > 0);
+  }, [tags, ingredients, category, numSteps]);
 
   async function addToHistory(searchWord) {
     const response = await fetch('/api/history', {
@@ -105,12 +113,20 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           textAlign: 'center',
           marginTop: '20px'
         }}>
+          {areFiltersSelected ? (
+            <>
           <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
             <button className={styles.filterBtn}>filter</button>
           </Link>
           <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
             <button className={styles.filterBtn}>Clear All Filters</button>
           </Link>
+          </>
+          ) : (
+            
+            <p className= {styles.nofilter}>No filters have been selected!</p>
+            
+            )}
           <button onClick={() => setIsSorting(!isSorting)} className={styles.filterBtn}>Close</button>
         </div>
 
