@@ -145,7 +145,7 @@
   text-align: center;
   border: 2px solid #ff0000;
   border-radius: 3em;
-  width: 400px;
+  width: 600px;
   height: 400px;
   background-color: snow;
   color: white;
@@ -167,4 +167,5 @@
   margin-top: 20px;
   color: black;
   font-weight: bold;
+  margin-left: 80px;
 }

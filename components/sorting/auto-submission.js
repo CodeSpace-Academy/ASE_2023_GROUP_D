@@ -99,7 +99,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           </select>
           {(query && query.length >= 10) &&
             <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
-              <button>Submit </button>
+              <button className={styles.filterBtn}>Submit </button>
             </Link>
           }
         </div>
@@ -115,7 +115,8 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           display: 'flex',
           width: 'fit-content',
           textAlign: 'center',
-          marginTop: '20px'
+          marginTop: '20px',
+          marginLeft: '80px'
         }}>
           <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
             <button className={styles.filterBtn}>filter</button>
