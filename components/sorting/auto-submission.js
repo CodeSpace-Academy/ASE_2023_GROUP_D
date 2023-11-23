@@ -73,6 +73,18 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     }
   }, [router, query, delay]);
 
+  const handleClearFilters = () => {
+    if (
+      (!backUpQuery || backUpQuery.trim().length === 0) &&
+      tags.length === 0 &&
+      category.length === 0 &&
+      ingredients.length === 0 &&
+      numSteps.length === 0
+    ) {
+      alert("No filters selected");
+    } 
+  };
+
   return (
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -109,7 +121,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
             <button className={styles.filterBtn}>filter</button>
           </Link>
           <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
-            <button className={styles.filterBtn}>Clear All Filters</button>
+            <button className={styles.filterBtn} onClick={handleClearFilters}>Clear All Filters</button>
           </Link>
           <button onClick={() => setIsSorting(!isSorting)} className={styles.filterBtn}>Close</button>
         </div>
