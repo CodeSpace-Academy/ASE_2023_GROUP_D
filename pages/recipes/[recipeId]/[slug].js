@@ -145,7 +145,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
         <br/>
         <h1 className={styles.recipeTitle}>{recipes.title}</h1>
         <br/>
-        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} />
+        <div className={styles.imageContainer}>
+        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={600} height={400} />
+        </div>
+       
 
         <UpdateDescription  description={recipes.description} recipeId={recipeId}/>
 
