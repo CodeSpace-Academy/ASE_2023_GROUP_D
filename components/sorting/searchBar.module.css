@@ -168,3 +168,12 @@
   color: black;
   font-weight: bold;
 }
+
+.nofilter {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px; /* Adjust padding as needed */
+  margin: 0; 
+
+}
