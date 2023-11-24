@@ -75,7 +75,7 @@ const UpdateDescription = ({ description, recipeId }) => {
             onChange={handleDescriptionChange}
           />
           <div>
-            <button onClick={handleSave} className={styles.saveButton}>Save</button>
+            <button onClick={handleSave} className={styles.saveButton} disabled={isLoading}>{isLoading ? 'Loading...' : 'Save'}</button>
             <button onClick={handleCancel}className={styles.cancelButton}>Cancel</button>
           </div>
         </div>
