@@ -36,7 +36,7 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
         </div>}
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <img src="/images/BrandLogo.png" alt="logo" width={400} height={100} />
+          <img src="/images/WhiteLogo.png" alt="logo" width={400} height={100} />
         </div>
 
         <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
@@ -55,6 +55,7 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
           {router.includes(`/recipes/${pageNo}`) && <>
             <div onClick={() => setIsSorting(!isSorting)} style={{ paddingTop: '9px' }}>
               <input className={style.input} size={20} placeholder={"Search ..."} readOnly />
+              <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingLeft: '10px', paddingTop: '18px' }} />
             </div>
           </>}
 

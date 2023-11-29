@@ -1,15 +1,21 @@
 .navbar {
-    background-color: #E12626;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    width: 100%;
-  }
+  background: rgba(70, 69, 69, 0.496); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(34, 30, 30, 0.789); 
+}
+
   
   .logo img {
     width: 300px;
-    height: 80px;
+    height: 70px;
   }
   
   .menuButton {
@@ -32,6 +38,10 @@
     margin: 4px 0;
   }
   
+  .link {
+    color: white;
+  } 
+
   .navLinks {
     font-family: "Arial", "Lucida Console", "Courier New", monospace;
     list-style: none;
@@ -56,9 +66,9 @@
     .navLinks {
       display: none;
       flex-direction: column;
-      background-color: #E12626;
+      background: rgba(70, 69, 69, 0.912); 
       position: absolute;
-      top: 60px;
+      top: 80px;
       left: 0;
       width: 100%;
       text-align: center;

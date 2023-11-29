@@ -42,19 +42,20 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
 
       <Navbar categories={categories} pageNo={patcheNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={historyData} filterByTags={tags} filterByIngredients={ingredients} categoryfilter={categoryfilter} filterBySteps={steps} />
 
-      <div >
-        <img className={styles.image} src="/images/food-image - Copy.jpg" alt="logo" width='100%' />
+      <div style={{ position: 'relative' }}>
+        <img className={styles.image} src="/images/food-image.jpg" alt="logo" width='100%' height='40%' />
 
-      </div>
-      <div className={styles.footer}>
-        <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
-        <p className={styles.summaryText}>
-          <span className={styles.italianoFont}>
-            {`Indulge in a culinary adventure like never before. Our handpicked selection of recipes caters to every palate,
-            from savory delights to sweet temptations.
-            Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.`}
-          </span>
-        </p>
+        {/* Summary with opacity */}
+        <div className={styles.opacityOverlay}>
+          <div className={styles.footer}>
+            <h1 className={styles.summaryTitle}>Explore Our Delicious Recipes</h1>
+            <p className={styles.summaryText}>
+              <span className={styles.italianoFont}>
+                {`Discover the art of cooking and create memorable dining experiences for yourself and your loved ones. Whether you're a seasoned chef or just starting your culinary journey, our recipes are designed to inspire, educate, and satisfy your taste buds.`}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
 
       <RecipeList recipes={recipes} patcheNo={recipeId} favRecipes={favRecipes} search={searchChar} setLoading={setLoading}/>

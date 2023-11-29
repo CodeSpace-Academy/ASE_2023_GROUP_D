@@ -15,7 +15,7 @@ function SortByOrder() {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '25vh', background: 'white' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '25vh', background: 'white', marginTop: '-30px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #ccc', padding: '20px', borderRadius: '8px', boxShadow: '0 5px 9px rgba(0, 0, 0, 0.9)' }}>
                 <label id="sortSection">
                     <p style={{ paddingRight: '10px', margin: '0', color: 'red' }}>
