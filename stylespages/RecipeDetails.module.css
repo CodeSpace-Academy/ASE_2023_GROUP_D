@@ -1,10 +1,115 @@
 /* Recipe Details Container */
 
 .recipeDetails {
-    width: 100%;
-    justify-content: space-between;
-    background: white;
-    padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: #f6f6f6;
+}
+
+/* Left Column */
+.leftColumn {
+  flex: 1;
+  color: black;
+  padding: 10px;
+
+}
+
+/* Right Column */
+.rightColumn {
+  flex: 1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Recipe Title */
+.recipeTitle {
+  font-size: 30px;
+  margin: auto;
+  text-align: center;
+
+}
+
+/* Recipe Image */
+.recipeImage {
+  /* border-radius: 10px; */
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9);
+}
+
+.imageContainer {
+  text-align: center;
+}
+
+
+/* Description */
+.description {
+  margin: 10px 0;
+}
+
+/* Update Button */
+.updateButton,
+.favButton {
+  background: red;
+  border-radius: 20px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.updateButton:hover {
+  background: #972f2f;
+}
+
+/* Cook Time */
+.cookTime {
+  font-size: 14px;
+}
+
+/* Allergens */
+.allergens {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* Tags */
+.tags {
+  font-size: 1.2rem;
+}
+
+
+
+.tagBlock {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Hover effect */
+.tagBlock:hover {
+  background-color: #E12626;
+  /* Adjust the color on hover */
+}
+
+
+.ingredients,
+.instructions {
+  margin-top: 10px;
+  /* Add some spacing between headings and content */
+}
+
+@media screen and (max-width: 600px) {
+
+  .recipeDetails,
+  .favButton {
+    display: flex;
+    flex-direction: column;
   }
   
   /* Left Column */
@@ -46,62 +151,18 @@
   
   /* Update Button */
   .updateButton, .favButton {
+
+  .favButton {
     background: red;
     border-radius: 20px;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .updateButton:hover {
-    background: #972f2f;
-  }
-  
-  /* Cook Time */
-  .cookTime {
-    font-size: 14px;
-  }
-  
-  /* Allergens */
-  .allergens {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  /* Tags */
-  .tags {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  .tagsContainer {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .tagBlock {
-    background: rgb(41, 30, 30);
-    color: white;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Ingredients */
-  .ingredients {
-    font-size: 18px;
-    margin: 30px 0;
-  }
-  
-  /* Instructions */
-  .instructions {
-    font-size: 18px;
-    margin: 30px 0;
+    transition: 0.3s;
   }
 
+}
 
 /* MOBILE VIEW RESPONSIVENESS */
 
@@ -110,16 +171,19 @@
       display: flex;
       flex-direction: column;
     }
+.update-button {
+  padding: 10px 20px;
+  background-color: #7d1608dd;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
 
-    .favButton {
-      background: red;
-      border-radius: 20px;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.update-button:hover {
+  background-color: #b55144dd;
+}
 
     .recipeTitle {
       text-align: center;
@@ -172,11 +236,11 @@
   padding: 10px;
   margin-bottom: 10px;
   background-color: #fff;
-  color: #333; /* Text color */
 }
 
 .successNotification {
-  background-color: #4caf4fd5; /* Green background color */
+  background-color: #4caf4fd5;
+  /* Green background color */
   color: white;
   padding: 20px;
   text-align: center;
@@ -188,7 +252,8 @@
 }
 
 .errorNotification {
-  background-color: #871e16cb; /* Red background color */
+  background-color: #871e16cb;
+  /* Red background color */
   color: white;
   padding: 15px;
   text-align: center;
@@ -205,7 +270,6 @@
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
-
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -214,11 +278,8 @@
   background-color: #444;
 }
 
-
-
 .cancelButton {
   background-color: #999696;
-  color: #333;
   border: none;
   border-radius: 10px;
   margin-left: 20px;
@@ -239,5 +300,4 @@
   background-color: #fff;
   color: #333;
 }
-
-
+}
