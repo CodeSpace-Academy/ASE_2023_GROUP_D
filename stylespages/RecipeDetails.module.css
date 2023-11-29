@@ -34,7 +34,8 @@
   
   /* Recipe Image */
   .recipeImage {
-    border: 1px solid grey;
+    border:  solid red;
+    border-radius: 25px;
     max-width: 100%;
   }
   
@@ -101,6 +102,8 @@
     margin: 30px 0;
   }
 
+
+/* MOBILE VIEW RESPONSIVENESS */
 
   @media screen and (max-width: 600px) {
     .recipeDetails, .favButton {
