@@ -56,10 +56,10 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     }
 }
 
-async function deleteHistory(recipeId) {
+async function deleteHistory() {
   const response = await fetch('/api/history', {
       method: 'DELETE',
-      body: JSON.stringify(recipeId),
+      body: JSON.stringify(''),
       headers: {
           'Content-Type': 'application/json',
       },
