@@ -55,7 +55,6 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
           {router.includes(`/recipes/${pageNo}`) && <>
             <div onClick={() => setIsSorting(!isSorting)} style={{ paddingTop: '9px' }}>
               <input className={style.input} size={20} placeholder={"Search ..."} readOnly />
-              <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingLeft: '10px', paddingTop: '18px' }} />
             </div>
           </>}
 

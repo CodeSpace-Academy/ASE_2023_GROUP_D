@@ -25,8 +25,8 @@
   }
   
   .summaryTitle {
-    font-family: "ItallianoFont", cursive;
-    font-size: 24px;
+    color: rgb(204, 0, 0);
+    font-size: 27px;
     margin-bottom: 10px;
     text-align: center; /* Center the heading */
   }
@@ -37,11 +37,9 @@
     font-size: 16px;
   }
   
-  .italianoFont {
-    font-family: "ItallianoFont", cursive;
-  }
 
-  /* ButtonStyles.module.css */
+
+  /*Home Page ButtonStyles.module.css */
 .button {
   background: rgb(168, 48, 48); /* Red background color */
   color: #FFFFFF; /* White text color */
