@@ -56,6 +56,21 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     }
 }
 
+async function deleteHistory(recipeId) {
+  const response = await fetch('/api/history', {
+      method: 'DELETE',
+      body: JSON.stringify(recipeId),
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+      throw new Error(data.message || 'Recipe failed to delete');
+  } 
+}
+
   useEffect(() => {
     if (query && query.length < 10) {
       setShowSubmitButton(true);
@@ -86,6 +101,8 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   };
 
   return (
+  
+  
 
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className={styles.filters}>
@@ -103,7 +120,9 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
             </Link>
           }
         </div>
-
+          <div>
+          <button onClick= {deleteHistory} classname= {styles.deleteHistoryBtn}> Delete History </button>
+            </div>
         <div className={styles.filtersDiv}>
           <FilterBySteps setNumSteps={setNumSteps} numSteps={numSteps} />
           <FilterByTag setTags={setTags} tags={tags} />
