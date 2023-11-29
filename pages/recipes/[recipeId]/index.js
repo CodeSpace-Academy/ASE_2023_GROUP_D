@@ -61,8 +61,6 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-
-
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
           {recipeId > 1 && (
