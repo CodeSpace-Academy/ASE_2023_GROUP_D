@@ -70,12 +70,14 @@
 .button {
   background: rgb(168, 48, 48);
   color: #FFFFFF;
-  padding: 10px 20px;
+  padding: 10px 30px;
+  padding-bottom: 30px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
   margin-right: 10px;
+
 }
 
 .button:hover {
@@ -108,10 +110,19 @@
   .summaryTitle {
     font-size: 1.5em; /* Adjust font size for smaller screens */
     margin-bottom: 10px;
+    padding-top: 50px;
+    font-size: large;
   }
 
   .summaryText {
-    font-size: 1em; /* Adjust font size for smaller screens */
-    line-height: 1.4;
+    font-size: 1em; 
+    line-height: 1.2;
+   font-size: medium;
+   padding-bottom: 40px;
+  }
+
+  .button {
+    margin-top: -40px;
+    margin-bottom: 40px;
   }
 }
