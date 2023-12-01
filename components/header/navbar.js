@@ -20,23 +20,25 @@ import LoadingState from "../Loading/loading-state";
 
 const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, history, filterByTags, filterByIngredients, categoryfilter, filterBySteps }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState (false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter().asPath;
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-  
+
   return (
     <>
-    {isLoading && <LoadingState />}
-      {isSorting && 
+      {isLoading && <LoadingState />}
+      {isSorting &&
         <div className={style.sortSection}>
           <SearchBar categories={categories} pageNo={pageNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={history} filterByTags={filterByTags} filterByIngredients={filterByIngredients} categoryfilter={categoryfilter} filterBySteps={filterBySteps} />
         </div>}
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <img src="/images/WhiteLogo.png" alt="logo" width={400} height={100} />
+          <Link href="/recipes/1">
+            <img src="/images/WhiteLogo.png" alt="logo" width={400} height={100} />
+          </Link>
         </div>
 
         <button className={`${styles.menuButton} ${isMenuOpen ? styles.open : ""}`} onClick={toggleMenu}>
@@ -66,18 +68,17 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
           </li>
           <li>
             <Link href={'/favourites/1'}>
-              <h2 className={styles.link}  onClick={()=>setIsLoading(true)}>{ "Favourites" }</h2>
+              <h2 className={styles.link} onClick={() => setIsLoading(true)}>{"Favourites"}</h2>
             </Link>
           </li>
           <li>
-          <Link href="/recipes/1">
-            <h2 className={styles.link} onClick={()=>setIsLoading(true)}>
-              All Recipes
-            </h2>
-          </Link>
+            <Link href="/recipes/1">
+              <h2 className={styles.link} onClick={() => setIsLoading(true)}>
+                All Recipes
+              </h2>
+            </Link>
           </li>
         </ul>
-
       </nav>
     </>
   );

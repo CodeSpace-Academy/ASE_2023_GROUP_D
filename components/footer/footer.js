@@ -10,13 +10,13 @@ function Footer() {
       <div className={styles.connectWithUs}>
         <img className={styles.image} src="/images/footer-image.jpg" alt="logo" width="100%" height="40%" />
         <div className={styles.overlay}>
-          <div className={styles.logo}>
-            <Link href="/recipes/1">
-              <div className={styles.logoContainer}>
-                <img src="/images/BrandLogo.png" alt="Logo" width="100%" />
-              </div>
-            </Link>
-          </div>
+        <div className={styles.logo}>
+    <Link href="/recipes/1">
+        <div className={styles.logoContainer}>
+            <img src="/images/BrandLogo.png" alt="Logo" width="100%" />
+        </div>
+    </Link>
+</div>
 
           <div className={styles.connectContent}>
             <input type="email" placeholder="Enter your email" />

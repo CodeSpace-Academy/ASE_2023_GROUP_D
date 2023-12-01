@@ -136,8 +136,7 @@
   .rightColumn {
     flex: 1;
     background: white; /* Grey background for the right column */
-    border-radius: 20px;
-    border: 3px solid grey;
+    border-radius: 10px;
     padding: 20px;
  /* Text color for the right column */
     color: black /* Text color for the right column */
@@ -152,7 +151,6 @@
   
   /* Recipe Image */
   .recipeImage {
-    border:  solid red;
     border-radius: 25px;
     max-width: 100%;
   }
@@ -204,7 +202,6 @@
 
     .recipeImage {
       height: 100%;
-      border: solid red;
       border-radius: 20px;
 
     }
