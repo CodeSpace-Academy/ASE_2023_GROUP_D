@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/description/description';
 import { run2, runFilter, runFav } from '../../../fetching-data/data';
@@ -10,6 +11,20 @@ import { Button } from '@mui/material';
 import { ArrowCircleLeft, ArrowCircleRight } from '@mui/icons-material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+/**
+ * Recipe Component
+ * ----------------
+ * This component displays details of a specific recipe, including title, image, description,
+ * allergens, tags, ingredients, and instructions.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.recipeId - The unique identifier of the recipe.
+ * @param {Array} props.favRecipes - An array of favorite recipes.
+ * @param {Array} props.data1 - An array containing recipe data.
+ * @param {Array} props.allergens - An array containing allergen data.
+ * @returns {JSX.Element} - The rendered Recipe component.
+ */
 
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
@@ -27,6 +42,13 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(recipes.description);
+
+  /**
+   * Handles the save action for updating the recipe description.
+   *
+   * @param {string} updatedDescription - The updated description.
+   * @returns {void}
+   */
 
   const handleSaveDescription = async (updatedDescription) => {
     try {
@@ -51,6 +73,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     }
   };
 
+  /**
+   * Converts tags array to a comma-separated string.
+   */
+
   const tagsString = recipes.tags.join(', ');
   const recipeToBeInsertedToFav = {
     _id: recipeId,
@@ -63,6 +89,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
     servings: recipes.servings,
     published: recipes.published
   }
+
+  /**
+   * Adds the recipe to favorites.
+   */
 
   async function addToFavourite(recipeData) {
     const response = await fetch('/api/favourites', {
@@ -83,6 +113,10 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   }
 
+  /**
+   * Removes the recipe from favorites.
+   */
+
   async function removeFromFavourite(recipeId) {
     const response = await fetch('/api/favourites', {
       method: 'DELETE',
@@ -100,6 +134,12 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
       setFavToggle(!favToggle)
     }
   }
+
+  /**
+   * Renders the Recipe component.
+   *
+   * @returns {JSX.Element} - The rendered JSX element.
+   */
 
   return (
     <>
@@ -123,8 +163,8 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
           <h1 className={styles.recipeTitle}>{recipes.title}</h1>
           <br />
           {/* <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} /> */}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={recipes.images[imageIndex]} className={styles.recipeImage} alt="recipe image" width={200} height={200} />
+          <div style={{ display: 'flex', alignItems: 'center' }} className={styles.imageContainer}>
+            <img src={recipes.images[imageIndex]} className={styles.recipeImage} alt="recipe image" width={600} height={400} />
             <div style={{ display: 'flex', justifyContent: 'space-between', position: 'absolute' }}>
               <div>
                 {imageIndex > 0 && <div>
@@ -141,31 +181,30 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
           <UpdateDescription description={recipes.description} recipeId={recipeId} />
 
-          {/* <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p> */}
-          <h2 className={styles.allergens}>Allergens</h2>
-          {allergensForRecipe.length > 0 ? (
-            <ul>
-              {allergensForRecipe.map((allergen, index) => (
-                <li key={index}>{allergen}</li>
-              ))}
-            </ul>
+        <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
+        <h2 className={styles.allergens}>Allergens</h2>
+        {allergensForRecipe.length > 0 ? (
+          <ul>
+            {allergensForRecipe.map((allergen, index) => (
+              <li key={index}>{allergen}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No allergens present in this recipe.</p>
+        )}
+        <h2 className={styles.tags}>Tags</h2>
+        <div className={styles.tagsContainer}>
+          {tagsString ? (
+            <p className={styles.tagBlock}>{tagsString}</p>
           ) : (
-            <p>No allergens present in this recipe.</p>
+            <ErrorComponent message="Failed to load tags" />
           )}
-          <h2 className={styles.tags}>Tags</h2>
-          <div className={styles.tagsContainer}>
-            {tagsString ? (
-              <p className={styles.tagBlock}>{tagsString}</p>
-            ) : (
-              <ErrorComponent message="Failed to load tags" />
-            )}
-          </div>
+        </div>
+  
         </div>
 
-
-
-        <div className={styles.rightColumn}>
-          <div className={styles.rightContentContainer}>
+      <div className={styles.rightColumn}>
+        <div className={styles.rightContentContainer}>
 
 
             <h2 className={styles.ingredients}>Ingredients</h2>
@@ -175,14 +214,13 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
               ))}
             </ul>
 
-            <h2 className={styles.instructions}>Instructions</h2>
-            <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId} />
-
-
+          <h2 className={styles.instructions}>Instructions</h2>
+          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId}/>
           </div>
+
         </div>
-      </div>
-      <Footer />
+    </div>
+  <Footer />
     </>
   );
 };

@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import styles from './instructions.module.css';
 
+/**
+ * Component for updating and displaying recipe instructions.
+ * @param {Object} props - Properties passed to the component.
+ * @param {Array} props.instructions - The current list of recipe instructions.
+ * @param {string} props.recipeId - The ID of the recipe associated with the instructions.
+ * @returns {JSX.Element} - Rendered React component.
+ */
+
 function RecipeInstructions({ instructions, recipeId }) {
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([...instructions]);
+  const [loading, setLoading] = useState(false)
   const [notification, setNotification] = useState(null);
 
   const handleEditInstructions = () => {
@@ -17,19 +26,9 @@ function RecipeInstructions({ instructions, recipeId }) {
     }, 3000); // Set the timeout to hide the notification after 3 seconds
   };
 
-  // const handleSave = async () => {
-  //   try {
-  //     // Save the instructions using an API request here
-  //     await saveInstructions(editedInstructions);
-  //     showNotification('Instructions saved successfully.', 'success');
-  //     setIsEditingInstructions(false);
-  //   } catch (error) {
-  //     showNotification('Failed to save instructions.', 'error');
-  //   }
-  // };
-
   const handleSave = async () => {
     try {
+      setLoading(true)
       // Check if any instruction is empty
       if (editedInstructions.some(instruction => !instruction.trim())) {
         showNotification('Instructions cannot be empty.', 'error');
@@ -72,28 +71,6 @@ function RecipeInstructions({ instructions, recipeId }) {
     setIsEditingInstructions(false);
   };
 
-  // const saveInstructions = async (updatedInstructions) => {
-  //   try {
-  //     const requestBody = JSON.stringify({
-  //       recipeId: recipeId,
-  //       instructions: updatedInstructions,
-  //     });
-  //     const response = await fetch('/api/updateInstructions/updateInstructions', {
-  //       method: 'POST',
-  //       body: requestBody,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to save instructions.');
-  //     }
-  //   } catch (error) {
-  //     throw new Error('An error occurred while saving instructions.');
-  //   }
-  // };
-
   return (
     <div>
       {isEditingInstructions ? (
@@ -112,7 +89,7 @@ function RecipeInstructions({ instructions, recipeId }) {
           </ol>
           <div className={styles.btn}>
             <button onClick={handleSave} className={styles.saveButton}>
-              Save
+              {loading ? 'Loading...' : 'Save'}
             </button>
             <button onClick={handleCancel} className={styles.cancelButton}>
               Cancel

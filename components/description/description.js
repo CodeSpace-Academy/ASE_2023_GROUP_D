@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import styles from '@/stylespages/RecipeDetails.module.css';
 
+/**
+ * Component for updating and displaying recipe descriptions.
+ * @param {Object} props - Properties passed to the component.
+ * @param {string} props.description - The current recipe description.
+ * @param {string} props.recipeId - The ID of the recipe associated with the description.
+ * @returns {JSX.Element} - Rendered React component.
+ */
+
 const UpdateDescription = ({ description, recipeId }) => {
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedDescription, setEditedDescription] = useState(description);
   const [notification, setNotification] = useState(null);
+  const [isLoading, setIsLoading] = useState (false) // state for loading
 
   const handleEditDescription = () => {
     setIsEditingDescription(true);
@@ -19,6 +28,8 @@ const UpdateDescription = ({ description, recipeId }) => {
 
   const handleSave = async () => {
     try {
+      setIsLoading(true); //switch loading state
+
       const requestBody = JSON.stringify({
         recipeId: recipeId,
         description: editedDescription,
@@ -39,6 +50,8 @@ const UpdateDescription = ({ description, recipeId }) => {
       }
     } catch (error) {
       showNotification('An error occurred while saving description.', 'error');
+    } finally {
+      setIsLoading(false); //switch loading state back to false
     }
   };
 
@@ -53,6 +66,8 @@ const UpdateDescription = ({ description, recipeId }) => {
 
   return (
     <div>
+
+      
       {isEditingDescription ? (
         <div>
           <textarea className={styles.inputField}
@@ -69,7 +84,7 @@ const UpdateDescription = ({ description, recipeId }) => {
           <p>{editedDescription}</p>
           <button
             style={{
-              background: 'red',
+              background:'red',
               borderRadius: '20px',
               color: 'white',
               border: 'none',
