@@ -19,12 +19,8 @@ function Home(props) {
   };
 
   return (
-    <div
-      style={{
-        // width: '100%', // Container for relative positioning
-        // height: '100%',
-      }}
-    >
+    <div>
+       {loading && <LoadingState />}
       <div className={styles.view}>
 
         <Image src="/images/WhiteLogo.png" alt="logo" width={300} height={80} />
@@ -59,7 +55,6 @@ function Home(props) {
       >
 
       </div>
-      {loading && <LoadingState />}
     </div>
   );
 
