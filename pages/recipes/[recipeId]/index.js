@@ -1,4 +1,4 @@
-import { runFav, runCategories, runFilter2, runHistory } from '@/fetching-data/data';
+import { runFav, runCategories, runFilter2, runHistory, runNumberOfRecipes } from '@/fetching-data/data';
 import RecipeList from '@/components/recipes/recipes-list';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -14,7 +14,7 @@ import Footer from '@/components/footer/footer';
  * @returns {JSX.Element} - Rendered React component
  */
 
-function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history, tags, ingredients, categoryfilter, steps, instructions, published }) {
+function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history, tags, ingredients, categoryfilter, steps, recipeNumber}) {
   const router = useRouter();
   const { recipeId } = router.query
   const [isSorting, setIsSorting] = useState(false);
@@ -72,7 +72,7 @@ function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history
             <button onClick={() => changePathname(parseInt(recipeId) - 1)} className={styles.button}> Previous </button>
           )}
           {recipes.length === 100 && (
-            <button onClick={() => changePathname(parseInt(recipeId) + 1)} className={styles.button}> Next </button>
+            <button onClick={() => changePathname(parseInt(recipeId) + 1)} className={styles.button}> {`Next (${patcheNo}/${recipeNumber-patcheNo})`} </button>
           )}
         </div>
 
@@ -107,6 +107,7 @@ export async function getServerSideProps(context) {
 
   const patcheNo = context.params.recipeId;
   const favRecipes = await runFav(1);
+  const recipeNumber = await runNumberOfRecipes();
   const categories = await runCategories();
   const history = await runHistory();
   const filteredCharacters = await runFilter2(patcheNo, finalSearchString, sortChar);
@@ -130,6 +131,7 @@ export async function getServerSideProps(context) {
       patcheNo,
       searchChar,
       history,
+      recipeNumber,
     },
   };
 }
