@@ -169,6 +169,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
               </div>
             </div>
           </div>
+          <div className={styles.heartIcon}>
           {favToggle ? (
             <>
               {!hoverToggle && (
@@ -188,6 +189,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
           ) : (
             <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
           )}
+          </div>
 
           <UpdateDescription description={recipes.description} recipeId={recipeId} />
 
