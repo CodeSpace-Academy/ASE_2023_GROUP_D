@@ -1,10 +1,10 @@
 
-import {runUpdateInstructions} from '../../../fetching-data/data';
+import { runUpdateInstructions } from '../../../fetching-data/data';
 
- async function handler(req, res)  {
+async function handler(req, res) {
     if (req.method === 'POST') {
         try {
-            const { recipeId, instructions} = req.body;
+            const { recipeId, instructions } = req.body;
             //console.log(recipeId)
 
             if (!instructions) {
@@ -19,7 +19,8 @@ import {runUpdateInstructions} from '../../../fetching-data/data';
             } else {
                 return res.status(500).json({ message: 'Internal server error' });
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Request handling error:', error);
             return res.status(500).json({ message: 'Internal server error' });
         }
