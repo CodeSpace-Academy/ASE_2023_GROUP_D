@@ -11,11 +11,11 @@ function Footer() {
         <img className={styles.image} src="/images/footer-image.jpg" alt="logo" width="100%" height="40%" />
         <div className={styles.overlay}>
         <div className={styles.logo}>
-    <a href="/recipes/1">
+    <Link href="/recipes/1">
         <div className={styles.logoContainer}>
             <img src="/images/BrandLogo.png" alt="Logo" width="100%" />
         </div>
-    </a>
+    </Link>
 </div>
 
           <div className={styles.connectContent}>
