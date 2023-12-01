@@ -74,9 +74,10 @@ function Recipe({ favRecipes, patcheNo, historyData, categories }) {
 // Server-side data fetching
 export async function getServerSideProps(context) {
   const patcheNo = context.params.pageNo;
-  const favRecipes = await runFav(parseInt(patcheNo));
+  const sort1 = context.query.sort
   const categories = await runCategories();
-
+  const sortChar = (sort1 === 'undefined' || sort1 === undefined) ? {} : { [sort1.slice(0, sort1.indexOf('_'))]: sort1.slice(sort1.indexOf('_') + 1, sort1.length) }
+  const favRecipes = await runFav(parseInt(patcheNo), sortChar);
   return {
     props: {
       categories,
