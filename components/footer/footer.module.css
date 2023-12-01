@@ -22,6 +22,7 @@
     padding: 10px;
     border-radius: 10px;
     margin-right: 10px;
+    margin-bottom: 3px;
   }
   
   .connectWithUs button {
@@ -64,7 +65,7 @@
   
   @media (max-width: 2560px) {
     .image {
-      height: 250px; 
+      height: 150px; 
       object-fit: cover; 
     }
   }
