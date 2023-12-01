@@ -188,6 +188,14 @@
   color: black;
 }
 
+.nofilter {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px; 
+  margin: 0; 
+}
+
 /* Mobile View */
 
 @media screen and (max-width: 600px) {
@@ -196,5 +204,6 @@
     margin-top: 20px;
     width: 100%;
   }
+
 
 }

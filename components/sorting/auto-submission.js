@@ -31,8 +31,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [category, setCategory] = useState(categoryfilter)
   const [filterToggle, setFilterToggle] = useState(false)
   const [numSteps, setNumSteps] = useState(filterBySteps)
+
+  const [areFiltersSelected,setAreFiltersSelected] = useState(false)
   const [showSubmitButton, setShowSubmitButton] = useState(false)
   const [showDeleteHistory, setShowDeleteHistory] = useState(history);;
+
 
   const router = useRouter();
   const { asPath } = router
@@ -41,6 +44,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
+
+  useEffect(() => {
+    // Update the state when filters change
+    setAreFiltersSelected(tags.length > 0 || ingredients.length > 0 || category !== '' || numSteps > 0);
+  }, [tags, ingredients, category, numSteps]);
 
   async function addToHistory(searchWord) {
     const response = await fetch('/api/history', {
@@ -102,7 +110,6 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
       alert("No filters selected");
     }
   };
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className={styles.filters}>
@@ -137,12 +144,20 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           marginTop: '20px',
           border: 'none',
         }}>
+          {areFiltersSelected ? (
+            <>
           <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
             <button className={styles.filterBtn}>filter</button>
           </Link>
           <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
-            <button className={styles.filterBtn} onClick={handleClearFilters}>Clear All Filters</button>
+            <button className={styles.filterBtn}>Clear All Filters</button>
           </Link>
+          </>
+          ) : (
+            
+            <p className= {styles.nofilter}>No filters have been selected!</p>
+            
+            )}
           <button onClick={() => setIsSorting(!isSorting)} className={styles.filterBtn}>Close</button>
         </div>
 
