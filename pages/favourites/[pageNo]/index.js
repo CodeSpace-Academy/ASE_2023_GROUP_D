@@ -39,7 +39,7 @@ function Recipe({ favRecipes, patcheNo, historyData, categories }) {
     <>
      {favLoading && <LoadingState/>}
       <Navbar categories={categories} setIsSorting={setIsSorting} isSorting={isSorting} />
-      <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0', fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
+      <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0', fontSize: '36px', fontWeight: 'bold', color: '#333', paddingTop: '100px' }}>
         Favourites
       </h1>
 
