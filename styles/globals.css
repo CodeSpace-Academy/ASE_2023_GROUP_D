@@ -122,4 +122,6 @@ button {
   color:white; 
   background-color: #E12626; 
   border-radius: 10px;
+  height: 30px;
+  border: none;
 } 
