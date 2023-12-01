@@ -9,6 +9,18 @@
   margin-top: 95px;
 }
 
+.heartIcon {
+  position: absolute;
+  top: 245px;
+  right: 53%;
+  background: white;
+  border-radius: 50%;
+  padding-top: 5px;
+  padding-left: 6px;
+  width: 45px;
+  height: 40px;
+}
+
 /* Left Column */
 .leftColumn {
   flex: 1;
