@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "@/components/Sorting/searchBar.module.css"
+import styles from "@/components/sorting/searchBar.module.css"
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass as searchIcon } from "@fortawesome/free-solid-svg-icons";

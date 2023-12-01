@@ -165,14 +165,14 @@ function RecipesItems(props) {
                                         <AccessTimeIcon/>
                                     </div>
                                     <div className={styles.cookingTimeLabel}>
-                                        Cooking time:
+                                        Cooking :
                                         <br />
                                         {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''}
                                         {minutes > 0 ? `${minutes > 59 ? `${Math.floor(minutes / 60)} hr${minutes % 60 !== 0 ? ' ' : ''}${minutes % 60 !== 0 ? `${minutes % 60} min` : ''}` : `${minutes} min`}` : (hours === 0 ? '0 min' : '0 min')}
                                      <LocalDiningIcon/>
                                     </div>
                                     <div className={styles.cookingTimeLabel}>
-                                        Total Time:
+                                        Total:
                                         <br />{totalHours + Math.floor(totalMinutes / 60)} hr{totalHours + Math.floor(totalMinutes / 60) > 1 ? 's' : ''}
                                         {totalMinutes % 60 !== 0 ? ` ${totalMinutes % 60} min` : ''}
                                         <WatchLaterIcon/>
