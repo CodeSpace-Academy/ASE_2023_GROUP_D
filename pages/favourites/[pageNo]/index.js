@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/header/navbar';
 import Footer from '@/components/footer/footer';
-
+import LoadingState from '@/components/Loading/loading-state';
 
 /**
  * Recipe Component
@@ -24,6 +24,7 @@ function Recipe({ favRecipes, patcheNo, historyData, categories }) {
 
   const [noFavorites, setNoFavorites] = useState(favRecipes.length === 0);
   const [isSorting, setIsSorting] = useState(false);
+  const [favLoading, setFavLoading] = useState(false);
 
   /**
   * useEffect to update noFavorites state when favRecipes change.
@@ -36,6 +37,7 @@ function Recipe({ favRecipes, patcheNo, historyData, categories }) {
 
   return (
     <>
+     {favLoading && <LoadingState/>}
       <Navbar categories={categories} setIsSorting={setIsSorting} isSorting={isSorting} />
       <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '30px 0', fontSize: '36px', fontWeight: 'bold', color: '#333' }}>
         Favourites
@@ -47,7 +49,7 @@ function Recipe({ favRecipes, patcheNo, historyData, categories }) {
         <>
 
           {/* Display the list of favorite recipes */}
-          <RecipeList recipes={favRecipes} patcheNo={patcheNo} favRecipes={favRecipes} />
+          <RecipeList recipes={favRecipes} patcheNo={patcheNo} favRecipes={favRecipes} setLoading={setFavLoading}/>
 
 
           {/* Navigation for paginating through favorite recipes */}
