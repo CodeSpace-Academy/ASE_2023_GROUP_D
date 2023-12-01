@@ -14,11 +14,15 @@ import Footer from '@/components/footer/footer';
  * @returns {JSX.Element} - Rendered React component
  */
 
-function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, historyData, tags, ingredients, categoryfilter, steps, instructions, published }) {
+function Recipe({ recipes, favRecipes, categories, patcheNo, searchChar, history, tags, ingredients, categoryfilter, steps, instructions, published }) {
   const router = useRouter();
   const { recipeId } = router.query
   const [isSorting, setIsSorting] = useState(false);
   const [isLoading, setLoading] = useState(false);
+
+  const historyData = history.map((data) => {
+    return data.searchWord
+  })
 
   const changePathname = (pageNumber) => {
     const { query } = router
@@ -106,9 +110,7 @@ export async function getServerSideProps(context) {
   const categories = await runCategories();
   const history = await runHistory();
   const filteredCharacters = await runFilter2(patcheNo, finalSearchString, sortChar);
-  const historyData = history.map((data) => {
-    return data.searchWord
-  })
+ 
 
   const recipes = filteredCharacters
   const tags = filterByTags ? filterByTags.split(',') : []
@@ -127,7 +129,7 @@ export async function getServerSideProps(context) {
       categories,
       patcheNo,
       searchChar,
-      historyData,
+      history,
     },
   };
 }
