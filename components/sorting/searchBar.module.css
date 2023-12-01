@@ -169,6 +169,13 @@
   font-weight: bold;
 }
 
+.nofilter {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px; 
+  margin: 0; 
+}
 
 /* Mobile View */
 

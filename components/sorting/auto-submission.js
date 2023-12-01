@@ -32,7 +32,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [filterToggle, setFilterToggle] = useState(false)
   const [numSteps, setNumSteps] = useState(filterBySteps)
 
-  
+  const [areFiltersSelected,setAreFiltersSelected] = useState(false)
   const [showSubmitButton, setShowSubmitButton] = useState(false)
   const [showDeleteHistory, setShowDeleteHistory] = useState(history);;
 
