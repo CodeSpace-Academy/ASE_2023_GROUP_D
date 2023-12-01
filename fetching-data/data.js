@@ -135,7 +135,7 @@ export async function runSortDate(sortPublished) {
 }
 
 
-export async function runFav(page) {
+export async function runFav(page, sort) {
 	try {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
@@ -143,7 +143,7 @@ export async function runFav(page) {
 
 		const skip = (page - 1) * 100
 		// Use the find() method to retrieve data
-		const data = await collection.find({}).skip(skip).limit(100).toArray();
+		const data = await collection.find({}).sort(sort).skip(skip).limit(100).toArray();
 		// return data.slice(0, limit);
 		return data
 
