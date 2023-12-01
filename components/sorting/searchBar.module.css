@@ -169,3 +169,25 @@
   font-weight: bold;
   margin-left: 80px;
 }
+
+/* Mobile View */
+
+@media screen and (max-width: 600px) {
+
+  .filters {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+}
+
+/* Mobile View */
+
+@media screen and (max-width: 600px) {
+
+  .filters {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+}

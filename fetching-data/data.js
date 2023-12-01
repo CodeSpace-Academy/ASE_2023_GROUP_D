@@ -16,7 +16,7 @@ export const client = new MongoClient(uri, {
 
 export async function run(page) {
 	try {
-		
+
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("recipes");
@@ -46,12 +46,12 @@ export async function runCategories() {
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	}
-	
+
 }
 
 export async function run2() {
 	try {
-		
+
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("allergens");
@@ -94,7 +94,7 @@ export async function runFilter(page, filter) {
 export async function runFilter2(page, filter, sort) {
 
 	try {
-		
+
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
 		const collection = db.collection("recipes");
@@ -108,7 +108,7 @@ export async function runFilter2(page, filter, sort) {
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	}
-	
+
 }
 
 export async function runSortDate(sortPublished) {
@@ -150,12 +150,12 @@ export async function runFav(page) {
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	}
-	
+
 }
 
 export async function insertFavOrHistory(collection, document) {
 	try {
-	
+
 		const db = client.db("devdb");
 		const result = await db.collection(collection).insertOne(document);
 
@@ -167,16 +167,17 @@ export async function insertFavOrHistory(collection, document) {
 
 export async function DeleteFav(recipe) {
 	try {
-		
+
 		const db = client.db("devdb");
 		const result = await db.collection("favourites").deleteOne(recipe);
 		return console.log("deleted");
 	} catch (error) {
 		console.error("Failed to connect to MongoDB To save favourites", error);
-	}}
+	}
+}
 
 
- export async function runHistory() {
+export async function runHistory() {
 	try {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
@@ -187,6 +188,17 @@ export async function DeleteFav(recipe) {
 
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
+	}
+}
+
+export async function DeleteHistory() {
+	try {
+
+		const db = client.db("devdb");
+		const result = await db.collection("history").deleteMany({});
+		return console.log("deletedAllHistory");
+	} catch (error) {
+		console.error("Failed to connect to MongoDB To save favourites", error);
 	}
 }
 
