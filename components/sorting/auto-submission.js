@@ -115,11 +115,11 @@ async function deleteHistory() {
           </select>}
           {(query && query.length >= 10) &&
             <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
-              <button>Submit </button>
+              <button className={styles.submitButton}>Submit </button>
             </Link>
           }
         </div>
-          <div>
+          <div className={styles.deleteButton}>
           {showDeleteHistory.length > 0 && <button onClick= {deleteHistory} classname= {styles.deleteHistoryBtn}> Delete History </button>}
             </div>
         <div className={styles.filtersDiv}>
@@ -133,7 +133,8 @@ async function deleteHistory() {
           display: 'flex',
           width: 'fit-content',
           textAlign: 'center',
-          marginTop: '20px'
+          marginTop: '20px',
+          border: 'none',
         }}>
           {areFiltersSelected ? (
             <>

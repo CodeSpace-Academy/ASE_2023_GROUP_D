@@ -119,9 +119,9 @@ a {
 }
 
 button { 
-  color:#050; 
-  font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
-  background-color:#fed; 
-  border:1px solid; 
-  border-color: #696 #363 #363 #696; 
+  color:white; 
+  background-color: #E12626; 
+  border-radius: 10px;
+  height: 30px;
+  border: none;
 } 
