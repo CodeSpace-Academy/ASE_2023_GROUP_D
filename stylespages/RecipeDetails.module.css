@@ -11,14 +11,15 @@
 
 .heartIcon {
   position: absolute;
-  top: 245px;
-  right: 53%;
   background: white;
   border-radius: 50%;
   padding-top: 5px;
   padding-left: 6px;
   width: 45px;
   height: 40px;
+  right: 0;
+  top: 5%;
+  left: 90%;
 }
 
 /* Left Column */
@@ -49,8 +50,10 @@
 /* Recipe Image */
 .recipeImage {
   /* border-radius: 10px; */
-  max-width: 100%;
-  height: auto;
+  /* max-width: 100%; */
+  width: 600px;
+  height: 400px;
+  /* height: auto; */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9);
 }
 
@@ -124,77 +127,83 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   /* Left Column */
   .leftColumn {
     flex: 1;
     color: black;
     padding: 20px;
   }
-  
+
   /* Right Column */
   .rightColumn {
     flex: 1;
-    background: white; /* Grey background for the right column */
+    background: white;
+    /* Grey background for the right column */
     border-radius: 10px;
     padding: 20px;
- /* Text color for the right column */
-    color: black /* Text color for the right column */
+    /* Text color for the right column */
+    color: black
+      /* Text color for the right column */
   }
-  
+
   /* Recipe Title */
   .recipeTitle {
     font-family: "Arial", "Lucida Console", "Courier New", monospace;
     font-size: 30px;
     margin: auto;
   }
-  
+
   /* Recipe Image */
   .recipeImage {
     border-radius: 25px;
     max-width: 100%;
   }
-  
+
   /* Description */
   .description {
     margin: 10px 0;
   }
-  
-  /* Update Button */
-  .updateButton, .favButton {
 
+  /* Update Button */
+  .updateButton,
   .favButton {
-    background: red;
-    border-radius: 20px;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: 0.3s;
+
+    .favButton {
+      background: red;
+      border-radius: 20px;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
   }
 
-}
-
-/* MOBILE VIEW RESPONSIVENESS */
+  /* MOBILE VIEW RESPONSIVENESS */
 
   @media screen and (max-width: 600px) {
-    .recipeDetails, .favButton {
+
+    .recipeDetails,
+    .favButton {
       display: flex;
       flex-direction: column;
     }
-.update-button {
-  padding: 10px 20px;
-  background-color: #7d1608dd;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
 
-.update-button:hover {
-  background-color: #b55144dd;
-}
+    .update-button {
+      padding: 10px 20px;
+      background-color: #7d1608dd;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .update-button:hover {
+      background-color: #b55144dd;
+    }
 
     .recipeTitle {
       text-align: center;
@@ -216,12 +225,12 @@
     cursor: pointer;
     font-size: 16px;
   }
-  
+
   .update-button:hover {
     background-color: #b55144dd;
   }
-  
-  .container3{
+
+  .container3 {
     background-color: #C34A36;
     display: flex;
     align-items: center;
@@ -230,84 +239,84 @@
     width: 800px;
   }
 
-/* Description styles.module.css */
+  /* Description styles.module.css */
 
-.descriptionContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.textarea {
-  width: 100%;
-  height: 80px;
-  border: 2px solid #5c5b5b;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #fff;
-}
+  .textarea {
+    width: 100%;
+    height: 80px;
+    border: 2px solid #5c5b5b;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
 
-.successNotification {
-  background-color: #4caf4fd5;
-  /* Green background color */
-  color: white;
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-}
+  .successNotification {
+    background-color: #4caf4fd5;
+    /* Green background color */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
 
-.errorNotification {
-  background-color: #871e16cb;
-  /* Red background color */
-  color: white;
-  padding: 15px;
-  text-align: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
+  .errorNotification {
+    background-color: #871e16cb;
+    /* Red background color */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
 
-.saveButton {
-  background-color: #666;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+  .saveButton {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 
-.saveButton:hover {
-  background-color: #444;
-}
+  .saveButton:hover {
+    background-color: #444;
+  }
 
-.cancelButton {
-  background-color: #999696;
-  border: none;
-  border-radius: 10px;
-  margin-left: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  padding: 10px;
-}
+  .cancelButton {
+    background-color: #999696;
+    border: none;
+    border-radius: 10px;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 10px;
+  }
 
-.cancelButton:hover {
-  background-color: #b6b1b1;
-}
+  .cancelButton:hover {
+    background-color: #b6b1b1;
+  }
 
-.inputField {
-  width: 80%;
-  padding: 20px;
-  border: 2px solid #8e8e8e;
-  border-radius: 10px;
-  background-color: #fff;
-  color: #333;
-}
+  .inputField {
+    width: 80%;
+    padding: 20px;
+    border: 2px solid #8e8e8e;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #333;
+  }
 }
