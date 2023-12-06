@@ -3,14 +3,6 @@ import Link from "next/link";
 import styles from './button.module.css'
 
 
-// function LoadMoreButton({ onClick, remaining }) {
-//   return (
-//     <button onClick={onClick} >
-//       Load More ({remaining} remaining)
-//     </button>
-//   );
-// }
-
 function Button(props) {
   if (props.link) {
       return (
