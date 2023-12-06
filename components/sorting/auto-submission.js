@@ -112,7 +112,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     }
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className={styles.filters}>
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
@@ -121,6 +121,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           setSelectedValue(e.target.value)
           setQuery(e.target.value)
           }}>
+            <option value={''}>Check History</option>
             {history.map((data, index) => {
               return <option key={index} value={data}>{data}</option>
             })}
@@ -132,7 +133,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           }
         </div>
         <div className={styles.deleteButton}>
-          {showDeleteHistory.length > 0 && <button onClick={deleteHistory} classname={styles.deleteHistoryBtn}> Delete History </button>}
+          {showDeleteHistory.length > 0 && <button onClick={deleteHistory} className={styles.deleteHistoryBtn}> Delete History </button>}
         </div>
         <div className={styles.filtersDiv}>
           <FilterBySteps setNumSteps={setNumSteps} numSteps={numSteps} />

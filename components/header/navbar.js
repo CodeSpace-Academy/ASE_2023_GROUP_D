@@ -31,13 +31,13 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
     <>
       {isLoading && <LoadingState />}
       {isSorting &&
-        <div className={style.sortSection}>
+        <div className={style.sortSection} >
           <SearchBar categories={categories} pageNo={pageNo} searchChar={searchChar} setIsSorting={setIsSorting} isSorting={isSorting} history={history} filterByTags={filterByTags} filterByIngredients={filterByIngredients} categoryfilter={categoryfilter} filterBySteps={filterBySteps} />
         </div>}
       <nav className={styles.navbar}>
         <div className={styles.logo}>
           <Link href="/recipes/1">
-            <img src="/images/WhiteLogo.png" alt="logo" width={400} height={100} />
+            <img src="/images/WhiteLogo.png" alt="logo" className={styles.logo} />
           </Link>
         </div>
 
@@ -56,7 +56,7 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
 
           {router.includes(`/recipes/${pageNo}`) && <>
             <div onClick={() => setIsSorting(!isSorting)} style={{ paddingTop: '9px' }}>
-              <input className={style.input} size={20} placeholder={"Search ..."} readOnly />
+              <input className={style.input} size={20} placeholder={"Search ..."} readOnly   onClick={toggleMenu}/>
               <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingLeft: '10px', paddingTop: '18px' }} />
             </div>
           </>}
