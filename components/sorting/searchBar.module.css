@@ -201,9 +201,19 @@
 @media screen and (max-width: 600px) {
 
   .filters {
-    margin-top: 20px;
-    width: 100%;
+    margin-top: 80px;
+    margin-left: 10px;
+    width: 95%;
+    height: 80%;
   }
 
+  .filterBtn {
+    margin-right: 20px;
+  }
 
+  
+  .selectorSearch {
+    margin-top: 10px;
+    margin-right: 20px;
+  }
 }

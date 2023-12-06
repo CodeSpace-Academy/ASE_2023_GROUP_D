@@ -115,25 +115,31 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className={styles.filters}>
         <div className={styles.searchBar}>
-          <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
-          <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
-         { showDeleteHistory.length > 0 && <select className={styles.selectorSearch} value={selectedValue} onChange={(e)=> {
-          setSelectedValue(e.target.value)
-          setQuery(e.target.value)
-          }}>
-            {history.map((data, index) => {
-              return <option key={index} value={data}>{data}</option>
-            })}
-          </select>}
-          {(query && query.length >= 10) &&
-            <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
-              <button className={styles.submitButton}>Submit </button>
-            </Link>
-          }
+            <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
+            <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+            { showDeleteHistory.length > 0 && 
+
+            <select className={styles.selectorSearch} value={selectedValue} onChange={(e)=> {
+              setSelectedValue(e.target.value)
+              setQuery(e.target.value)
+              }}>
+              {history.map((data, index) => {
+                return <option key={index} value={data}>{data}</option>
+              })}
+            </select>}
+
+            {(query && query.length >= 10) &&
+              <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
+                <button className={styles.submitButton}>Submit </button>
+              </Link>
+            }
+
         </div>
+
         <div className={styles.deleteButton}>
           {showDeleteHistory.length > 0 && <button onClick={deleteHistory} classname={styles.deleteHistoryBtn}> Delete History </button>}
         </div>
+
         <div className={styles.filtersDiv}>
           <FilterBySteps setNumSteps={setNumSteps} numSteps={numSteps} />
           <FilterByTag setTags={setTags} tags={tags} />
