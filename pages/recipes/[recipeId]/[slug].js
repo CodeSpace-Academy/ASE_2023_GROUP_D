@@ -154,7 +154,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
           <h1 className={styles.recipeTitle}>{recipes.title}</h1>
           <br />
           {/* <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} /> */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative'}}>
             <img src={recipes.images[imageIndex]} className={styles.recipeImage} alt="recipe image" />
             <div>
               <div>
@@ -163,7 +163,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
                 </div>}
               </div>
               <div>
-                {imageIndex < (recipes.images.length - 1) && <div style={{ position: 'absolute', right: '0', top: '45%' }}>
+                {imageIndex < (recipes.images.length - 1) && <div className={styles.rightArrow} style={{ position: 'absolute', right: '10%', top: '45%' }}>
                   <Button startIcon={<ArrowForwardIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex + 1)}></Button>
                 </div>}
               </div>
@@ -188,7 +188,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
                   <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
                 )}
               </div>
-              <p style={{backgroundColor:'white', borderRadius: '50%', padding: '0px 10px', position: 'absolute', right: '50%', bottom: '0'}}><b>{`${imageIndex+1}/${recipes.images.length}`}</b></p>
+              <p className={styles.imageNo}><b>{`${imageIndex+1}/${recipes.images.length}`}</b></p>
             </div>
           </div>
 
