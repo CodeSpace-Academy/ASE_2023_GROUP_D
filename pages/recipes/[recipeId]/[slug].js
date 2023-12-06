@@ -12,6 +12,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
+import { AbcRounded } from '@mui/icons-material';
 
 /**
  * Recipe Component
@@ -154,41 +155,41 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
           <h1 className={styles.recipeTitle}>{recipes.title}</h1>
           <br />
           {/* <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} /> */}
-          <div style={{ display: 'flex', alignItems: 'center' }} className={styles.imageContainer}>
-            <img src={recipes.images[imageIndex]} className={styles.recipeImage} alt="recipe image" width={600} height={400} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', position: 'absolute' }}>
+          <div style={{ position: 'relative' }}>
+            <img src={recipes.images[imageIndex]} className={styles.recipeImage} alt="recipe image" />
+            <div>
               <div>
-                {imageIndex > 0 && <div>
+                {imageIndex > 0 && <div style={{ position: 'absolute', left: '0', top: '45%' }}>
                   <Button startIcon={<ArrowBackIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex - 1)}></Button>
                 </div>}
               </div>
               <div>
-                {imageIndex < (recipes.images.length - 1) && <div>
+                {imageIndex < (recipes.images.length - 1) && <div style={{ position: 'absolute', right: '0', top: '45%' }}>
                   <Button startIcon={<ArrowForwardIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex + 1)}></Button>
                 </div>}
               </div>
+              <div className={styles.heartIcon}>
+                {favToggle ? (
+                  <>
+                    {!hoverToggle && (
+                      <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />
+                    )}
+                    {hoverToggle && (
+                      <FontAwesomeIcon
+                        onMouseLeave={() => setHoverToggle(!hoverToggle)}
+                        icon={brokenHeart}
+                        size="2x"
+                        color="red"
+                        onClick={() => removeFromFavourite({ _id: recipeId })}
+                        shake
+                      />
+                    )}
+                  </>
+                ) : (
+                  <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                )}
+              </div>
             </div>
-          </div>
-          <div className={styles.heartIcon}>
-          {favToggle ? (
-            <>
-              {!hoverToggle && (
-                <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />
-              )}
-              {hoverToggle && (
-                <FontAwesomeIcon
-                  onMouseLeave={() => setHoverToggle(!hoverToggle)}
-                  icon={brokenHeart}
-                  size="2x"
-                  color="red"
-                  onClick={() => removeFromFavourite({ _id: recipeId })}
-                  shake
-                />
-              )}
-            </>
-          ) : (
-            <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
-          )}
           </div>
 
           <UpdateDescription description={recipes.description} recipeId={recipeId} />

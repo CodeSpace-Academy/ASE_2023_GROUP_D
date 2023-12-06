@@ -112,9 +112,10 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     }
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className={styles.filters}>
         <div className={styles.searchBar}>
+
             <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
             <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
             { showDeleteHistory.length > 0 && 
@@ -134,10 +135,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
               </Link>
             }
 
+
         </div>
 
         <div className={styles.deleteButton}>
-          {showDeleteHistory.length > 0 && <button onClick={deleteHistory} classname={styles.deleteHistoryBtn}> Delete History </button>}
+          {showDeleteHistory.length > 0 && <button onClick={deleteHistory} className={styles.deleteHistoryBtn}> Delete History </button>}
         </div>
 
         <div className={styles.filtersDiv}>
