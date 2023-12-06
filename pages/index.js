@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../pages/index.module.css"
-import { useState } from "react";
+import { useState} from "react";
 import LoadingState from "@/components/Loading/loading-state";
 
 //Landing Page
@@ -17,6 +17,12 @@ function Home(props) {
     cursor: 'pointer',
     margin: '5px',
   };
+
+  // const isNetworkError = !navigator.onLine;
+
+  // if (isNetworkError) {
+  //   return <div className={styles.networkError}> No network connection. Please check your internet connection.</div>;
+  // }
 
   return (
     <div>
