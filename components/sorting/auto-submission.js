@@ -53,7 +53,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   async function addToHistory(searchWord) {
     const response = await fetch('/api/history', {
         method: 'POST',
-        body: JSON.stringify({searchWord}),
+        body: JSON.stringify(searchWord),
         headers: {
             'Content-Type': 'application/json',
         },
@@ -88,7 +88,7 @@ async function deleteHistory() {
 
       const navigateToNewPage = () => {
         router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
-        !history.includes(query ? query : backUpQuery) && addToHistory(query ? query : backUpQuery)
+        !history.includes(query ? query : backUpQuery) && addToHistory(query ? {_id: query, searchWord: query } : {_id: backUpQuery, searchWord: backUpQuery })
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);
