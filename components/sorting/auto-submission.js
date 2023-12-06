@@ -156,12 +156,13 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
         }}>
           {areFiltersSelected ? (
             <>
-          <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
-            <button className={styles.filterBtn}>filter</button>
-          </Link>
-          <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
-            <button className={styles.filterBtn}>Clear All Filters</button>
-          </Link>
+              <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
+                <button className={styles.filterBtn}>filter</button>
+              </Link>
+              
+              <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
+                <button className={styles.filterBtn}>Clear All Filters</button>
+              </Link>
           </>
           ) : (
             
