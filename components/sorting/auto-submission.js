@@ -62,26 +62,26 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.message || "Something went wrong!");
+      throw new Error(data.message || "Something went wrong!");
     }
-}
+  }
 
-async function deleteHistory() {
-  const response = await fetch('/api/history', {
+  async function deleteHistory() {
+    const response = await fetch('/api/history', {
       method: 'DELETE',
       body: JSON.stringify(''),
       headers: {
-          'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
-  });
-  const data = await response.json();
+    });
+    const data = await response.json();
 
-  if (!response.ok) {
+    if (!response.ok) {
       throw new Error(data.message || 'Recipe failed to delete');
-  } else{
-    setShowDeleteHistory([])
+    } else {
+      setShowDeleteHistory([])
+    }
   }
-}
 
   useEffect(() => {
     if (query && query.length < 10) {
@@ -100,10 +100,18 @@ async function deleteHistory() {
     }
   }, [router, query, delay]);
 
+  const handleClearFilters = () => {
+    if (
+      (!backUpQuery || backUpQuery.trim().length === 0) &&
+      tags.length === 0 &&
+      category.length === 0 &&
+      ingredients.length === 0 &&
+      numSteps.length === 0
+    ) {
+      alert("No filters selected");
+    }
+  };
   return (
-  
-  
-
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className={styles.filters}>
         <div className={styles.searchBar}>
@@ -123,9 +131,9 @@ async function deleteHistory() {
             </Link>
           }
         </div>
-          <div className={styles.deleteButton}>
-          {showDeleteHistory.length > 0 && <button onClick= {deleteHistory} classname= {styles.deleteHistoryBtn}> Delete History </button>}
-            </div>
+        <div className={styles.deleteButton}>
+          {showDeleteHistory.length > 0 && <button onClick={deleteHistory} classname={styles.deleteHistoryBtn}> Delete History </button>}
+        </div>
         <div className={styles.filtersDiv}>
           <FilterBySteps setNumSteps={setNumSteps} numSteps={numSteps} />
           <FilterByTag setTags={setTags} tags={tags} />
