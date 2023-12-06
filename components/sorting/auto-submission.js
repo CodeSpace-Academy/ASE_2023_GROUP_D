@@ -121,6 +121,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
           setSelectedValue(e.target.value)
           setQuery(e.target.value)
           }}>
+            <option value={''}>Check History</option>
             {history.map((data, index) => {
               return <option key={index} value={data}>{data}</option>
             })}
