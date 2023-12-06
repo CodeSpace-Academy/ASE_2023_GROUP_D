@@ -320,3 +320,10 @@
     color: #333;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .recipeDetails {
+    display: flex;
+    flex-direction: column;
+  }
+}
