@@ -17,9 +17,8 @@
   padding-left: 6px;
   width: 45px;
   height: 40px;
-  right: 0;
+  right: 15%;
   top: 5%;
-  left: 90%;
 }
 
 /* Left Column */
@@ -99,6 +98,15 @@
   font-size: 1.2rem;
 }
 
+.imageNo {
+  position: absolute;
+  bottom: 6%;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0px 10px;
+  right: 50%;
+
+}
 
 
 .tagBlock {
@@ -165,6 +173,10 @@
     margin: 10px 0;
   }
 
+  .heartIcon {
+    right: 4%;
+  }
+
   /* Update Button */
   .updateButton,
   .favButton {
@@ -184,6 +196,15 @@
   /* MOBILE VIEW RESPONSIVENESS */
 
   @media screen and (max-width: 600px) {
+
+    .imageNo{
+      right: 40%;
+      bottom: 0;
+    }
+
+    .rightArrow{
+      right: 20%; 
+    }
 
     .recipeDetails,
     .favButton {
