@@ -26,6 +26,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [query, setQuery] = useState();
   const [backUpQuery, setBackUpQuery] = useState(searchChar)
   const [searchHistory, setSearchHistory] = useState(query ? query : backUpQuery);
+  const [selectedValue, setSelectedValue] = useState('');
   const [tags, setTags] = useState(filterByTags)
   const [ingredients, setIngredients] = useState(filterByIngredients)
   const [category, setCategory] = useState(categoryfilter)
@@ -52,11 +53,11 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
 
   async function addToHistory(searchWord) {
     const response = await fetch('/api/history', {
-      method: 'POST',
-      body: JSON.stringify({ searchWord }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+        method: 'POST',
+        body: JSON.stringify(searchWord),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     })
     const data = await response.json();
 
@@ -88,7 +89,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
 
       const navigateToNewPage = () => {
         router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
-        !history.includes(query ? query : backUpQuery) && addToHistory(query ? query : backUpQuery)
+        !history.includes(query ? query : backUpQuery) && addToHistory(query ? {_id: query, searchWord: query } : {_id: backUpQuery, searchWord: backUpQuery })
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);
@@ -116,7 +117,10 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
           <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
-          {showDeleteHistory.length > 0 && <select className={styles.selectorSearch}>
+         { showDeleteHistory.length > 0 && <select className={styles.selectorSearch} value={selectedValue} onChange={(e)=> {
+          setSelectedValue(e.target.value)
+          setQuery(e.target.value)
+          }}>
             {history.map((data, index) => {
               return <option key={index} value={data}>{data}</option>
             })}
