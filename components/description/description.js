@@ -34,6 +34,7 @@ const UpdateDescription = ({ description, recipeId }) => {
         recipeId: recipeId,
         description: editedDescription,
       });
+
       const response = await fetch('/api/updateDescription/updateDescription', {
         method: 'POST',
         body: requestBody,
@@ -74,10 +75,12 @@ const UpdateDescription = ({ description, recipeId }) => {
             value={editedDescription}
             onChange={handleDescriptionChange}
           />
+
           <div>
             <button onClick={handleSave} className={styles.saveButton} disabled={isLoading}>{isLoading ? 'Loading...' : 'Save'}</button>
             <button onClick={handleCancel}className={styles.cancelButton}>Cancel</button>
           </div>
+          
         </div>
       ) : (
         <div>

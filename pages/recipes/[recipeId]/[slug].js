@@ -161,12 +161,15 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
                 {imageIndex > 0 && <div style={{ position: 'absolute', left: '0', top: '45%' }}>
                   <Button startIcon={<ArrowBackIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex - 1)}></Button>
                 </div>}
+
               </div>
+
               <div>
                 {imageIndex < (recipes.images.length - 1) && <div className={styles.rightArrow} style={{ position: 'absolute', right: '10%', top: '45%' }}>
                   <Button startIcon={<ArrowForwardIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex + 1)}></Button>
                 </div>}
               </div>
+              
               <div className={styles.heartIcon}>
                 {favToggle ? (
                   <>
