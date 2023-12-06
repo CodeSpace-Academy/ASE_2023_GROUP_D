@@ -7,6 +7,11 @@ import RecipesInstructions from '@/components/instructions/instructions';
 import ErrorComponent from '@/components/Errors/errors';
 import Navbar from '@/components/header/navbar';
 import Footer from '@/components/footer/footer';
+import { Button } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Recipe Component
@@ -26,7 +31,9 @@ import Footer from '@/components/footer/footer';
 const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favRecipeIds, setFavRecipeIds] = useState(favRecipes.map((recipe) => recipe._id))
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
+  const [imageIndex, setImageIndex] = useState(0);
   const recipes = data1[0];
+  const [hoverToggle, setHoverToggle] = useState(false)
   // Convert the ingredients object into an array of strings.
 
   const ingredientsArray = Object.entries(recipes.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`);
@@ -139,59 +146,97 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
   return (
     <>
-    <Navbar />
-    <div className={styles.recipeDetails}>
-      <div className={styles.leftColumn}>
-        <br/>
-        <h1 className={styles.recipeTitle}>{recipes.title}</h1>
-        <br/>
-        <div className={styles.imageContainer}>
-        <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={600} height={400} />
-        </div>
-       
+      <Navbar />
+      <div className={styles.recipeDetails}>
+        <div className={styles.leftColumn}>
 
-        <UpdateDescription  description={recipes.description} recipeId={recipeId}/>
+          <br />
+          <h1 className={styles.recipeTitle}>{recipes.title}</h1>
+          <br />
+          {/* <img className={styles.recipeImage} src={recipes.images[0]} alt={recipes._id} width={200} height={200} /> */}
+          <div style={{ position: 'relative'}}>
+            <img src={recipes.images[imageIndex]} className={styles.recipeImage} alt="recipe image" />
+            <div>
+              <div>
+                {imageIndex > 0 && <div style={{ position: 'absolute', left: '0', top: '45%' }}>
+                  <Button startIcon={<ArrowBackIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex - 1)}></Button>
+                </div>}
 
-        <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
-        <h2 className={styles.allergens}>Allergens</h2>
-        {allergensForRecipe.length > 0 ? (
-          <ul>
-            {allergensForRecipe.map((allergen, index) => (
-              <li key={index}>{allergen}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No allergens present in this recipe.</p>
-        )}
-        <h2 className={styles.tags}>Tags</h2>
-        <div className={styles.tagsContainer}>
-          {tagsString ? (
-            <p className={styles.tagBlock}>{tagsString}</p>
+              </div>
+
+              <div>
+                {imageIndex < (recipes.images.length - 1) && <div className={styles.rightArrow} style={{ position: 'absolute', right: '10%', top: '45%' }}>
+                  <Button startIcon={<ArrowForwardIosIcon sx={{ color: 'white' }} />} onClick={() => setImageIndex(imageIndex + 1)}></Button>
+                </div>}
+              </div>
+              
+              <div className={styles.heartIcon}>
+                {favToggle ? (
+                  <>
+                    {!hoverToggle && (
+                      <FontAwesomeIcon onMouseEnter={() => setHoverToggle(!hoverToggle)} icon={solidHeart} size="2x" color="red" />
+                    )}
+                    {hoverToggle && (
+                      <FontAwesomeIcon
+                        onMouseLeave={() => setHoverToggle(!hoverToggle)}
+                        icon={brokenHeart}
+                        size="2x"
+                        color="red"
+                        onClick={() => removeFromFavourite({ _id: recipeId })}
+                        shake
+                      />
+                    )}
+                  </>
+                ) : (
+                  <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
+                )}
+              </div>
+              <p className={styles.imageNo}><b>{`${imageIndex+1}/${recipes.images.length}`}</b></p>
+            </div>
+          </div>
+
+          <UpdateDescription description={recipes.description} recipeId={recipeId} />
+
+          <p>Cooking time: {hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''} {minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : ''}</p>
+          <h2 className={styles.allergens}>Allergens</h2>
+          {allergensForRecipe.length > 0 ? (
+            <ul>
+              {allergensForRecipe.map((allergen, index) => (
+                <li key={index}>{allergen}</li>
+              ))}
+            </ul>
           ) : (
-            <ErrorComponent message="Failed to load tags" />
+            <p>No allergens present in this recipe.</p>
           )}
-        </div>
-  
-        </div>
-
-      <div className={styles.rightColumn}>
-        <div className={styles.rightContentContainer}>
-
-
-          <h2 className={styles.ingredients}>Ingredients</h2>
-          <ul>
-            {ingredientsArray.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-
-          <h2 className={styles.instructions}>Instructions</h2>
-          <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId}/>
+          <h2 className={styles.tags}>Tags</h2>
+          <div className={styles.tagsContainer}>
+            {tagsString ? (
+              <p className={styles.tagBlock}>{tagsString}</p>
+            ) : (
+              <ErrorComponent message="Failed to load tags" />
+            )}
           </div>
 
         </div>
-    </div>
-  <Footer />
+
+        <div className={styles.rightColumn}>
+          <div className={styles.rightContentContainer}>
+
+
+            <h2 className={styles.ingredients}>Ingredients</h2>
+            <ul>
+              {ingredientsArray.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+
+            <h2 className={styles.instructions}>Instructions</h2>
+            <RecipesInstructions instructions={recipes.instructions} recipeId={recipeId} />
+          </div>
+
+        </div>
+      </div>
+      <Footer />
     </>
   );
 };

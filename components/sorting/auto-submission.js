@@ -26,13 +26,17 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [query, setQuery] = useState();
   const [backUpQuery, setBackUpQuery] = useState(searchChar)
   const [searchHistory, setSearchHistory] = useState(query ? query : backUpQuery);
+  const [selectedValue, setSelectedValue] = useState('');
   const [tags, setTags] = useState(filterByTags)
   const [ingredients, setIngredients] = useState(filterByIngredients)
   const [category, setCategory] = useState(categoryfilter)
   const [filterToggle, setFilterToggle] = useState(false)
   const [numSteps, setNumSteps] = useState(filterBySteps)
+
+  const [areFiltersSelected,setAreFiltersSelected] = useState(false)
   const [showSubmitButton, setShowSubmitButton] = useState(false)
   const [showDeleteHistory, setShowDeleteHistory] = useState(history);;
+
 
   const router = useRouter();
   const { asPath } = router
@@ -42,10 +46,15 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     setQuery(event.target.value);
   };
 
+  useEffect(() => {
+    // Update the state when filters change
+    setAreFiltersSelected(tags.length > 0 || ingredients.length > 0 || category !== '' || numSteps > 0);
+  }, [tags, ingredients, category, numSteps]);
+
   async function addToHistory(searchWord) {
     const response = await fetch('/api/history', {
         method: 'POST',
-        body: JSON.stringify({searchWord}),
+        body: JSON.stringify(searchWord),
         headers: {
             'Content-Type': 'application/json',
         },
@@ -53,26 +62,26 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.message || "Something went wrong!");
+      throw new Error(data.message || "Something went wrong!");
     }
-}
+  }
 
-async function deleteHistory() {
-  const response = await fetch('/api/history', {
+  async function deleteHistory() {
+    const response = await fetch('/api/history', {
       method: 'DELETE',
       body: JSON.stringify(''),
       headers: {
-          'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
-  });
-  const data = await response.json();
+    });
+    const data = await response.json();
 
-  if (!response.ok) {
+    if (!response.ok) {
       throw new Error(data.message || 'Recipe failed to delete');
-  } else{
-    setShowDeleteHistory([])
+    } else {
+      setShowDeleteHistory([])
+    }
   }
-}
 
   useEffect(() => {
     if (query && query.length < 10) {
@@ -80,7 +89,7 @@ async function deleteHistory() {
 
       const navigateToNewPage = () => {
         router.push(`/recipes/1/?search=${query ? query : backUpQuery}`);
-        !history.includes(query ? query : backUpQuery) && addToHistory(query ? query : backUpQuery)
+        !history.includes(query ? query : backUpQuery) && addToHistory(query ? {_id: query, searchWord: query } : {_id: backUpQuery, searchWord: backUpQuery })
       };
 
       const timeoutId = setTimeout(navigateToNewPage, delay);
@@ -100,32 +109,39 @@ async function deleteHistory() {
       numSteps.length === 0
     ) {
       alert("No filters selected");
-    } 
+    }
   };
-
   return (
-  
-  
-
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className={styles.filters}>
         <div className={styles.searchBar}>
-          <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
-          <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
-         { showDeleteHistory.length > 0 && <select className={styles.selectorSearch}>
-            {history.map((data, index) => {
-              return <option key={index} value={data}>{data}</option>
-            })}
-          </select>}
-          {(query && query.length >= 10) &&
-            <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
-              <button className={styles.filterBtn}>Submit </button>
-            </Link>
-          }
+
+            <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
+            <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
+            { showDeleteHistory.length > 0 && 
+
+            <select className={styles.selectorSearch} value={selectedValue} onChange={(e)=> {
+              setSelectedValue(e.target.value)
+              setQuery(e.target.value)
+              }}>
+              {history.map((data, index) => {
+                return <option key={index} value={data}>{data}</option>
+              })}
+            </select>}
+
+            {(query && query.length >= 10) &&
+              <Link href={`/recipes/1/?search=${query ? query : backUpQuery}`}>
+                <button className={styles.submitButton}>Submit </button>
+              </Link>
+            }
+
+
         </div>
-          <div>
-          {showDeleteHistory.length > 0 && <button onClick= {deleteHistory} classname= {styles.deleteHistoryBtn}> Delete History </button>}
-            </div>
+
+        <div className={styles.deleteButton}>
+          {showDeleteHistory.length > 0 && <button onClick={deleteHistory} className={styles.deleteHistoryBtn}> Delete History </button>}
+        </div>
+
         <div className={styles.filtersDiv}>
           <FilterBySteps setNumSteps={setNumSteps} numSteps={numSteps} />
           <FilterByTag setTags={setTags} tags={tags} />
@@ -138,14 +154,23 @@ async function deleteHistory() {
           width: 'fit-content',
           textAlign: 'center',
           marginTop: '20px',
-          marginLeft: '80px'
+          border: 'none',
         }}>
-          <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
-            <button className={styles.filterBtn}>filter</button>
-          </Link>
-          <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
-            <button className={styles.filterBtn} onClick={handleClearFilters}>Clear All Filters</button>
-          </Link>
+          {areFiltersSelected ? (
+            <>
+              <Link href={`/recipes/1/?${backUpQuery ? `search=${query ? query : backUpQuery}&` : ''}tags=${tags}&categories=${category}&ingredients=${ingredients}&steps=${numSteps}`}>
+                <button className={styles.filterBtn}>filter</button>
+              </Link>
+              
+              <Link href={`/recipes/1${asPath.includes('?search=') ? `/?search=${backUpQuery}` : ''}`}>
+                <button className={styles.filterBtn}>Clear All Filters</button>
+              </Link>
+          </>
+          ) : (
+            
+            <p className= {styles.nofilter}>No filters have been selected!</p>
+            
+            )}
           <button onClick={() => setIsSorting(!isSorting)} className={styles.filterBtn}>Close</button>
         </div>
 

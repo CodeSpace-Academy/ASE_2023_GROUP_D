@@ -21,15 +21,6 @@ const searchHistory = req.body
         }
     }
 
-    // if (req.method === 'GET') {
-    //     try {
-    //         const recipes = await DeleteFav(searchHistory);
-    //         res.status(200).json({ searchHistory: searchHistory});
-    //     } catch (error) {
-    //         res.status(500).json({ message: 'Deleting from history failed!' });
-    //     }
-    // }
-
 }
 
 export default handler;

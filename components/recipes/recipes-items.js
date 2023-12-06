@@ -6,6 +6,11 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
 import Highlighter from 'react-highlight-words';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import RamenDiningIcon from '@mui/icons-material/RamenDining';
+
 
 /**
  * Component for displaying individual recipe items.
@@ -154,25 +159,29 @@ function RecipesItems(props) {
                                     <div className={styles.cookingTimeLabel}>
                                         Preparation:
                                         <br />
+                                       
                                         {prepHours > 0 ? `${prepHours} hr${prepHours > 1 ? 's' : ''} ` : ''}
                                         {prepMinutes > 0 ? `${prepMinutes} min${prepMinutes > 1 ? 's' : ''}` : (prepHours === 0 ? '0 min' : '')}
+                                        <AccessTimeIcon/>
                                     </div>
                                     <div className={styles.cookingTimeLabel}>
-                                        Cooking time:
+                                        Cooking :
                                         <br />
                                         {hours > 0 ? `${hours} hr${hours > 1 ? 's' : ''} ` : ''}
                                         {minutes > 0 ? `${minutes > 59 ? `${Math.floor(minutes / 60)} hr${minutes % 60 !== 0 ? ' ' : ''}${minutes % 60 !== 0 ? `${minutes % 60} min` : ''}` : `${minutes} min`}` : (hours === 0 ? '0 min' : '0 min')}
+                                     <LocalDiningIcon/>
                                     </div>
                                     <div className={styles.cookingTimeLabel}>
-                                        Total Time:
+                                        Total:
                                         <br />{totalHours + Math.floor(totalMinutes / 60)} hr{totalHours + Math.floor(totalMinutes / 60) > 1 ? 's' : ''}
                                         {totalMinutes % 60 !== 0 ? ` ${totalMinutes % 60} min` : ''}
+                                        <WatchLaterIcon/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.category}> {category} </div>
-                        <div className={styles.servings}> Servings: {servings} </div>
+                        <div className={styles.servings}> Servings: {servings}  <RamenDiningIcon/></div>
                         <div className={styles.date}>Published: {formattedPublishedDate} </div>
                         <div className={styles.actions}>
                             <div onClick={() => setLoading(true)} >

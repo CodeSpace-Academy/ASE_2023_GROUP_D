@@ -8,10 +8,11 @@
   text-align: center;
   position: relative;
   transition: transform 0.3s ease-in-out;
+ margin-bottom: 25px; 
 }
 
 .item:hover {
-  transform: scale(1.09);
+  transform: scale(1.08);
 }
 
 .title1 {

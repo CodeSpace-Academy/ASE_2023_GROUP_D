@@ -23,9 +23,9 @@ function RecipeList({ recipes, patcheNo, favRecipes, search, setLoading }) {
     <div className={styles.container}>
 
       <div className={styles.container}>
-        <br /> 
-        <SortByOrder/>
-       {recipes.length === 0 && <h5>No Filter Recipes Matching</h5>}
+        <br />
+        <SortByOrder />
+        {recipes.length === 0 && <h5>No Filter Recipes Matching</h5>}
         <ul className={styles.list}>
           {(router.pathname.includes('/recipes/')) ?
             recipes.map((recipe) => (
@@ -45,7 +45,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search, setLoading }) {
                 search={search}
                 setLoading={setLoading}
               />
-            )) 
+            ))
             :
             recipes.map((recipe) => (
               <RecipesFavItems
@@ -61,6 +61,7 @@ function RecipeList({ recipes, patcheNo, favRecipes, search, setLoading }) {
                 servings={recipe.servings}
                 published={recipe.published}
                 favRecipes={favRecipes}
+                setLoading={setLoading}
               />))}
         </ul>
       </div>

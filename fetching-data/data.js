@@ -64,10 +64,6 @@ export async function run2() {
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
 	}
-	//  finally {
-	// 	// Ensures that the client will close when you finish/error
-	// 	await client.close();
-	// }
 }
 
 export async function runFilter(page, filter) {
@@ -111,31 +107,7 @@ export async function runFilter2(page, filter, sort) {
 
 }
 
-export async function runSortDate(sortPublished) {
-	try {
-		const db = client.db("devdb");
-		await client.db("devdb").command({ ping: 1 });
-		const collection = db.collection("recipes");
-
-		const data = await collection.find().skip(skip).limit(100).toArray();
-
-		if (sortPublished === 'ascending') {
-			data.sort((a, b) => a.published - b.published);
-		} else if (sortPublished === 'descending') {
-			data.sort((a, b) => b.published - a.published);
-		} else {
-			throw new Error('Invalid sorting order. Use "ascending" or "descending".');
-		}
-
-		return data;
-	} catch (error) {
-		console.error("Failed to connect to MongoDB:", error);
-		throw error;
-	}
-}
-
-
-export async function runFav(page) {
+export async function runFav(page, sort) {
 	try {
 		const db = client.db("devdb");
 		await client.db("devdb").command({ ping: 1 });
@@ -143,7 +115,7 @@ export async function runFav(page) {
 
 		const skip = (page - 1) * 100
 		// Use the find() method to retrieve data
-		const data = await collection.find({}).skip(skip).limit(100).toArray();
+		const data = await collection.find({}).sort(sort).skip(skip).limit(100).toArray();
 		// return data.slice(0, limit);
 		return data
 
@@ -239,5 +211,18 @@ export async function runUpdateDescription(recipeId, updatedDescription) {
 	} catch (error) {
 		console.error('Database update error:', error);
 		throw error;
+	}
+}
+
+export async function runNumberOfRecipes() {
+	try {
+		const db = client.db("devdb");
+		await client.db("devdb").command({ ping: 1 });
+		const collection = db.collection("recipes");
+		const count = (await collection.countDocuments({})).toString();
+		return Math.round(parseInt(count)/100);
+
+	} catch (error) {
+		console.error("Failed to connect to MongoDB:", error);
 	}
 }
