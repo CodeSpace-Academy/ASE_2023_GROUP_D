@@ -12,7 +12,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart, faHeart as regularHeart, faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons';
-import { AbcRounded } from '@mui/icons-material';
 
 /**
  * Recipe Component
@@ -189,6 +188,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
                   <FontAwesomeIcon icon={regularHeart} size="2x" color="grey" onClick={() => addToFavourite(recipeToBeInsertedToFav)} />
                 )}
               </div>
+              <p style={{backgroundColor:'white', borderRadius: '50%', padding: '0px 10px', position: 'absolute', right: '50%', bottom: '0'}}><b>{`${imageIndex+1}/${recipes.images.length}`}</b></p>
             </div>
           </div>
 
