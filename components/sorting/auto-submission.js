@@ -26,6 +26,7 @@ function SearchBar({ categories, pageNo, searchChar, setIsSorting, isSorting, hi
   const [query, setQuery] = useState();
   const [backUpQuery, setBackUpQuery] = useState(searchChar)
   const [searchHistory, setSearchHistory] = useState(query ? query : backUpQuery);
+  const [selectedValue, setSelectedValue] = useState('');
   const [tags, setTags] = useState(filterByTags)
   const [ingredients, setIngredients] = useState(filterByIngredients)
   const [category, setCategory] = useState(categoryfilter)
@@ -108,7 +109,10 @@ async function deleteHistory() {
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon={searchIcon} size="lg" color="black" style={{ paddingRight: '10px', paddingTop: '30px' }} />
           <input className={styles.input} onClick={() => setFilterToggle(!filterToggle)} type="text" placeholder="Enter text ..." value={query} onChange={handleInputChange} />
-         { showDeleteHistory.length > 0 && <select className={styles.selectorSearch}>
+         { showDeleteHistory.length > 0 && <select className={styles.selectorSearch} value={selectedValue} onChange={(e)=> {
+          setSelectedValue(e.target.value)
+          setQuery(e.target.value)
+          }}>
             {history.map((data, index) => {
               return <option key={index} value={data}>{data}</option>
             })}
