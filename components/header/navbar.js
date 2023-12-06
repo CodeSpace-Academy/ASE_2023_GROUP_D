@@ -66,6 +66,7 @@ const Navbar = ({ categories, pageNo, searchChar, setIsSorting, isSorting, histo
               <h2 className={styles.link}>Home</h2>
             </Link>
           </li>
+          
           <li>
             <Link href={'/favourites/1'}>
               <h2 className={styles.link} onClick={() => setIsLoading(true)}>{"Favourites"}</h2>
