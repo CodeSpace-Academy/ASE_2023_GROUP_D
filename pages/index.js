@@ -18,11 +18,6 @@ function Home(props) {
     margin: '5px',
   };
 
-  // const isNetworkError = !navigator.onLine;
-
-  // if (isNetworkError) {
-  //   return <div className={styles.networkError}> No network connection. Please check your internet connection.</div>;
-  // }
 
   return (
     <div>
@@ -46,17 +41,7 @@ function Home(props) {
       </div>
       <div className={styles.background}
         style={{
-          position: 'absolute',
-          top: 0,
-          left: '0%', // Take up the right 50% of the width
-          width: '100%', // Take up 50% of the width on the right
-          height: '100%',
-          zIndex: 1,
           backgroundImage: 'url("/images/homepage-pic.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          //backgroundColor: 'black',
         }}
       >
 
