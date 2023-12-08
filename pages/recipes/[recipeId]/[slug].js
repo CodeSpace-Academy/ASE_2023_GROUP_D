@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import UpdateDescription from '@/components/description/description';
-import { run2, runFilter, runFav } from '../../../fetching-data/data';
+import { run2, getRecipeDetails, runFav } from '../../../fetching-data/data';
 import styles from '@/stylespages/RecipeDetails.module.css';
 import RecipesInstructions from '@/components/instructions/instructions';
 import ErrorComponent from '@/components/Errors/errors';
@@ -33,6 +33,7 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
   const [favToggle, setFavToggle] = useState(favRecipeIds.includes(recipeId) ? true : false)
   const [imageIndex, setImageIndex] = useState(0);
   const recipes = data1[0];
+
   const [hoverToggle, setHoverToggle] = useState(false)
   // Convert the ingredients object into an array of strings.
 
@@ -243,10 +244,9 @@ const Recipe = ({ recipeId, favRecipes, data1, allergens }) => {
 
 export async function getServerSideProps(context) {
   const recipeId = context.params.slug;
-  const recipedataNo = context.params.recipeId;
 
   const docs2 = await run2();
-  const data1 = await runFilter(recipedataNo, { _id: recipeId })
+  const data1 = await getRecipeDetails({ _id: recipeId })
   const favRecipes = await runFav(1);
 
   return {
